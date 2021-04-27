@@ -1,0 +1,26 @@
+.globalNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000;
+  color: white;
+  .logo {
+    padding: 10px;
+  }
+  nav {
+    ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      li {
+        a {
+          display: block;
+          padding: 10px;
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
