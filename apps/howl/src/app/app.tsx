@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from '@info-wolf/api-interfaces';
+import React, { useEffect } from 'react';
 
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
-
   useEffect(() => {
-    fetch('/api')
-      .then((r) => r.json())
-      .then(setMessage);
+    fetch('/api/v1/time-series')
+      .then((response) => response.json())
+      .then((response) => console.log(response));
   }, []);
 
-  return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to howl!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-        />
-      </div>
-      <div>{m.message}</div>
-    </>
-  );
+  return <>howl</>;
 };
 
 export default App;

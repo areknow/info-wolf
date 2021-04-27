@@ -1,12 +1,17 @@
 import * as express from 'express';
-import { Message } from '@info-wolf/api-interfaces';
+import os = require('os-utils');
 
 const app = express();
 
-const greeting: Message = { message: 'Welcome to api!' };
+const percentage = [];
+setInterval(() => {
+  os.cpuUsage(function (percent) {
+    percentage.push({ date: new Date(), percent });
+  });
+}, 1000);
 
-app.get('/api', (req, res) => {
-  res.send(greeting);
+app.get('/api/v1/time-series', (req, res) => {
+  res.send(percentage);
 });
 
 const port = process.env.port || 3333;
