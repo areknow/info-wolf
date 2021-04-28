@@ -6,13 +6,16 @@
 }
 
 html {
+  // height: 100vh;
+  min-height: 100%;
   line-height: initial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 body {
-  background: rgb(236, 236, 236);
+  height: 100%;
+  background: linear-gradient(rgb(250, 250, 250), rgb(236, 236, 236));
   color: rgb(41, 41, 41);
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
@@ -23,7 +26,7 @@ body {
 }
 
 .content {
-  padding: 10px 40px;
+  padding: 10px 40px 40px 40px;
 }
 
 h1,

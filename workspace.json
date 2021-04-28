@@ -35,7 +35,7 @@
             "main": "apps/howl/src/main.tsx",
             "polyfills": "apps/howl/src/polyfills.ts",
             "tsConfig": "apps/howl/tsconfig.app.json",
-            "assets": ["apps/howl/src/favicon.ico", "apps/howl/src/assets"],
+            "assets": ["apps/howl/src/assets"],
             "styles": [],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"

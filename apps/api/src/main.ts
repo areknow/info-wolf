@@ -46,15 +46,11 @@ app.get('/api/v1/memory-load', async (req, res) => {
 
 const getMetrics = async () => {
   return {
-    cpuFree: (await os.cpuFree()) as number,
-    cpuUsage: ((await os.cpuUsage()) as number) * 100,
-    platform: os.platform(), //
-    cpuCount: os.cpuCount(), //
+    platform: os.platform(),
+    cpuCount: os.cpuCount(),
     freeMem: os.freemem(),
-    totalMem: os.totalmem(), //
-    freememPercentage: os.freememPercentage(),
-    usedMemory: 100 - os.freememPercentage() * 100,
-    sysUptime: os.sysUptime(), //
+    totalMem: os.totalmem(),
+    sysUptime: os.sysUptime(),
     processUptime: os.processUptime(),
   };
 };
