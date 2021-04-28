@@ -32,8 +32,7 @@ export const TimeSeriesChart = ({ data }) => {
       },
       labels: {
         formatter() {
-          return `${this.value}`;
-          // return `${this.value * 100}%`;
+          return `${this.value}%`;
         },
       },
     },
@@ -52,18 +51,11 @@ export const TimeSeriesChart = ({ data }) => {
         return `
           <div>${this.series.name}</div>
           <div>${format(this.x, 'MMM, dd YYY')}</div>
-          <div>${this.y}</div>
+          <div>${this.y.toFixed(2)}%</div>
         `;
-        //<div>${(this.y * 100).toFixed(2)}%</div>
       },
     },
     series: data,
-    // series: [
-    //   {
-    //     type: 'area',
-    //     data: data,
-    //   },
-    // ],
   };
 
   return (

@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '../styles/global.scss';
-import GlobalNav from './common/components/global-nav';
-import About from './pages/about';
-import Home from './pages/home';
+import { GlobalNav } from './common/components';
+import { About, Home } from './pages';
 
 export const App = () => (
   <Router>

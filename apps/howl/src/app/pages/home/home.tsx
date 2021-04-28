@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import TimeSeriesChart from '../../common/components/time-series-chart';
+import { TimeSeriesChart } from '../../common/components';
 
 export const Home = () => {
   const [series, setSeries] = useState([]);
