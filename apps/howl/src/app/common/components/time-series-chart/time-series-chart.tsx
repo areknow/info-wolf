@@ -32,7 +32,8 @@ export const TimeSeriesChart = ({ data }) => {
       },
       labels: {
         formatter() {
-          return `${this.value * 100}%`;
+          return `${this.value}`;
+          // return `${this.value * 100}%`;
         },
       },
     },
@@ -47,18 +48,22 @@ export const TimeSeriesChart = ({ data }) => {
     tooltip: {
       useHTML: true,
       formatter() {
+        console.log(this.series.name);
         return `
+          <div>${this.series.name}</div>
           <div>${format(this.x, 'MMM, dd YYY')}</div>
-          <div>${(this.y * 100).toFixed(2)}%</div>
+          <div>${this.y}</div>
         `;
+        //<div>${(this.y * 100).toFixed(2)}%</div>
       },
     },
-    series: [
-      {
-        type: 'area',
-        data: data,
-      },
-    ],
+    series: data,
+    // series: [
+    //   {
+    //     type: 'area',
+    //     data: data,
+    //   },
+    // ],
   };
 
   return (
