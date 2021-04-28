@@ -32,6 +32,12 @@ app.get('/api/v1/metrics', async (req, res) => {
   res.send(await getMetrics());
 });
 
+app.get('/api/v1/cpu-load', async (req, res) => {
+  res.send({
+    loadAverage: os.loadavg(1),
+  });
+});
+
 const getMetrics = async () => {
   return {
     cpuFree: (await os.cpuFree()) as number,
@@ -44,7 +50,6 @@ const getMetrics = async () => {
     usedMemory: 100 - os.freememPercentage() * 100,
     sysUptime: os.sysUptime(),
     processUptime: os.processUptime(),
-    loadavg: os.loadavg(1),
   };
 };
 

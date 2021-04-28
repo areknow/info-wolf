@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
+// props and memo
 export const TimeSeriesChart = ({ data }) => {
   const options: Highcharts.Options = {
     scrollbar: {

@@ -24,3 +24,7 @@ export interface MetricsResponse {
   totalMem: number;
   usedMemory: number;
 }
+
+export interface CpuLoadResponse {
+  loadAverage: number;
+}
