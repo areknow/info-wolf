@@ -1,7 +1,9 @@
 import { UsageSummaryResponse } from '@info-wolf/api-interfaces';
 import { useEffect, useState } from 'react';
 import { Card, TimeSeriesChart } from '../../../common/components';
-import { fetchUsageSummaryData } from './usage-summary.service';
+import { fetchData } from '../../../common/helpers';
+
+const ENDPOINT = '/api/v1/time-series';
 
 const createSeries = (data: UsageSummaryResponse) => {
   return [
@@ -26,7 +28,7 @@ export const UsageSummary = () => {
 
   useEffect(() => {
     async function load() {
-      const response = await fetchUsageSummaryData();
+      const response = await fetchData<UsageSummaryResponse>(ENDPOINT);
       setSeries(createSeries(response.data));
     }
     // remove or keep ability to pause?

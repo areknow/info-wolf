@@ -1,14 +1,16 @@
 import { MetricsResponse } from '@info-wolf/api-interfaces';
 import { useEffect, useState } from 'react';
 import { Card } from '../../../common/components';
-import { fetchMetricsData } from './metrics.service';
+import { fetchData } from '../../../common/helpers';
+
+const ENDPOINT = '/api/v1/metrics';
 
 export const Metrics = () => {
   const [metrics, setMetrics] = useState<MetricsResponse>(undefined);
 
   useEffect(() => {
     async function load() {
-      const response = await fetchMetricsData();
+      const response = await fetchData<MetricsResponse>(ENDPOINT);
       setMetrics(response.data);
     }
     load();
