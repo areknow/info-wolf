@@ -34,7 +34,8 @@ app.get('/api/v1/metrics', async (req, res) => {
 
 app.get('/api/v1/cpu-load', async (req, res) => {
   res.send({
-    loadAverage: os.loadavg(1),
+    loadAverage: os.loadavg(5),
+    freememPercentage: 100 - os.freememPercentage() * 100,
   });
 });
 

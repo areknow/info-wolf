@@ -20,8 +20,8 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
     },
     title: null,
     pane: {
-      center: ['50%', '55%'],
-      size: '120%',
+      center: ['50%', '50%'],
+      size: '100%',
       startAngle: -90,
       endAngle: 90,
       background: [
