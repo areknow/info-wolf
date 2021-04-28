@@ -10,6 +10,7 @@ const StyledCard = styled.div`
     text-align: center;
     color: #3d3d3d;
     text-transform: uppercase;
+    font-size: 14px;
   }
 `;
 
