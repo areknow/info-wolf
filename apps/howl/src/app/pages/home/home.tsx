@@ -1,6 +1,6 @@
-import { Card } from '../../common/components';
+import { CpuLoad } from './cpu-load';
 import styles from './home.module.scss';
-import { LoadMetrics } from './load-metrics';
+import { MemoryLoad } from './memory-load';
 import { SystemStatistics } from './system-statistics';
 import { UsageSummary } from './usage-summary';
 
@@ -12,8 +12,8 @@ export const Home = () => {
       </div>
       <div className={styles.grid}>
         <SystemStatistics />
-        <LoadMetrics />
-        <Card title="bar">foo</Card>
+        <CpuLoad />
+        <MemoryLoad />
       </div>
     </>
   );

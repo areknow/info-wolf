@@ -25,7 +25,10 @@ export interface MetricsResponse {
   usedMemory: number;
 }
 
-export interface LoadMetricsResponse {
-  loadAverage: number;
+export interface CpuLoadResponse {
+  cpuLoadAveragePercentage: number;
+}
+
+export interface MemoryLoadResponse {
   freememPercentage: number;
 }

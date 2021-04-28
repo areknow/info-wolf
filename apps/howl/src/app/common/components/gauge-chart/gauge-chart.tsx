@@ -17,7 +17,6 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
     chart: {
       type: 'solidgauge',
       height: 240,
-      // width: 200,
       margin: 0,
       marginTop: -18,
       marginBottom: -18,
@@ -76,6 +75,7 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
           style: {
             fontSize: '50px',
             fontFamily: 'Montserrat',
+            fontWeight: 'light',
           },
         },
       },
