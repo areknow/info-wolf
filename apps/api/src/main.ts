@@ -6,7 +6,8 @@ const app = express();
 const percentage = [];
 setInterval(() => {
   os.cpuUsage(function (percent) {
-    percentage.push({ date: new Date(), percent });
+    console.log([new Date().valueOf(), percent]);
+    percentage.push([new Date().valueOf(), percent]);
   });
 }, 1000);
 
