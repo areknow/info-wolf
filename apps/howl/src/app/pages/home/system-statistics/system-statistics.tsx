@@ -3,11 +3,11 @@ import { formatDistance } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { Card, InfoGroup } from '../../../common/components';
 import { fetchData } from '../../../common/helpers';
-import styles from './metrics.module.scss';
+import styles from './system-statistics.module.scss';
 
 const ENDPOINT = '/api/v1/metrics';
 
-export const Metrics = () => {
+export const SystemStatistics = () => {
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState<MetricsResponse>(undefined);
 
@@ -21,7 +21,7 @@ export const Metrics = () => {
   }, []);
 
   return (
-    <Card title="System metrics">
+    <Card title="System statistics">
       {!loading && (
         <div className={styles.grid}>
           <InfoGroup content={metrics.platform} label="Platform" icon="code" />
