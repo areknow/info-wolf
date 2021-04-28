@@ -34,7 +34,7 @@ app.get('/api/v1/metrics', async (req, res) => {
 
 const getMetrics = async () => {
   return {
-    cpuFree: await os.cpuFree(),
+    cpuFree: (await os.cpuFree()) as number,
     cpuUsage: ((await os.cpuUsage()) as number) * 100,
     platform: os.platform(),
     cpuCount: os.cpuCount(),

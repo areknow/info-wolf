@@ -1,5 +1,15 @@
+import { Metrics } from './metrics';
 import { UsageSummary } from './usage-summary';
 
 export const Home = () => {
-  return <UsageSummary />;
+  return (
+    <>
+      <div>
+        <UsageSummary />
+      </div>
+      <div>
+        <Metrics />
+      </div>
+    </>
+  );
 };
