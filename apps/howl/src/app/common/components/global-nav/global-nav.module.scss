@@ -2,13 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #000;
-  color: white;
+  padding-top: 10px;
   .logo {
     padding: 10px;
     svg {
       width: 100px;
       height: 25px;
+      path {
+        fill: black;
+      }
     }
   }
   nav {
@@ -21,7 +23,9 @@
         a {
           display: block;
           padding: 10px;
-          color: white;
+          color: black;
+          font-weight: bold;
+          text-transform: uppercase;
           text-decoration: none;
         }
       }
