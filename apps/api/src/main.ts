@@ -48,13 +48,13 @@ const getMetrics = async () => {
   return {
     cpuFree: (await os.cpuFree()) as number,
     cpuUsage: ((await os.cpuUsage()) as number) * 100,
-    platform: os.platform(),
-    cpuCount: os.cpuCount(),
+    platform: os.platform(), //
+    cpuCount: os.cpuCount(), //
     freeMem: os.freemem(),
-    totalMem: os.totalmem(),
+    totalMem: os.totalmem(), //
     freememPercentage: os.freememPercentage(),
     usedMemory: 100 - os.freememPercentage() * 100,
-    sysUptime: os.sysUptime(),
+    sysUptime: os.sysUptime(), //
     processUptime: os.processUptime(),
   };
 };

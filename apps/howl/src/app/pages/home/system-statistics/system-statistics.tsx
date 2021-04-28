@@ -24,22 +24,38 @@ export const SystemStatistics = () => {
     <Card title="System statistics">
       {!loading && (
         <div className={styles.grid}>
-          <InfoGroup content={metrics.platform} label="Platform" icon="code" />
+          <InfoGroup
+            content={metrics.platform.toUpperCase()}
+            label="Platform"
+            icon="laptop"
+          />
+          <InfoGroup
+            content={metrics.cpuCount}
+            label="CPU count"
+            icon="developer_board"
+          />
           <InfoGroup
             content={formatDistance(0, metrics.sysUptime * 1000, {
               includeSeconds: true,
             })}
             label="System uptime"
-            icon="schedule"
+            icon="timer"
           />
           <InfoGroup
-            content={metrics.cpuCount}
-            label="CPU count"
-            icon="computer"
+            content={formatDistance(0, metrics.processUptime * 1000, {
+              includeSeconds: true,
+            })}
+            label="Process uptime"
+            icon="timer"
           />
           <InfoGroup
             content={`${metrics.totalMem / 1024} GB`}
             label="Total memory"
+            icon="memory"
+          />
+          <InfoGroup
+            content={`${metrics.freeMem.toFixed(2)} MB`}
+            label="Free memory"
             icon="memory"
           />
         </div>
