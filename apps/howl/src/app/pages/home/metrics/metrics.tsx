@@ -1,8 +1,9 @@
 import { MetricsResponse } from '@info-wolf/api-interfaces';
 import { formatDistance } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { Card, InfoGroup, Stack } from '../../../common/components';
+import { Card, InfoGroup } from '../../../common/components';
 import { fetchData } from '../../../common/helpers';
+import styles from './metrics.module.scss';
 
 const ENDPOINT = '/api/v1/metrics';
 
@@ -22,7 +23,7 @@ export const Metrics = () => {
   return (
     <Card title="System metrics">
       {!loading && (
-        <Stack gap={20}>
+        <div className={styles.grid}>
           <InfoGroup content={metrics.platform} label="Platform" icon="code" />
           <InfoGroup
             content={formatDistance(0, metrics.sysUptime * 1000, {
@@ -37,11 +38,11 @@ export const Metrics = () => {
             icon="computer"
           />
           <InfoGroup
-            content={metrics.totalMem / 1024}
+            content={`${metrics.totalMem / 1024} GB`}
             label="Total memory"
             icon="memory"
           />
-        </Stack>
+        </div>
       )}
     </Card>
   );

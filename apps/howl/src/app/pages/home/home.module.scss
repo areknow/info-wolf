@@ -1,0 +1,9 @@
+.gridRow {
+  margin-bottom: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 20% 1fr 1fr;
+  gap: 10px;
+}
