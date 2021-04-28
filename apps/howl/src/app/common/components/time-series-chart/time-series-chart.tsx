@@ -19,13 +19,27 @@ export const TimeSeriesChart = ({ data }) => {
       enabled: false,
     },
     title: {
-      text: null,
+      floating: true,
+      align: 'left',
+      verticalAlign: 'bottom',
+      text: 'Draw a selection on the chart to zoom in',
+      y: 4,
+      x: 12,
+      style: {
+        fontFamily: 'Montserrat',
+        fontSize: '10px',
+        fontWeight: 'bold',
+      },
     },
     subtitle: {
       text: null,
     },
     legend: {
-      enabled: false,
+      align: 'right',
+      itemStyle: {
+        fontFamily: 'Montserrat',
+        fontSize: '10px',
+      },
     },
     yAxis: {
       title: {
@@ -41,6 +55,10 @@ export const TimeSeriesChart = ({ data }) => {
       },
     },
     xAxis: {
+      crosshair: {
+        width: 1,
+        color: '#E6E6E6',
+      },
       type: 'datetime',
       dateTimeLabelFormats: {
         hour: '%l %p',
@@ -52,6 +70,23 @@ export const TimeSeriesChart = ({ data }) => {
         style: {
           fontSize: '10px',
           fontFamily: 'Montserrat',
+        },
+      },
+    },
+    plotOptions: {
+      series: {
+        animation: false,
+        marker: {
+          enabled: false,
+          symbol: 'circle',
+        },
+        states: {
+          hover: {
+            enabled: false,
+          },
+          inactive: {
+            enabled: false,
+          },
         },
       },
     },
