@@ -16,20 +16,22 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
   const options: Highcharts.Options = {
     chart: {
       type: 'solidgauge',
-      height: 170,
+      height: 240,
+      // width: 200,
+      margin: 0,
+      marginTop: -18,
+      marginBottom: -18,
     },
     title: null,
     pane: {
-      center: ['50%', '50%'],
-      size: '100%',
-      startAngle: -90,
-      endAngle: 90,
+      startAngle: 0,
+      endAngle: 360,
       background: [
         {
           backgroundColor: '#EEE',
-          innerRadius: '60%',
+          borderWidth: 0,
           outerRadius: '100%',
-          shape: 'arc',
+          innerRadius: '90%',
         },
       ],
     },
@@ -48,22 +50,33 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
       lineWidth: 0,
       tickWidth: 0,
       minorTickInterval: null,
-      tickAmount: 2,
+      tickAmount: 1,
       title: {
         text: null,
       },
       labels: {
-        y: 16,
+        enabled: false,
       },
       min: 0,
       max: 100,
     },
     plotOptions: {
       solidgauge: {
+        linecap: 'round',
         dataLabels: {
-          y: 15,
-          borderWidth: 0,
           useHTML: true,
+          formatter() {
+            return `
+            <span>${this.y}</span>
+            <span style="font-size: 20px"> %</span>
+            `;
+          },
+          y: -40,
+          borderWidth: 0,
+          style: {
+            fontSize: '50px',
+            fontFamily: 'Montserrat',
+          },
         },
       },
     },
@@ -74,15 +87,13 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
       {
         type: 'solidgauge',
         name: 'Speed',
-        data: [Number(value.toFixed(2))],
-        dataLabels: {
-          format: `
-            <div style="text-align:center">
-              <span style="font-size:25px">{y}%</span><br/>
-              <span style="font-size:12px;opacity:0.4">${label}</span>
-            </div>
-            `,
-        },
+        data: [
+          {
+            radius: '100%',
+            innerRadius: '90%',
+            y: Number(value.toFixed(1)),
+          },
+        ],
       },
     ],
   };

@@ -32,6 +32,9 @@ export const TimeSeriesChart = ({ data }) => {
         text: null,
       },
       labels: {
+        style: {
+          fontFamily: 'Montserrat',
+        },
         formatter() {
           return `${this.value}%`;
         },
@@ -43,6 +46,13 @@ export const TimeSeriesChart = ({ data }) => {
         hour: '%l %p',
         minute: '%l:%M %p',
         second: '%l:%M:%S %p',
+      },
+      tickLength: 4,
+      labels: {
+        style: {
+          fontSize: '10px',
+          fontFamily: 'Montserrat',
+        },
       },
     },
     tooltip: {

@@ -10,13 +10,13 @@ interface InfoGroupProps {
 const StyledInfoGroup = styled.div`
   display: flex;
   i {
-    font-size: 30px;
+    font-size: 50px;
   }
   div {
-    margin-left: 10px;
+    margin-left: 20px;
     h2 {
       margin-bottom: 4px;
-      margin-top: 2px;
+      margin-top: 3px;
     }
     span {
       font-size: 12px;

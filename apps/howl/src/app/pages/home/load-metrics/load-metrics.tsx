@@ -23,9 +23,6 @@ export const LoadMetrics = () => {
     <Card title="Load metrics">
       <div className={styles.charts}>
         {!loading && <GaugeChart value={metrics.loadAverage} label="CPU" />}
-        {!loading && (
-          <GaugeChart value={metrics.freememPercentage} label="Memory" />
-        )}
       </div>
     </Card>
   );
