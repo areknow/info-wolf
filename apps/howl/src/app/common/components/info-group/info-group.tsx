@@ -13,7 +13,7 @@ const StyledInfoGroup = styled.div`
     font-size: 30px;
   }
   div {
-    margin-left: 8px;
+    margin-left: 10px;
     h2 {
       margin-bottom: 4px;
       margin-top: 2px;

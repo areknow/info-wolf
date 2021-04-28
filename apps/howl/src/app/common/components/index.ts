@@ -3,4 +3,5 @@
 export * from './card/card';
 export * from './global-nav/global-nav';
 export * from './info-group/info-group';
+export * from './stack/stack';
 export * from './time-series-chart/time-series-chart';
