@@ -27,6 +27,7 @@
   },
   "private": true,
   "dependencies": {
+    "axios": "^0.21.1",
     "child_process": "^1.0.2",
     "core-js": "^3.6.5",
     "date-fns": "^2.21.1",

@@ -1,30 +1,33 @@
+import { UsageSummaryResponse } from '@info-wolf/api-interfaces';
 import { useEffect, useState } from 'react';
 import { Card, TimeSeriesChart } from '../../../common/components';
+import { fetchUsageSummaryData } from './usage-summary.service';
+
+const createSeries = (data: UsageSummaryResponse) => {
+  return [
+    {
+      type: 'area',
+      name: 'CPU Usage',
+      data: data.cpuUsageData,
+    },
+    {
+      type: 'line',
+      name: 'Memory usage',
+      data: data.freememPercentageData,
+    },
+  ];
+};
 
 export const UsageSummary = () => {
-  const [series, setSeries] = useState([]);
+  const [series, setSeries] = useState<Highcharts.SeriesOptions[]>([]);
   const [live, setLive] = useState(true);
   const [timer, setTimer] = useState(null);
   const interval = 1000;
 
   useEffect(() => {
-    function load() {
-      fetch('/api/v1/time-series')
-        .then((response) => response.json())
-        .then((response) => {
-          setSeries([
-            {
-              type: 'area',
-              name: 'CPU Usage',
-              data: response.cpuUsageData,
-            },
-            {
-              type: 'line',
-              name: 'Memory usage',
-              data: response.freememPercentageData,
-            },
-          ]);
-        });
+    async function load() {
+      const response = await fetchUsageSummaryData();
+      setSeries(createSeries(response.data));
     }
     // remove or keep ability to pause?
     if (live) {

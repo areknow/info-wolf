@@ -47,7 +47,6 @@ export const TimeSeriesChart = ({ data }) => {
     tooltip: {
       useHTML: true,
       formatter() {
-        console.log(this.series.name);
         return `
           <div>${this.series.name}</div>
           <div>${format(this.x, 'MMM, dd YYY')}</div>
