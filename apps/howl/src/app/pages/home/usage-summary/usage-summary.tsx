@@ -15,17 +15,18 @@ export const UsageSummary = () => {
           setSeries([
             {
               type: 'area',
-              name: 'cpuUsage',
+              name: 'CPU Usage',
               data: response.cpuUsageData,
             },
             {
               type: 'line',
-              name: 'usedMemPercentage',
+              name: 'Memory usage',
               data: response.freememPercentageData,
             },
           ]);
         });
     }
+    // remove or keep ability to pause?
     if (live) {
       if (timer !== null) return;
       setTimer(setInterval(load, interval));
