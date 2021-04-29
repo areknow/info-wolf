@@ -95,13 +95,6 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       },
       series: {
         animation: false,
-        marker: {
-          states: {
-            select: {
-              fillColor: 'blue',
-            },
-          },
-        },
         states: {
           hover: {
             enabled: false,
