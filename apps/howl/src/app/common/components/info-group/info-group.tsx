@@ -4,19 +4,14 @@ import styled from 'styled-components';
 interface InfoGroupProps {
   label: string;
   content: ReactNode;
-  icon?: string;
+  icon?: ReactNode;
 }
 
 const StyledInfoGroup = styled.div`
   display: flex;
-  i {
-    font-size: 40px;
-  }
   div {
-    margin-left: 20px;
     h2 {
       margin-bottom: 4px;
-      margin-top: 3px;
     }
     span {
       font-size: 12px;
@@ -24,10 +19,18 @@ const StyledInfoGroup = styled.div`
   }
 `;
 
+const StyledIcon = styled.div`
+  margin-right: 20px;
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+`;
+
 export const InfoGroup = ({ label, content, icon }: InfoGroupProps) => {
   return (
     <StyledInfoGroup>
-      {icon && <i className="material-icons">{icon}</i>}
+      {icon && <StyledIcon>{icon}</StyledIcon>}
       <div>
         <h2>{content}</h2>
         <span>{label}</span>
