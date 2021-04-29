@@ -1,5 +1,6 @@
 import Highcharts from 'highcharts';
 
+// explain
 export const chartCallback = (chart) => {
   const y = chart.series[0].data[0].y;
   for (let i = y; i >= 0; i = i - y / 80) {

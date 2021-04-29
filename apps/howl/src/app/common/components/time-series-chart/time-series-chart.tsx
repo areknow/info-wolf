@@ -1,9 +1,19 @@
 import { format } from 'date-fns';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { memo } from 'react';
+import { configureLegendSymbols } from './legend-symbol';
 
-// props and memo
-export const TimeSeriesChart = ({ data }) => {
+declare const window: Window & {
+  configureLegendSymbols: typeof configureLegendSymbols;
+};
+window.configureLegendSymbols = configureLegendSymbols;
+
+interface TimeSeriesChartProps {
+  data: Highcharts.SeriesOptionsType[];
+}
+
+export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
   const options: Highcharts.Options = {
     scrollbar: {
       enabled: true,
@@ -36,6 +46,8 @@ export const TimeSeriesChart = ({ data }) => {
     },
     legend: {
       align: 'right',
+      symbolHeight: 8,
+      symbolWidth: 8,
       itemStyle: {
         fontFamily: 'Montserrat',
         fontSize: '10px',
@@ -74,19 +86,21 @@ export const TimeSeriesChart = ({ data }) => {
       },
     },
     plotOptions: {
+      areaspline: {
+        marker: {
+          states: {
+            select: {},
+          },
+        },
+      },
       series: {
-        // color: {
-        //   linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-        //   stops: [
-        //     [0, '#003399'],
-        //     [1, '#3366AA'],
-        //   ],
-        // },
         animation: false,
         marker: {
-          enabled: false,
-          symbol: 'circle',
-          color: 'blue',
+          states: {
+            select: {
+              fillColor: 'blue',
+            },
+          },
         },
         states: {
           hover: {
@@ -116,4 +130,4 @@ export const TimeSeriesChart = ({ data }) => {
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );
-};
+});

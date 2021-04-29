@@ -6,38 +6,41 @@ import { fetchData } from '../../../common/helpers';
 
 const ENDPOINT = '/api/v1/time-series';
 
-const createSeries = (data: UsageSummaryResponse) => {
+const createSeries = (
+  data: UsageSummaryResponse
+): Highcharts.SeriesOptionsType[] => {
   return [
     {
       color: {
-        linearGradient: [0, 0, 0, 400],
+        linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
         stops: [
           [0, '#e40d67'],
-          [1, '#56abfa'],
+          [1, '#7F92D7'],
         ],
       },
       type: 'areaspline',
       name: 'CPU Usage',
       data: data.cpuUsageData,
+      marker: { symbol: 'circle', radius: 10, fillColor: '#7F92D7' },
     },
     {
       color: {
-        linearGradient: [0, 0, 0, 400],
+        linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
         stops: [
           [0, '#e40d67'],
-          [0.9, '#ffc115'],
-          [1, '#13cc76'],
+          [1, '#ffc115'],
         ],
       },
       type: 'line',
       name: 'Memory usage',
       data: data.freememPercentageData,
+      marker: { symbol: 'circle', radius: 10, fillColor: '#e40d67' },
     },
   ];
 };
 
 export const UsageSummary = () => {
-  const [series, setSeries] = useState<Highcharts.SeriesOptions[]>([]);
+  const [series, setSeries] = useState<Highcharts.SeriesOptionsType[]>([]);
   const [live, setLive] = useState(true);
   const [timer, setTimer] = useState(null);
   const interval = 1000;
