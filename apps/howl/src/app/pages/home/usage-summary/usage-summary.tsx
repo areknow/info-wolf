@@ -41,7 +41,7 @@ const createSeries = (
 
 export const UsageSummary = () => {
   const [series, setSeries] = useState<Highcharts.SeriesOptionsType[]>([]);
-  const [live, setLive] = useState(true);
+  const [live, setLive] = useState(false);
   const [timer, setTimer] = useState(null);
   const interval = 1000;
 

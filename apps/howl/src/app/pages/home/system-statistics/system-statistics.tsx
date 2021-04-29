@@ -16,6 +16,13 @@ const ENDPOINT = '/api/v1/metrics';
 export const SystemStatistics = () => {
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState<MetricsResponse>(undefined);
+  // const [wsData, setWsData] = useState(undefined);
+  // const ws = new WebSocket('ws://localhost:3333/dashboard');
+
+  // ws.onmessage = (w) => {
+  //   console.log(w);
+  //   setWsData(w.data);
+  // };
 
   useEffect(() => {
     async function load() {

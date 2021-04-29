@@ -14,7 +14,7 @@ export const CpuLoad = () => {
     async function load() {
       const response = await fetchData<CpuLoadResponse>(ENDPOINT);
       setMetrics(response.data);
-      setLoading(false);
+      // setLoading(false);
     }
     load();
   }, []);
