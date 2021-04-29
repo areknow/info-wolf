@@ -25,76 +25,42 @@ setInterval(async () => {
   freememPercentageData.shift();
 }, INTERVAL);
 
-const getMetrics = async () => {
-  return {
-    platform: os.platform(),
-    cpuCount: os.cpuCount(),
-    freeMem: os.freemem(),
-    totalMem: os.totalmem(),
-    sysUptime: os.sysUptime(),
-    processUptime: os.processUptime(),
-  };
-};
-
-app.get('/api/v1/time-series', (req, res) => {
-  res.send({
-    cpuUsageData,
-    freememPercentageData,
-  });
-});
-
-app.get('/api/v1/metrics', async (req, res) => {
-  res.send(await getMetrics());
-});
-
-app.get('/api/v1/cpu-load', async (req, res) => {
-  res.send({
-    cpuLoadAveragePercentage: os.loadavg(5),
-  });
-});
-
-app.get('/api/v1/memory-load', async (req, res) => {
-  res.send({
-    freememPercentage: 100 - os.freememPercentage() * 100,
-  });
-});
-
 const port = process.env.port || 3333;
 const server = app.listen(port, () => {
   console.log('Listening at http://localhost:' + port + '/api');
 });
 server.on('error', console.error);
 
-const usMemLoad = new ws.Server({ server: server, path: '/ws/metrics' });
+const wsMetrics = new ws.Server({ server: server, path: '/ws/metrics' });
 
-const value = 100 - os.freememPercentage() * 100;
-const payload = {
-  gauges: {
-    freememPercentage: +value.toFixed(1),
-    cpuLoadAveragePercentage: +os.loadavg(5).toFixed(1),
-  },
-  timeSeries: {
-    cpuUsageData,
-    freememPercentageData,
-  },
-  statistics: {
-    platform: os.platform(),
-    cpuCount: os.cpuCount(),
-    freeMem: os.freemem(),
-    totalMem: os.totalmem(),
-    sysUptime: os.sysUptime(),
-    processUptime: os.processUptime(),
-  },
+const payload = () => {
+  const freeMem = 100 - os.freememPercentage() * 100;
+  return {
+    gauges: {
+      freememPercentage: +freeMem.toFixed(1),
+      cpuLoadAveragePercentage: +os.loadavg(5).toFixed(1),
+    },
+    timeSeries: {
+      cpuUsageData,
+      freememPercentageData,
+    },
+    statistics: {
+      platform: os.platform(),
+      cpuCount: os.cpuCount(),
+      freeMem: os.freemem(),
+      totalMem: os.totalmem(),
+      sysUptime: os.sysUptime(),
+      processUptime: os.processUptime(),
+    },
+  };
 };
 
-usMemLoad.on('connection', (socket) => {
-  socket.send(JSON.stringify(payload));
+wsMetrics.on('connection', (socket) => {
+  socket.send(JSON.stringify(payload()));
 });
 
-setInterval(
-  () =>
-    usMemLoad.clients.forEach((socket) => {
-      socket.send(JSON.stringify(payload));
-    }),
-  INTERVAL
-);
+setInterval(() => {
+  wsMetrics.clients.forEach((socket) => {
+    socket.send(JSON.stringify(payload()));
+  });
+}, INTERVAL);

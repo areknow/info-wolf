@@ -1,5 +1,20 @@
-export interface Message {
-  message: string;
+export interface WsPayload {
+  gauges: {
+    cpuLoadAveragePercentage: number;
+    freememPercentage: number;
+  };
+  timeSeries: {
+    cpuUsageData: TimeSeriesPoint[];
+    freememPercentageData: TimeSeriesPoint[];
+  };
+  statistics: {
+    platform: string;
+    cpuCount: number;
+    freeMem: number;
+    totalMem: number;
+    sysUptime: number;
+    processUptime: number;
+  };
 }
 
 interface TimeSeriesPoint {
