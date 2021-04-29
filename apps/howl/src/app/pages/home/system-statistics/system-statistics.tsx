@@ -54,7 +54,7 @@ export const SystemStatistics = () => {
             icon="memory"
           />
           <InfoGroup
-            content={`${metrics.freeMem.toFixed(2)} MB`}
+            content={`${(metrics.freeMem / 1024).toFixed(2)} GB`}
             label="Free memory"
             icon="memory"
           />
