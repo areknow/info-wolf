@@ -21,6 +21,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
     chart: {
       animation: false,
       zoomType: 'x',
+      selectionMarkerFill: 'rgba(0, 0, 0, 0.1)',
     },
     time: {
       useUTC: false,
@@ -86,13 +87,6 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       },
     },
     plotOptions: {
-      areaspline: {
-        marker: {
-          states: {
-            select: {},
-          },
-        },
-      },
       series: {
         animation: false,
         states: {
