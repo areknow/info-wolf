@@ -5,6 +5,12 @@ import ws = require('ws');
 const app = express();
 const INTERVAL = 1000;
 
+const port = process.env.port || 3333;
+const server = app.listen(port);
+server.on('error', console.error);
+
+const wsMetrics = new ws.Server({ server: server, path: '/ws/metrics' });
+
 // start a new array with blank data values and date values going backwards in time every second for 10 minutes
 const data = [];
 for (let i = 0; i <= 600; i++) {
@@ -13,25 +19,6 @@ for (let i = 0; i <= 600; i++) {
 
 const cpuUsageData = [...data].reverse();
 const freememPercentageData = [...data].reverse();
-
-setInterval(async () => {
-  // store cpu time series data
-  const usage = await os.cpuUsage();
-  cpuUsageData.push({ x: new Date().valueOf(), y: (usage as number) * 100 });
-  cpuUsageData.shift();
-  // store memory time series data
-  const mem = os.freememPercentage();
-  freememPercentageData.push({ x: new Date().valueOf(), y: 100 - mem * 100 });
-  freememPercentageData.shift();
-}, INTERVAL);
-
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log('Listening at http://localhost:' + port + '/api');
-});
-server.on('error', console.error);
-
-const wsMetrics = new ws.Server({ server: server, path: '/ws/metrics' });
 
 const payload = () => {
   const freeMem = 100 - os.freememPercentage() * 100;
@@ -59,7 +46,16 @@ wsMetrics.on('connection', (socket) => {
   socket.send(JSON.stringify(payload()));
 });
 
-setInterval(() => {
+setInterval(async () => {
+  // store cpu time series data
+  const usage = await os.cpuUsage();
+  cpuUsageData.push({ x: new Date().valueOf(), y: (usage as number) * 100 });
+  cpuUsageData.shift();
+  // store memory time series data
+  const mem = os.freememPercentage();
+  freememPercentageData.push({ x: new Date().valueOf(), y: 100 - mem * 100 });
+  freememPercentageData.shift();
+  // push updated data to client
   wsMetrics.clients.forEach((socket) => {
     socket.send(JSON.stringify(payload()));
   });

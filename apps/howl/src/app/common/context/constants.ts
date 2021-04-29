@@ -2,8 +2,8 @@ import { WsPayload } from '@info-wolf/api-interfaces';
 
 export const DEFAULT_STATE: WsPayload = {
   gauges: {
-    cpuLoadAveragePercentage: undefined,
-    freememPercentage: undefined,
+    cpuLoadAveragePercentage: 0,
+    freememPercentage: 0,
   },
   timeSeries: {
     cpuUsageData: [],
