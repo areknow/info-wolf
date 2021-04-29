@@ -1,31 +1,28 @@
-import { CpuLoadResponse } from '@info-wolf/api-interfaces';
 import { useEffect, useState } from 'react';
 import { Card, GaugeChart } from '../../../common/components';
-import { fetchData } from '../../../common/helpers';
-import styles from './cpu-load.module.scss';
 
-const ENDPOINT = 'api/v1/cpu-load';
+const ENDPOINT = 'ws/metrics';
 
 export const CpuLoad = () => {
-  const [loading, setLoading] = useState(true);
-  const [metrics, setMetrics] = useState<CpuLoadResponse>(undefined);
+  const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
-    async function load() {
-      const response = await fetchData<CpuLoadResponse>(ENDPOINT);
-      setMetrics(response.data);
-      // setLoading(false);
-    }
-    load();
+    const ws = new WebSocket('ws://localhost:3333/' + ENDPOINT);
+    ws.onmessage = (event) => {
+      const response = JSON.parse(event.data);
+      setPercentage(response.gauges.cpuLoadAveragePercentage);
+    };
+    ws.onclose = () => {
+      ws.close();
+    };
+    return () => {
+      ws.close();
+    };
   }, []);
 
   return (
     <Card title="CPU load">
-      <div className={styles.charts}>
-        {!loading && (
-          <GaugeChart value={metrics.cpuLoadAveragePercentage} label="CPU" />
-        )}
-      </div>
+      <GaugeChart value={percentage} />
     </Card>
   );
 };

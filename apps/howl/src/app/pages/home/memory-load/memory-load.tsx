@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Card, GaugeChart } from '../../../common/components';
-import styles from './memory-load.module.scss';
 
-const ENDPOINT = 'api/v1/memory-load';
+const ENDPOINT = 'ws/metrics';
 
 export const MemoryLoad = () => {
   const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3333/api/memory-load');
+    const ws = new WebSocket('ws://localhost:3333/' + ENDPOINT);
     ws.onmessage = (event) => {
       const response = JSON.parse(event.data);
-      setPercentage(response.freememPercentage);
+      setPercentage(response.gauges.freememPercentage);
     };
     ws.onclose = () => {
       ws.close();
@@ -23,9 +22,7 @@ export const MemoryLoad = () => {
 
   return (
     <Card title="Memory load">
-      <div className={styles.charts}>
-        <GaugeChart value={percentage} label="Memory" />
-      </div>
+      <GaugeChart value={percentage} />
     </Card>
   );
 };

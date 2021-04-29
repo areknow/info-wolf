@@ -65,26 +65,36 @@ const server = app.listen(port, () => {
 });
 server.on('error', console.error);
 
-const wssadmin = new ws.Server({ server: server, path: '/api/memory-load' });
+const usMemLoad = new ws.Server({ server: server, path: '/ws/metrics' });
 
-wssadmin.on('connection', (socket) => {
-  const value = 100 - os.freememPercentage() * 100;
-  socket.send(
-    JSON.stringify({
-      freememPercentage: +value.toFixed(2),
-    })
-  );
+const value = 100 - os.freememPercentage() * 100;
+const payload = {
+  gauges: {
+    freememPercentage: +value.toFixed(1),
+    cpuLoadAveragePercentage: +os.loadavg(5).toFixed(1),
+  },
+  timeSeries: {
+    cpuUsageData,
+    freememPercentageData,
+  },
+  statistics: {
+    platform: os.platform(),
+    cpuCount: os.cpuCount(),
+    freeMem: os.freemem(),
+    totalMem: os.totalmem(),
+    sysUptime: os.sysUptime(),
+    processUptime: os.processUptime(),
+  },
+};
+
+usMemLoad.on('connection', (socket) => {
+  socket.send(JSON.stringify(payload));
 });
 
 setInterval(
   () =>
-    wssadmin.clients.forEach((s) => {
-      const value = 100 - os.freememPercentage() * 100;
-      s.send(
-        JSON.stringify({
-          freememPercentage: +value.toFixed(2),
-        })
-      );
+    usMemLoad.clients.forEach((socket) => {
+      socket.send(JSON.stringify(payload));
     }),
-  1000
+  INTERVAL
 );
