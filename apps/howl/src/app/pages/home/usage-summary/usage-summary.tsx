@@ -1,4 +1,5 @@
 import { UsageSummaryResponse } from '@info-wolf/api-interfaces';
+import Highcharts from 'highcharts';
 import { useEffect, useState } from 'react';
 import { Card, TimeSeriesChart } from '../../../common/components';
 import { fetchData } from '../../../common/helpers';
@@ -8,11 +9,26 @@ const ENDPOINT = '/api/v1/time-series';
 const createSeries = (data: UsageSummaryResponse) => {
   return [
     {
-      type: 'area',
+      color: {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+          [0, '#e40d67'],
+          [1, '#56abfa'],
+        ],
+      },
+      type: 'areaspline',
       name: 'CPU Usage',
       data: data.cpuUsageData,
     },
     {
+      color: {
+        linearGradient: [0, 0, 0, 400],
+        stops: [
+          [0, '#e40d67'],
+          [0.9, '#ffc115'],
+          [1, '#13cc76'],
+        ],
+      },
       type: 'line',
       name: 'Memory usage',
       data: data.freememPercentageData,
