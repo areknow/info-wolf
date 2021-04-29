@@ -13,21 +13,41 @@
       }
     }
   }
-  nav {
-    ul {
-      list-style: none;
+  .actions {
+    display: flex;
+    align-items: center;
+    span {
+      width: 20px;
+      height: 20px;
       display: flex;
-      margin: 0;
-      padding: 0;
-      li {
-        a {
-          display: block;
-          padding: 10px;
-          color: black;
-          font-weight: bold;
-          text-transform: uppercase;
-          text-decoration: none;
+      align-items: center;
+      justify-content: center;
+      &:last-child {
+        margin-left: 20px;
+      }
+    }
+    nav {
+      opacity: 0;
+      transition: all 0.2s ease;
+      margin-right: 20px;
+      ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        li {
+          a {
+            display: block;
+            padding: 10px;
+            color: black;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+          }
         }
+      }
+      &.open {
+        opacity: 1;
       }
     }
   }
