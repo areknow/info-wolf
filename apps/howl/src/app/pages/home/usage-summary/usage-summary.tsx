@@ -17,7 +17,7 @@ const createSeries = (
         ],
       },
       type: 'areaspline',
-      name: 'CPU Usage',
+      name: 'CPU usage',
       data: data.cpuUsageData,
       marker: { symbol: 'circle', radius: 10, fillColor: '#7F92D7' },
     },

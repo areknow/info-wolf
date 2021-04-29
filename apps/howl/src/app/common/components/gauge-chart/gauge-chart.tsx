@@ -14,37 +14,14 @@ interface GaugeChartProps {
 export const GaugeChart = memo(({ value }: GaugeChartProps) => {
   const series = [value];
   const options: ApexCharts.ApexOptions = {
+    colors: ['#7F92D7'],
+    chart: {
+      type: 'radialBar',
+    },
     plotOptions: {
       radialBar: {
-        startAngle: 0,
-        endAngle: 360,
         hollow: {
-          margin: 0,
-          size: '90%',
-          background: '#fff',
-          image: undefined,
-          imageOffsetX: 0,
-          imageOffsetY: 0,
-          position: 'front',
-          dropShadow: {
-            enabled: true,
-            top: 0,
-            left: 0,
-            blur: 10,
-            opacity: 0.1,
-          },
-        },
-        track: {
-          background: '#fff',
-          strokeWidth: '100%',
-          margin: 0,
-          dropShadow: {
-            enabled: true,
-            top: 0,
-            left: 0,
-            blur: 4,
-            opacity: 0,
-          },
+          size: '70%',
         },
         dataLabels: {
           value: {
@@ -54,6 +31,7 @@ export const GaugeChart = memo(({ value }: GaugeChartProps) => {
             },
             color: '#111',
             fontSize: '30px',
+            fontFamily: 'Montserrat',
             show: true,
           },
         },
@@ -62,10 +40,10 @@ export const GaugeChart = memo(({ value }: GaugeChartProps) => {
     fill: {
       type: 'gradient',
       gradient: {
-        shade: 'dark',
+        shade: 'light',
         type: 'horizontal',
         shadeIntensity: 0.5,
-        gradientToColors: ['#ABE5A1'],
+        gradientToColors: ['#e40d67'],
         inverseColors: true,
         opacityFrom: 1,
         opacityTo: 1,
