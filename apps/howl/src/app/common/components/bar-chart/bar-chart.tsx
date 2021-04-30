@@ -2,14 +2,14 @@ import { memo } from 'react';
 import Chart from 'react-apexcharts';
 
 interface GaugeChartProps {
-  series: { data: number[] }[];
+  series: { data: number[] }[]; // make type
   categories: string[];
 }
 
 export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
   const options: ApexCharts.ApexOptions = {
     chart: {
-      type: 'bar',
+      fontFamily: 'Montserrat',
       height: 350,
       toolbar: {
         show: false,
@@ -31,18 +31,20 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       colors: ['transparent'],
     },
     xaxis: {
+      axisTicks: {
+        height: 4,
+      },
       categories,
       labels: {
         style: {
-          fontFamily: 'Montserrat',
           fontSize: '10px',
         },
       },
     },
     yaxis: {
+      tickAmount: 3,
       labels: {
         style: {
-          fontFamily: 'Montserrat',
           fontSize: '10px',
         },
         formatter: function (val) {
@@ -52,10 +54,12 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       title: {
         text: 'Minutes',
         style: {
-          fontFamily: 'Montserrat',
           fontSize: '10px',
         },
       },
+    },
+    grid: {
+      borderColor: '#E6E6E6',
     },
     legend: {
       itemMargin: {
@@ -66,7 +70,6 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
         height: 8,
         radius: 0,
       },
-      fontFamily: 'Montserrat',
       fontWeight: 'bold',
       fontSize: '10px',
     },

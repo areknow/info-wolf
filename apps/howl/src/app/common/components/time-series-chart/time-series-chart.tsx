@@ -55,6 +55,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       },
     },
     yAxis: {
+      tickInterval: 30,
       title: {
         text: null,
       },
@@ -69,6 +70,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       },
     },
     xAxis: {
+      lineColor: '#E6E6E6',
       crosshair: {
         width: 1,
         color: '#E6E6E6',
@@ -80,6 +82,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
         second: '%l:%M:%S %p',
       },
       tickLength: 4,
+      tickColor: '#E6E6E6',
       labels: {
         style: {
           fontSize: '10px',

@@ -11,7 +11,7 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
   const options: ApexCharts.ApexOptions = {
     colors: ['#7F92D7'],
     chart: {
-      type: 'radialBar',
+      fontFamily: 'Montserrat',
     },
     plotOptions: {
       radialBar: {
@@ -26,7 +26,6 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
             },
             color: '#111',
             fontSize: '28px',
-            fontFamily: 'Montserrat',
             show: true,
           },
         },
@@ -55,7 +54,6 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
       offsetY: 120,
       style: {
         fontSize: '10px',
-        fontFamily: 'Montserrat',
         color: '#adadad',
       },
     },

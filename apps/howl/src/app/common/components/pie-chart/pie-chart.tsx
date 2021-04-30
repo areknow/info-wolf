@@ -9,6 +9,7 @@ interface PieChartProps {
 export const PieChart = memo(({ series, labels }: PieChartProps) => {
   const options: ApexCharts.ApexOptions = {
     chart: {
+      fontFamily: 'Montserrat',
       animations: {
         enabled: false,
         dynamicAnimation: {
@@ -28,9 +29,6 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
       },
     },
     dataLabels: {
-      style: {
-        fontFamily: 'Montserrat',
-      },
       enabled: true,
       dropShadow: {
         enabled: false,
@@ -47,7 +45,6 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
         width: 8,
         height: 8,
       },
-      fontFamily: 'Montserrat',
       fontWeight: 'bold',
       fontSize: '10px',
     },
