@@ -1,12 +1,29 @@
 import { memo } from 'react';
 import Chart from 'react-apexcharts';
+import { useDarkModeContext } from '../../context';
 
 interface GaugeChartProps {
   series: { data: number[] }[]; // make type
   categories: string[];
 }
 
+const COLORS = {
+  light: {
+    border: '#E6E6E6',
+    text: '#999999',
+    label: '#5a5a5a',
+  },
+  dark: {
+    border: '#404661',
+    text: '#6c7291',
+    label: '#939ab9',
+  },
+};
+
 export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
+  const { dark } = useDarkModeContext();
+  const colors = COLORS[dark ? 'dark' : 'light'];
+
   const options: ApexCharts.ApexOptions = {
     chart: {
       fontFamily: 'Montserrat',
@@ -31,12 +48,17 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       colors: ['transparent'],
     },
     xaxis: {
+      axisBorder: {
+        color: colors.border,
+      },
       axisTicks: {
         height: 4,
+        color: colors.border,
       },
       categories,
       labels: {
         style: {
+          colors: colors.text,
           fontSize: '10px',
         },
       },
@@ -45,6 +67,7 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       tickAmount: 3,
       labels: {
         style: {
+          colors: colors.text,
           fontSize: '10px',
         },
         formatter: function (val) {
@@ -54,12 +77,13 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       title: {
         text: 'Minutes',
         style: {
+          color: colors.text,
           fontSize: '10px',
         },
       },
     },
     grid: {
-      borderColor: '#E6E6E6',
+      borderColor: colors.border,
     },
     legend: {
       itemMargin: {
@@ -72,6 +96,9 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       },
       fontWeight: 'bold',
       fontSize: '10px',
+      labels: {
+        colors: [colors.label],
+      },
     },
     fill: {
       opacity: 1,

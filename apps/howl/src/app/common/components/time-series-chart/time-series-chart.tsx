@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { memo } from 'react';
+import { useDarkModeContext } from '../../context';
 import { configureLegendSymbols } from './legend-symbol';
 
 declare const window: Window & {
@@ -13,15 +14,34 @@ interface TimeSeriesChartProps {
   data: Highcharts.SeriesOptionsType[];
 }
 
+const COLORS = {
+  light: {
+    border: '#E6E6E6',
+    text: '#999999',
+    label: '#5a5a5a',
+    selection: 'rgba(0, 0, 0, 0.1)',
+  },
+  dark: {
+    border: '#404661',
+    text: '#6c7291',
+    label: '#939ab9',
+    selection: 'rgba(255, 255, 255, 0.1)',
+  },
+};
+
 export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
+  const { dark } = useDarkModeContext();
+  const colors = COLORS[dark ? 'dark' : 'light'];
+
   const options: Highcharts.Options = {
     scrollbar: {
       enabled: true,
     },
     chart: {
+      backgroundColor: 'transparent',
       animation: false,
       zoomType: 'x',
-      selectionMarkerFill: 'rgba(0, 0, 0, 0.1)',
+      selectionMarkerFill: colors.selection,
     },
     time: {
       useUTC: false,
@@ -37,6 +57,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       y: 4,
       x: 12,
       style: {
+        color: colors.label,
         fontFamily: 'Montserrat',
         fontSize: '10px',
         fontWeight: 'bold',
@@ -50,17 +71,20 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       symbolHeight: 8,
       symbolWidth: 8,
       itemStyle: {
+        color: colors.label,
         fontFamily: 'Montserrat',
         fontSize: '10px',
       },
     },
     yAxis: {
+      gridLineColor: colors.border,
       tickInterval: 30,
       title: {
         text: null,
       },
       labels: {
         style: {
+          color: colors.text,
           fontFamily: 'Montserrat',
           fontSize: '10px',
         },
@@ -70,10 +94,10 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       },
     },
     xAxis: {
-      lineColor: '#E6E6E6',
+      lineColor: colors.border,
       crosshair: {
         width: 1,
-        color: '#E6E6E6',
+        color: colors.border,
       },
       type: 'datetime',
       dateTimeLabelFormats: {
@@ -82,9 +106,10 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
         second: '%l:%M:%S %p',
       },
       tickLength: 4,
-      tickColor: '#E6E6E6',
+      tickColor: colors.border,
       labels: {
         style: {
+          color: colors.text,
           fontSize: '10px',
           fontFamily: 'Montserrat',
         },

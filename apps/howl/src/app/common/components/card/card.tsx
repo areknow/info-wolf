@@ -10,13 +10,14 @@ const StyledCard = styled.div`
   min-height: 100px;
   border-radius: 3px;
   padding: 30px;
-  background-color: #ffffff;
+  background-color: var(--surface-color);
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.062);
   h3 {
     text-align: center;
-    color: #3d3d3d;
+    color: var(--text-color);
     text-transform: uppercase;
     font-size: 14px;
+    opacity: 0.8;
   }
 `;
 

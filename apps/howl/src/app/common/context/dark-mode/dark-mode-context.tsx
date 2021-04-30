@@ -1,6 +1,8 @@
+import cx from 'class-names';
 import { createContext, useContext, useState } from 'react';
 import { useColorScheme } from 'use-color-scheme';
 import { DEFAULT_STATE } from './constants';
+import styles from './theme.module.scss';
 import { DarkModeContextModel, DarkModeContextType } from './types';
 
 export const DarkModeContext = createContext<DarkModeContextType>({
@@ -24,7 +26,14 @@ export const DarkModeProvider = ({
 
   return (
     <DarkModeContext.Provider value={{ darkModeContext, toggleDarkMode }}>
-      {children}
+      <div
+        className={cx([
+          styles.theme,
+          darkModeContext.darkMode && styles.darkMode,
+        ])}
+      >
+        {children}
+      </div>
     </DarkModeContext.Provider>
   );
 };

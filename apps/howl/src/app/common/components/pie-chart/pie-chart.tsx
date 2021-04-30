@@ -1,12 +1,27 @@
 import { memo } from 'react';
 import Chart from 'react-apexcharts';
+import { useDarkModeContext } from '../../context';
 
 interface PieChartProps {
   series: number[];
   labels: string[];
 }
 
+const COLORS = {
+  light: {
+    background: '#ffffff',
+    label: '#5a5a5a',
+  },
+  dark: {
+    background: '#282c47',
+    label: '#939ab9',
+  },
+};
+
 export const PieChart = memo(({ series, labels }: PieChartProps) => {
+  const { dark } = useDarkModeContext();
+  const colors = COLORS[dark ? 'dark' : 'light'];
+
   const options: ApexCharts.ApexOptions = {
     chart: {
       fontFamily: 'Montserrat',
@@ -47,6 +62,12 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
       },
       fontWeight: 'bold',
       fontSize: '10px',
+      labels: {
+        colors: [colors.label],
+      },
+    },
+    stroke: {
+      colors: [colors.background],
     },
     fill: {
       type: 'gradient',

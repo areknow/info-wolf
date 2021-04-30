@@ -24,6 +24,7 @@ const StyledIcon = styled.div`
   svg {
     width: 40px;
     height: 40px;
+    fill: var(--text-color);
   }
 `;
 

@@ -1,13 +1,31 @@
 import { memo } from 'react';
 import Chart from 'react-apexcharts';
+import { useDarkModeContext } from '../../context';
 
 interface GaugeChartProps {
   value: number;
   label: string;
 }
 
+const COLORS = {
+  light: {
+    border: '#E6E6E6',
+    text: '#999999',
+    label: '#5a5a5a',
+  },
+  dark: {
+    border: '#404661',
+    text: '#6c7291',
+    label: '#939ab9',
+  },
+};
+
 export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
+  const { dark } = useDarkModeContext();
+  const colors = COLORS[dark ? 'dark' : 'light'];
+
   const series = [value];
+
   const options: ApexCharts.ApexOptions = {
     colors: ['#7F92D7'],
     chart: {
@@ -15,6 +33,9 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
     },
     plotOptions: {
       radialBar: {
+        track: {
+          background: colors.border,
+        },
         hollow: {
           size: '70%',
         },
@@ -24,7 +45,7 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
             formatter: function (val) {
               return `${val}%`;
             },
-            color: '#111',
+            color: colors.label,
             fontSize: '28px',
             show: true,
           },
@@ -54,7 +75,7 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
       offsetY: 120,
       style: {
         fontSize: '10px',
-        color: '#adadad',
+        color: colors.text,
       },
     },
     labels: [''],

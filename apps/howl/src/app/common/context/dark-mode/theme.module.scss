@@ -1,0 +1,13 @@
+.theme {
+  --background-color: linear-gradient(#fafafa, #ececec);
+  --text-color: #000;
+  --surface-color: #fff;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.darkMode {
+  --background-color: linear-gradient(#1c2138, #131625);
+  --text-color: #fff;
+  --surface-color: #282c47;
+}

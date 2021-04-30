@@ -30,6 +30,7 @@
     "apexcharts": "^3.26.1",
     "axios": "^0.21.1",
     "child_process": "^1.0.2",
+    "class-names": "^1.0.0",
     "core-js": "^3.6.5",
     "date-fns": "^2.21.1",
     "document-register-element": "1.13.1",
