@@ -1,6 +1,14 @@
 import * as express from 'express';
 import * as os from './os-utils';
 import ws = require('ws');
+import osu = require('node-os-utils');
+
+//
+// const mem = osu.mem;
+// mem.info().then((info) => {
+//   console.log(info);
+// });
+//
 
 const app = express();
 const INTERVAL = 1000;
@@ -20,7 +28,7 @@ for (let i = 0; i <= 600; i++) {
 const cpuUsageData = [...data].reverse();
 const freememPercentageData = [...data].reverse();
 
-const payload = () => {
+const payload = async () => {
   const freeMem = 100 - os.freememPercentage() * 100;
   return {
     gauges: {
@@ -39,11 +47,18 @@ const payload = () => {
       sysUptime: os.sysUptime(),
       processUptime: os.processUptime(),
     },
+    memory: {
+      pieChart: [
+        (await osu.mem.info()).freeMemMb,
+        (await osu.mem.info()).usedMemMb,
+      ],
+      freePercent: (await osu.mem.info()).usedMemPercentage,
+    },
   };
 };
 
-wsMetrics.on('connection', (socket) => {
-  socket.send(JSON.stringify(payload()));
+wsMetrics.on('connection', async (socket) => {
+  socket.send(JSON.stringify(await payload()));
 });
 
 setInterval(async () => {
@@ -56,7 +71,7 @@ setInterval(async () => {
   freememPercentageData.push({ x: new Date().valueOf(), y: 100 - mem * 100 });
   freememPercentageData.shift();
   // push updated data to client
-  wsMetrics.clients.forEach((socket) => {
-    socket.send(JSON.stringify(payload()));
+  wsMetrics.clients.forEach(async (socket) => {
+    socket.send(JSON.stringify(await payload()));
   });
 }, INTERVAL);

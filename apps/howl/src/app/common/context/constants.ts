@@ -17,4 +17,8 @@ export const DEFAULT_STATE: WsPayload = {
     sysUptime: 0,
     processUptime: 0,
   },
+  memory: {
+    pieChart: [],
+    freePercent: 0,
+  },
 };

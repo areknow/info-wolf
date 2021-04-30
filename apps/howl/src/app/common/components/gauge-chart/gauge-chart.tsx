@@ -1,11 +1,5 @@
-import Highcharts from 'highcharts';
-import highchartsMore from 'highcharts/highcharts-more';
-import solidGauge from 'highcharts/modules/solid-gauge';
 import { memo } from 'react';
 import Chart from 'react-apexcharts';
-
-highchartsMore(Highcharts);
-solidGauge(Highcharts);
 
 interface GaugeChartProps {
   value: number;
@@ -65,7 +59,7 @@ export const GaugeChart = memo(({ value }: GaugeChartProps) => {
         justifyContent: 'center',
       }}
     >
-      <Chart options={options} series={series} type="radialBar" width="280" />
+      <Chart options={options} series={series} type="radialBar" height="220" />
     </div>
   );
 });

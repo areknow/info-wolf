@@ -15,6 +15,10 @@ export interface WsPayload {
     sysUptime: number;
     processUptime: number;
   };
+  memory: {
+    pieChart: number[];
+    freePercent: number;
+  };
 }
 
 interface TimeSeriesPoint {
