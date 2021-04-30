@@ -10,7 +10,6 @@ import { useWsContext } from '../../../common/context';
 
 export const SystemStatistics = () => {
   const { data } = useWsContext();
-  console.log(data);
 
   return (
     <Card title="Statistics">
