@@ -3,9 +3,10 @@ import Chart from 'react-apexcharts';
 
 interface GaugeChartProps {
   value: number;
+  label: string;
 }
 
-export const GaugeChart = memo(({ value }: GaugeChartProps) => {
+export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
   const series = [value];
   const options: ApexCharts.ApexOptions = {
     colors: ['#7F92D7'],
@@ -19,12 +20,12 @@ export const GaugeChart = memo(({ value }: GaugeChartProps) => {
         },
         dataLabels: {
           value: {
-            offsetY: -5,
+            offsetY: -10,
             formatter: function (val) {
               return `${val}%`;
             },
             color: '#111',
-            fontSize: '30px',
+            fontSize: '28px',
             fontFamily: 'Montserrat',
             show: true,
           },
@@ -46,6 +47,17 @@ export const GaugeChart = memo(({ value }: GaugeChartProps) => {
     },
     stroke: {
       lineCap: 'round',
+    },
+    title: {
+      text: label,
+      align: 'center',
+      floating: true,
+      offsetY: 120,
+      style: {
+        fontSize: '10px',
+        fontFamily: 'Montserrat',
+        color: '#adadad',
+      },
     },
     labels: [''],
   };

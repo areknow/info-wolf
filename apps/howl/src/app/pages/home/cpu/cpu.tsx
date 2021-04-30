@@ -3,7 +3,6 @@ import { useWsContext } from '../../../common/context';
 
 export const Cpu = () => {
   const { data } = useWsContext();
-  console.log(data.cpu);
 
   return (
     <Card title="CPU time">
