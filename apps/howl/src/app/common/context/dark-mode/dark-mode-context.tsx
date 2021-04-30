@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from 'react';
+import { useColorScheme } from 'use-color-scheme';
 import { DEFAULT_STATE } from './constants';
 import { DarkModeContextModel, DarkModeContextType } from './types';
 
 export const DarkModeContext = createContext<DarkModeContextType>({
   darkModeContext: DEFAULT_STATE,
-  updateDarkModeContext: () => null,
+  toggleDarkMode: () => null,
 });
 
 export const DarkModeProvider = ({
@@ -12,26 +13,23 @@ export const DarkModeProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [darkModeContext, setDarkModeContext] = useState<DarkModeContextModel>(
-    DEFAULT_STATE
-  );
+  const { scheme } = useColorScheme();
+  const [darkModeContext, setDarkModeContext] = useState<DarkModeContextModel>({
+    darkMode: scheme === 'dark',
+  });
 
-  function updateDarkModeContext(updateData: Partial<DarkModeContextModel>) {
-    setDarkModeContext((context) => {
-      return { ...context, ...updateData };
-    });
-  }
+  const toggleDarkMode = () => {
+    setDarkModeContext({ darkMode: !darkModeContext.darkMode });
+  };
 
   return (
-    <DarkModeContext.Provider
-      value={{ darkModeContext, updateDarkModeContext }}
-    >
+    <DarkModeContext.Provider value={{ darkModeContext, toggleDarkMode }}>
       {children}
     </DarkModeContext.Provider>
   );
 };
 
 export const useDarkModeContext = () => {
-  const { darkModeContext } = useContext(DarkModeContext);
-  return { dark: darkModeContext.darkMode };
+  const { darkModeContext, toggleDarkMode } = useContext(DarkModeContext);
+  return { dark: darkModeContext.darkMode, toggleDarkMode };
 };

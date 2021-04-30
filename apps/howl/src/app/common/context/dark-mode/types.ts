@@ -4,5 +4,5 @@ export interface DarkModeContextModel {
 
 export type DarkModeContextType = {
   darkModeContext: DarkModeContextModel;
-  updateDarkModeContext: (updateData: Partial<DarkModeContextModel>) => void;
+  toggleDarkMode: () => void;
 };
