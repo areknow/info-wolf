@@ -1,9 +1,10 @@
-import { format } from 'date-fns';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { memo } from 'react';
+import React, { memo } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import { useDarkModeContext } from '../../context';
 import { configureLegendSymbols } from './legend-symbol';
+import { Tooltip } from './tooltip';
 
 declare const window: Window & {
   configureLegendSymbols: typeof configureLegendSymbols;
@@ -20,12 +21,14 @@ const COLORS = {
     text: '#999999',
     label: '#5a5a5a',
     selection: 'rgba(0, 0, 0, 0.1)',
+    background: '#ffffff',
   },
   dark: {
     border: '#404661',
     text: '#6c7291',
     label: '#939ab9',
     selection: 'rgba(255, 255, 255, 0.1)',
+    background: '#282c47',
   },
 };
 
@@ -41,6 +44,26 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       backgroundColor: 'transparent',
       animation: false,
       zoomType: 'x',
+      resetZoomButton: {
+        position: {
+          x: -1,
+          y: 4,
+        },
+        relativeTo: 'spacingBox',
+        theme: {
+          fill: colors.background,
+          stroke: colors.border,
+          r: 0,
+          style: {
+            color: colors.label,
+          },
+          states: {
+            hover: {
+              fill: colors.border,
+            },
+          },
+        },
+      },
       selectionMarkerFill: colors.selection,
     },
     time: {
@@ -130,12 +153,26 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
     },
     tooltip: {
       useHTML: true,
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      borderRadius: 0,
+      shadow: false,
+      shape: 'square',
+      outside: true,
+      padding: 0,
+      style: {
+        opacity: 1,
+      },
+      shared: true,
+      positioner(_width, _height, point) {
+        // Position the tooltip...
+        return { x: point.plotX + 104, y: 162 };
+      },
       formatter() {
-        return `
-          <div>${this.series.name}</div>
-          <div>${format(this.x, 'MMM, dd YYY')}</div>
-          <div>${this.y.toFixed(2)}%</div>
-        `;
+        // Render dom server...
+        return ReactDOMServer.renderToString(
+          <Tooltip dark={dark} points={this.points} date={this.x} />
+        );
       },
     },
     series: data,
