@@ -14,22 +14,35 @@
     }
   }
   .actions {
+    // overflow: hidden;
     display: flex;
     align-items: center;
-    span {
-      width: 20px;
-      height: 20px;
+    button {
+      all: unset;
+      cursor: pointer;
+    }
+    .trigger {
+      padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      .icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       &:last-child {
         margin-left: 20px;
       }
     }
     nav {
-      opacity: 0;
-      transition: all 0.2s ease;
-      margin-right: 20px;
+      opacity: 0.4;
+      width: 0px;
+      transform: scale(0.2);
+      transition: all 0.3s ease;
+      overflow: hidden;
       ul {
         list-style: none;
         display: flex;
@@ -38,7 +51,7 @@
         li {
           a {
             display: block;
-            padding: 10px;
+            padding: 0 10px;
             color: black;
             font-weight: bold;
             text-transform: uppercase;
@@ -47,6 +60,8 @@
         }
       }
       &.open {
+        width: 160px;
+        transform: scale(1);
         opacity: 1;
       }
     }
