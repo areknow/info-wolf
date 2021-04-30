@@ -11,7 +11,10 @@ export const GlobalNav = () => {
 
   return (
     <div className={styles.globalNav}>
-      <div className={styles.logo}>
+      <div
+        className={styles.logo}
+        onClick={() => new Audio('../../../../assets/wolf.wav').play()}
+      >
         <Logo />
       </div>
       <div className={styles.actions}>
