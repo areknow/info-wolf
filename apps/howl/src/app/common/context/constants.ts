@@ -19,7 +19,7 @@ export const DEFAULT_STATE: WsPayload = {
   },
   cpu: {
     barChart: {
-      data: [],
+      series: [],
       categories: [],
     },
   },

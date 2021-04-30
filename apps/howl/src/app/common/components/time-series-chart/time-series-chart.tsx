@@ -61,6 +61,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       labels: {
         style: {
           fontFamily: 'Montserrat',
+          fontSize: '10px',
         },
         formatter() {
           return `${this.value}%`;

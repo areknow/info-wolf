@@ -1,6 +1,7 @@
 import * as express from 'express';
 import ws = require('ws');
 import osu = require('node-os-utils');
+import os = require('os');
 
 const app = express();
 const INTERVAL = 1000;
@@ -40,13 +41,24 @@ const payload = async () => {
     },
     cpu: {
       barChart: {
-        data: [
-          osu.cpu.average().totalIdle,
-          osu.cpu.average().totalTick,
-          osu.cpu.average().avgIdle,
-          osu.cpu.average().avgTotal,
+        series: [
+          {
+            name: 'User',
+            data: os.cpus().map((core) => core.times.user),
+          },
+          {
+            name: 'System',
+            data: os.cpus().map((core) => core.times.sys),
+          },
+          {
+            name: 'Idle',
+            data: os.cpus().map((core) => core.times.idle),
+          },
         ],
-        categories: ['totalIdle', 'totalTick', 'avgIdle', 'avgTotal'],
+        categories: Array.from(
+          { length: os.cpus().length },
+          (_, i) => `Core ${i + 1}`
+        ),
       },
     },
     memory: {

@@ -17,7 +17,7 @@ export interface WsPayload {
   };
   cpu: {
     barChart: {
-      data: number[];
+      series: { name: string; data: number[] }[];
       categories: string[];
     };
   };
