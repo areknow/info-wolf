@@ -1,20 +1,20 @@
-import { CpuLoad } from './cpu-load';
+import { Cpu } from './cpu';
 import styles from './home.module.scss';
-import { MemoryLoad } from './memory-load';
+import { Load } from './load';
+import { MemoryLoad } from './memory';
 import { SystemStatistics } from './system-statistics';
 import { UsageSummary } from './usage-summary';
 
-export const Home = () => {
-  return (
-    <>
-      <div className={styles.gridRow}>
-        <UsageSummary />
-      </div>
-      <div className={styles.grid}>
-        <SystemStatistics />
-        <CpuLoad />
-        <MemoryLoad />
-      </div>
-    </>
-  );
-};
+export const Home = () => (
+  <>
+    <div className={styles.gridRow}>
+      <UsageSummary />
+      <Load />
+    </div>
+    <div className={styles.grid}>
+      <SystemStatistics />
+      <Cpu />
+      <MemoryLoad />
+    </div>
+  </>
+);

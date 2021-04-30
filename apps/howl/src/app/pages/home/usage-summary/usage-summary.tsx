@@ -47,7 +47,7 @@ export const UsageSummary = () => {
   }, [data.timeSeries]);
 
   return (
-    <Card title="Usage summary">
+    <Card title="Usage over time">
       <TimeSeriesChart data={series} />
     </Card>
   );

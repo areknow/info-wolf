@@ -1,14 +1,6 @@
 import * as express from 'express';
-import * as os from './os-utils';
 import ws = require('ws');
 import osu = require('node-os-utils');
-
-//
-// const mem = osu.mem;
-// mem.info().then((info) => {
-//   console.log(info);
-// });
-//
 
 const app = express();
 const INTERVAL = 1000;
@@ -29,30 +21,39 @@ const cpuUsageData = [...data].reverse();
 const freememPercentageData = [...data].reverse();
 
 const payload = async () => {
-  const freeMem = 100 - os.freememPercentage() * 100;
   return {
-    gauges: {
-      freememPercentage: +freeMem.toFixed(1),
-      cpuLoadAveragePercentage: +os.loadavg(5).toFixed(1),
+    load: {
+      memory: (await osu.mem.info()).usedMemPercentage,
+      cpu: await osu.cpu.usage(),
     },
     timeSeries: {
       cpuUsageData,
       freememPercentageData,
     },
     statistics: {
-      platform: os.platform(),
-      cpuCount: os.cpuCount(),
-      freeMem: os.freemem(),
-      totalMem: os.totalmem(),
-      sysUptime: os.sysUptime(),
-      processUptime: os.processUptime(),
+      platform: osu.os.platform(),
+      cpuCount: osu.cpu.count(),
+      freeMem: (await osu.mem.info()).freeMemMb,
+      totalMem: osu.mem.totalMem(),
+      sysUptime: osu.os.uptime(),
+      operatingSystem: await osu.os.oos(),
+    },
+    cpu: {
+      barChart: {
+        data: [
+          osu.cpu.average().totalIdle,
+          osu.cpu.average().totalTick,
+          osu.cpu.average().avgIdle,
+          osu.cpu.average().avgTotal,
+        ],
+        categories: ['totalIdle', 'totalTick', 'avgIdle', 'avgTotal'],
+      },
     },
     memory: {
       pieChart: [
         (await osu.mem.info()).freeMemMb,
         (await osu.mem.info()).usedMemMb,
       ],
-      freePercent: (await osu.mem.info()).usedMemPercentage,
     },
   };
 };
@@ -63,12 +64,13 @@ wsMetrics.on('connection', async (socket) => {
 
 setInterval(async () => {
   // store cpu time series data
-  const usage = await os.cpuUsage();
-  cpuUsageData.push({ x: new Date().valueOf(), y: (usage as number) * 100 });
+  cpuUsageData.push({ x: new Date().valueOf(), y: await osu.cpu.usage() });
   cpuUsageData.shift();
   // store memory time series data
-  const mem = os.freememPercentage();
-  freememPercentageData.push({ x: new Date().valueOf(), y: 100 - mem * 100 });
+  freememPercentageData.push({
+    x: new Date().valueOf(),
+    y: (await osu.mem.info()).usedMemPercentage,
+  });
   freememPercentageData.shift();
   // push updated data to client
   wsMetrics.clients.forEach(async (socket) => {

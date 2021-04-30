@@ -1,7 +1,7 @@
 export interface WsPayload {
-  gauges: {
-    cpuLoadAveragePercentage: number;
-    freememPercentage: number;
+  load: {
+    memory: number;
+    cpu: number;
   };
   timeSeries: {
     cpuUsageData: TimeSeriesPoint[];
@@ -13,11 +13,16 @@ export interface WsPayload {
     freeMem: number;
     totalMem: number;
     sysUptime: number;
-    processUptime: number;
+    operatingSystem: string;
+  };
+  cpu: {
+    barChart: {
+      data: number[];
+      categories: string[];
+    };
   };
   memory: {
     pieChart: number[];
-    freePercent: number;
   };
 }
 

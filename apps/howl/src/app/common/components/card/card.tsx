@@ -1,4 +1,10 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
+
+interface CardProps {
+  title?: string;
+  children: ReactNode;
+}
 
 const StyledCard = styled.div`
   min-height: 100px;
@@ -18,10 +24,10 @@ const StyledContent = styled.div`
   margin-top: 40px;
 `;
 
-export const Card = ({ children, title }) => {
+export const Card = ({ children, title }: CardProps) => {
   return (
     <StyledCard>
-      <h3>{title}</h3>
+      {title && <h3>{title}</h3>}
       <StyledContent>{children}</StyledContent>
     </StyledCard>
   );
