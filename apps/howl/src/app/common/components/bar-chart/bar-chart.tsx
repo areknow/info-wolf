@@ -64,6 +64,7 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       markers: {
         width: 8,
         height: 8,
+        radius: 0,
       },
       fontFamily: 'Montserrat',
       fontWeight: 'bold',

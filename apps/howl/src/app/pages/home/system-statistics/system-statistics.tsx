@@ -5,16 +5,16 @@ import { ReactComponent as OperatingSystem } from '../../../../assets/operating-
 import { ReactComponent as PieChart } from '../../../../assets/pie-chart.svg';
 import { ReactComponent as RamMemory } from '../../../../assets/ram-memory.svg';
 import { ReactComponent as Uptime } from '../../../../assets/uptime.svg';
-import { Card, InfoGroup } from '../../../common/components';
+import { Card, Grid, InfoGroup } from '../../../common/components';
 import { useWsContext } from '../../../common/context';
-import styles from './system-statistics.module.scss';
 
 export const SystemStatistics = () => {
   const { data } = useWsContext();
+  console.log(data);
 
   return (
     <Card title="Statistics">
-      <div className={styles.grid}>
+      <Grid templateColumns="repeat(2, 1fr)" gap={40}>
         <InfoGroup
           content={data.statistics.platform.toUpperCase()}
           label="Platform"
@@ -47,7 +47,7 @@ export const SystemStatistics = () => {
           label="Free memory"
           icon={<PieChart />}
         />
-      </div>
+      </Grid>
     </Card>
   );
 };

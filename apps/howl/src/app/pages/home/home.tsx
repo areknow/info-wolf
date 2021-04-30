@@ -1,20 +1,20 @@
+import { Grid, GridRow } from '../../common/components';
 import { Cpu } from './cpu';
-import styles from './home.module.scss';
 import { Load } from './load';
 import { MemoryLoad } from './memory';
 import { SystemStatistics } from './system-statistics';
 import { UsageSummary } from './usage-summary';
 
 export const Home = () => (
-  <>
-    <div className={styles.gridRow}>
+  <GridRow gap={10}>
+    <Grid templateColumns="1fr 20%" gap={10}>
       <UsageSummary />
       <Load />
-    </div>
-    <div className={styles.grid}>
+    </Grid>
+    <Grid templateColumns="30% 1fr 20%" gap={10}>
       <SystemStatistics />
       <Cpu />
       <MemoryLoad />
-    </div>
-  </>
+    </Grid>
+  </GridRow>
 );
