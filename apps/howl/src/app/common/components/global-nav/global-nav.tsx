@@ -1,3 +1,4 @@
+import cx from 'class-names';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../../../assets/howl-logo.svg';
@@ -23,7 +24,7 @@ export const GlobalNav = () => {
             setMenuOpen(!menuOpen);
           }}
         >
-          <nav className={menuOpen ? styles.open : null}>
+          <nav className={cx(menuOpen && styles.open)}>
             <ul>
               <li>
                 <Link to="/">Home</Link>
@@ -38,7 +39,7 @@ export const GlobalNav = () => {
           </div>
         </div>
         <button className={styles.trigger} onClick={() => toggleDarkMode()}>
-          <div className={styles.icon}>
+          <div className={cx([styles.icon, dark && styles.darkActive])}>
             <i className="gg-dark-mode"></i>
           </div>
         </button>
