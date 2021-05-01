@@ -3,4 +3,5 @@
 
 export const environment = {
   production: false,
+  webSocketUrl: 'ws://localhost:3333/ws/metrics',
 };
