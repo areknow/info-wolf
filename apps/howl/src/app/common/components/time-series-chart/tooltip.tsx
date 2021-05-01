@@ -5,15 +5,13 @@ import styled from 'styled-components';
 const DATE_FORMAT = 'h:MM:SS';
 
 interface TooltipProps {
-  dark: boolean;
   points: Array<TooltipFormatterContextObject>;
   date: number;
 }
 
-const StyledTooltip = styled.div<{ dark: boolean }>`
-  // cant use css var...
-  background-color: ${({ dark }) => (dark ? '#282c47' : '#fff')};
-  color: ${({ dark }) => (dark ? '#fff' : '#000')};
+const StyledTooltip = styled.div`
+  background-color: var(--surface-color);
+  color: var(--text-color);
   padding: 10px;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.062);
   font-family: 'Montserrat', sans-serif;
@@ -28,9 +26,9 @@ const StyledTooltip = styled.div<{ dark: boolean }>`
   }
 `;
 
-export const Tooltip = ({ dark, points, date }: TooltipProps) => {
+export const Tooltip = ({ points, date }: TooltipProps) => {
   return (
-    <StyledTooltip dark={dark}>
+    <StyledTooltip>
       <span>{format(date, DATE_FORMAT)}</span>
       {points.map((point, key) => (
         <div key={key}>

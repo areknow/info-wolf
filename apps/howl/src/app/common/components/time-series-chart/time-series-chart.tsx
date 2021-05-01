@@ -171,7 +171,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       formatter() {
         // Render dom server...
         return ReactDOMServer.renderToString(
-          <Tooltip dark={dark} points={this.points} date={this.x} />
+          <Tooltip points={this.points} date={this.x} />
         );
       },
     },

@@ -13,7 +13,15 @@ html {
   text-rendering: optimizeLegibility;
 }
 body {
-  height: 100%;
+  // Set a base background color for elastic scroll area. This
+  // is especially important in darkMode. The white area seen
+  // above and bellow the content when the screen is scrolling
+  // is jarring and breaks the relaxing effect of darkMode.
+  background: var(--background-color);
+  // Actual background gradient using background-image
+  background-image: linear-gradient(var(--background-gradient));
+  color: var(--text-color);
+  min-height: 100vh;
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
   font-weight: normal;
