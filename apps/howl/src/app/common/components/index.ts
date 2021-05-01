@@ -4,8 +4,6 @@ export * from './bar-chart/bar-chart';
 export * from './card/card';
 export * from './gauge-chart/gauge-chart';
 export * from './global-nav/global-nav';
-export * from './grid/grid';
-export * from './grid/grid-row';
 export * from './info-group/info-group';
 export * from './loader/loader';
 export * from './pie-chart/pie-chart';

@@ -22,12 +22,18 @@ body {
   margin: 0;
 }
 
-.content {
-  padding: 10px 40px 40px 40px;
-}
-
 h1,
 h2,
 h3 {
   margin: 0;
+}
+
+.content {
+  padding: 10px 40px 40px 40px;
+}
+
+@media (max-width: 600px) {
+  .content {
+    padding: 10px;
+  }
 }

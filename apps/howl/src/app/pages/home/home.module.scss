@@ -42,6 +42,7 @@
 
 @media (max-width: 600px) {
   .grid {
+    gap: 10px;
     > *:nth-child(n + 1) {
       grid-column: span 6;
     }

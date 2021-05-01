@@ -19,10 +19,16 @@ const StyledCard = styled.div`
     font-size: 14px;
     opacity: 0.8;
   }
+  @media (max-width: 600px) {
+    padding: 20px 10px 10px 10px;
+  }
 `;
 
 const StyledContent = styled.div`
   margin-top: 40px;
+  @media (max-width: 600px) {
+    margin-top: 20px;
+  }
 `;
 
 export const Card = ({ children, title }: CardProps) => {
