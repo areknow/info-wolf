@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
-    "start": "nx serve api",
+    "start": "node dist/apps/api/main.js",
     "start-howl": "npm start howl",
-    "build": "nx build api",
+    "build": "nx build api --prod",
     "build-howl": "nx build howl",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
