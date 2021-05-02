@@ -82,6 +82,9 @@ export const TimeSeriesChart = memo(({ series }: TimeSeriesChartProps) => {
         fontFamily: 'Montserrat',
         fontSize: '10px',
       },
+      itemHoverStyle: {
+        color: colors.chart.label,
+      },
     },
     yAxis: {
       gridLineColor: colors.chart.border,
