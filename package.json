@@ -5,7 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve api",
-    "build": "nx build api",
+    "build": "npm start api",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
