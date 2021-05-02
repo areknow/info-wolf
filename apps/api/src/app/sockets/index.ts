@@ -6,14 +6,24 @@ import {
   getCpuUsage,
   getUsedMemPercentage,
   scrollTimeSeriesArray,
-} from '../helpers';
+} from '../utils';
 
+/**
+ * When the websocket connects, serve the entire payload immediately
+ * @param timeSeriesData the time series data array references
+ */
 export const connectSocket = (timeSeriesData: TimeSeries) => {
   wsMetrics.on('connection', async (socket) => {
     socket.send(JSON.stringify(await generatePayload(timeSeriesData)));
   });
 };
 
+/**
+ * Using the interval (1 second), update the time series data arrays
+ * using the scrollTimeSeriesArray helper and then serve the entire
+ * payload periodically
+ * @param timeSeriesData the time series data array references
+ */
 export const updateSocket = (timeSeriesData: TimeSeries) => {
   setInterval(async () => {
     scrollTimeSeriesArray(timeSeriesData.cpu, await getCpuUsage());

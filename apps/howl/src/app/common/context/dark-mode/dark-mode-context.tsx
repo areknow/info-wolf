@@ -19,7 +19,7 @@ export const DarkModeProvider = ({
   children: React.ReactNode;
 }) => {
   /**
-   * useColorScheme hook listens to "prefers-color-scheme" media query to
+   * useColorScheme hook listens to `prefers-color-scheme` media query to
    * determine if the system is in native light/dark mode. Context is set
    * accordingly. https://github.com/mujo-code/use-color-scheme
    */
@@ -34,7 +34,7 @@ export const DarkModeProvider = ({
   };
 
   /**
-   * The returned JSX fragment also includes the styled components GlobalStyles
+   * The returned JSX element also includes the styled components GlobalStyles
    * component where the CSS custom properties are attached to :root{}. This
    * allows the entire DOM tree to have access to the color variables which
    * will dynamically update based on light/dark context.
