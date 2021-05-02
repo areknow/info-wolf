@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import Chart from 'react-apexcharts';
+import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
 
 interface GaugeChartProps {
@@ -7,34 +8,20 @@ interface GaugeChartProps {
   label: string;
 }
 
-const COLORS = {
-  light: {
-    border: '#E6E6E6',
-    text: '#999999',
-    label: '#5a5a5a',
-  },
-  dark: {
-    border: '#404661',
-    text: '#6c7291',
-    label: '#939ab9',
-  },
-};
-
 export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
   const { dark } = useDarkModeContext();
-  const colors = COLORS[dark ? 'dark' : 'light'];
+  const colors = dark ? DARK_THEME : LIGHT_THEME;
 
   const series = [value];
 
   const options: ApexCharts.ApexOptions = {
-    colors: ['#7F92D7'],
     chart: {
       fontFamily: 'Montserrat',
     },
     plotOptions: {
       radialBar: {
         track: {
-          background: colors.border,
+          background: colors.chart.border,
         },
         hollow: {
           size: '70%',
@@ -45,20 +32,21 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
             formatter: function (val) {
               return `${val}%`;
             },
-            color: colors.label,
+            color: colors.chart.label,
             fontSize: '28px',
             show: true,
           },
         },
       },
     },
+    colors: [colors.theme4],
     fill: {
       type: 'gradient',
       gradient: {
         shade: 'light',
         type: 'horizontal',
         shadeIntensity: 0.5,
-        gradientToColors: ['#e40d67'],
+        gradientToColors: [colors.theme2],
         inverseColors: true,
         opacityFrom: 1,
         opacityTo: 1,
@@ -75,7 +63,7 @@ export const GaugeChart = memo(({ value, label }: GaugeChartProps) => {
       offsetY: 120,
       style: {
         fontSize: '10px',
-        color: colors.text,
+        color: colors.chart.text,
       },
     },
     labels: [''],

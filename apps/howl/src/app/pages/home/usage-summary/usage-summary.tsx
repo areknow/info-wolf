@@ -1,39 +1,37 @@
 import { UsageSummaryResponse } from '@info-wolf/api-interfaces';
 import Highcharts from 'highcharts';
 import { useEffect, useState } from 'react';
+import { DARK_THEME, LIGHT_THEME } from '../../../common/colors';
 import { Card, TimeSeriesChart } from '../../../common/components';
-import { useWsContext } from '../../../common/context';
+import { useDarkModeContext, useWsContext } from '../../../common/context';
 
 const createSeries = (
-  data: UsageSummaryResponse
+  data: UsageSummaryResponse,
+  darkMode: boolean
 ): Highcharts.SeriesOptionsType[] => {
+  const colors = darkMode ? DARK_THEME : LIGHT_THEME;
+
   return [
     {
       color: {
-        linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+        linearGradient: { x1: 0, x2: 0, y1: 1, y2: 0 },
         stops: [
-          [0, '#e40d67'],
-          [1, '#7F92D7'],
+          [0, colors.theme3],
+          [0.1, colors.theme4],
         ],
       },
       type: 'areaspline',
       name: 'CPU usage',
       lineWidth: 1,
       data: data.cpuUsageData,
-      marker: { symbol: 'circle', radius: 10, fillColor: '#7F92D7' },
+      marker: { symbol: 'circle', radius: 10, fillColor: colors.theme4 },
     },
     {
-      color: {
-        linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-        stops: [
-          [0, '#e40d67'],
-          [1, '#ffc115'],
-        ],
-      },
+      color: colors.theme5,
       type: 'line',
       name: 'Memory usage',
       data: data.freememPercentageData,
-      marker: { symbol: 'circle', radius: 10, fillColor: '#e40d67' },
+      marker: { symbol: 'circle', radius: 10, fillColor: colors.theme5 },
     },
   ];
 };
@@ -41,10 +39,12 @@ const createSeries = (
 export const UsageSummary = () => {
   const [series, setSeries] = useState<Highcharts.SeriesOptionsType[]>([]);
   const { data } = useWsContext();
+  const { dark } = useDarkModeContext();
+
 
   useEffect(() => {
-    setSeries(createSeries(data.timeSeries));
-  }, [data.timeSeries]);
+    setSeries(createSeries(data.timeSeries, dark));
+  }, [dark, data.timeSeries]);
 
   return (
     <Card title="Usage over time">

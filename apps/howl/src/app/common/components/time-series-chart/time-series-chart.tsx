@@ -2,6 +2,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import React, { memo } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
 import { configureLegendSymbols } from './legend-symbol';
 import { Tooltip } from './tooltip';
@@ -15,26 +16,9 @@ interface TimeSeriesChartProps {
   data: Highcharts.SeriesOptionsType[];
 }
 
-const COLORS = {
-  light: {
-    border: '#E6E6E6',
-    text: '#999999',
-    label: '#5a5a5a',
-    selection: 'rgba(0, 0, 0, 0.1)',
-    background: '#ffffff',
-  },
-  dark: {
-    border: '#404661',
-    text: '#6c7291',
-    label: '#939ab9',
-    selection: 'rgba(255, 255, 255, 0.1)',
-    background: '#282c47',
-  },
-};
-
 export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
   const { dark } = useDarkModeContext();
-  const colors = COLORS[dark ? 'dark' : 'light'];
+  const colors = dark ? DARK_THEME : LIGHT_THEME;
 
   const options: Highcharts.Options = {
     scrollbar: {
@@ -52,19 +36,19 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
         relativeTo: 'spacingBox',
         theme: {
           fill: colors.background,
-          stroke: colors.border,
+          stroke: colors.chart.border,
           r: 0,
           style: {
-            color: colors.label,
+            color: colors.chart.label,
           },
           states: {
             hover: {
-              fill: colors.border,
+              fill: colors.chart.border,
             },
           },
         },
       },
-      selectionMarkerFill: colors.selection,
+      selectionMarkerFill: colors.chart.selection,
     },
     time: {
       useUTC: false,
@@ -80,7 +64,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       y: 4,
       x: 12,
       style: {
-        color: colors.label,
+        color: colors.chart.label,
         fontFamily: 'Montserrat',
         fontSize: '10px',
         fontWeight: 'bold',
@@ -94,20 +78,20 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       symbolHeight: 8,
       symbolWidth: 8,
       itemStyle: {
-        color: colors.label,
+        color: colors.chart.label,
         fontFamily: 'Montserrat',
         fontSize: '10px',
       },
     },
     yAxis: {
-      gridLineColor: colors.border,
+      gridLineColor: colors.chart.border,
       tickInterval: 30,
       title: {
         text: null,
       },
       labels: {
         style: {
-          color: colors.text,
+          color: colors.chart.text,
           fontFamily: 'Montserrat',
           fontSize: '10px',
         },
@@ -117,10 +101,10 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
       },
     },
     xAxis: {
-      lineColor: colors.border,
+      lineColor: colors.chart.border,
       crosshair: {
         width: 1,
-        color: colors.border,
+        color: colors.chart.border,
       },
       type: 'datetime',
       dateTimeLabelFormats: {
@@ -129,10 +113,10 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
         second: '%l:%M:%S %p',
       },
       tickLength: 4,
-      tickColor: colors.border,
+      tickColor: colors.chart.border,
       labels: {
         style: {
-          color: colors.text,
+          color: colors.chart.text,
           fontSize: '10px',
           fontFamily: 'Montserrat',
         },

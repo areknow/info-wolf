@@ -1,28 +1,16 @@
 import { memo } from 'react';
 import Chart from 'react-apexcharts';
+import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
 
 interface GaugeChartProps {
-  series: { data: number[] }[]; // make type
+  series: { data: number[] }[];
   categories: string[];
 }
 
-const COLORS = {
-  light: {
-    border: '#E6E6E6',
-    text: '#999999',
-    label: '#5a5a5a',
-  },
-  dark: {
-    border: '#404661',
-    text: '#6c7291',
-    label: '#939ab9',
-  },
-};
-
 export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
   const { dark } = useDarkModeContext();
-  const colors = COLORS[dark ? 'dark' : 'light'];
+  const colors = dark ? DARK_THEME : LIGHT_THEME;
 
   const options: ApexCharts.ApexOptions = {
     chart: {
@@ -32,7 +20,7 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
         show: false,
       },
     },
-    colors: ['#8293D2', '#e4c40d', '#0de480'],
+    colors: [colors.theme4, colors.theme2, colors.theme5],
     plotOptions: {
       bar: {
         horizontal: false,
@@ -49,16 +37,16 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
     },
     xaxis: {
       axisBorder: {
-        color: colors.border,
+        color: colors.chart.border,
       },
       axisTicks: {
         height: 4,
-        color: colors.border,
+        color: colors.chart.border,
       },
       categories,
       labels: {
         style: {
-          colors: colors.text,
+          colors: colors.chart.text,
           fontSize: '10px',
         },
       },
@@ -67,7 +55,7 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       tickAmount: 3,
       labels: {
         style: {
-          colors: colors.text,
+          colors: colors.chart.text,
           fontSize: '10px',
         },
         formatter: function (val) {
@@ -83,7 +71,7 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       },
     },
     grid: {
-      borderColor: colors.border,
+      borderColor: colors.chart.border,
     },
     legend: {
       itemMargin: {
@@ -97,18 +85,11 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       fontWeight: 'bold',
       fontSize: '10px',
       labels: {
-        colors: [colors.label],
+        colors: [colors.chart.label],
       },
-    },
-    fill: {
-      opacity: 1,
     },
     tooltip: {
-      y: {
-        formatter: function (val) {
-          return (val / 60000).toFixed(0);
-        },
-      },
+      enabled: false,
     },
   };
 

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import Chart from 'react-apexcharts';
+import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
 
 interface PieChartProps {
@@ -7,20 +8,9 @@ interface PieChartProps {
   labels: string[];
 }
 
-const COLORS = {
-  light: {
-    background: '#ffffff',
-    label: '#5a5a5a',
-  },
-  dark: {
-    background: '#282c47',
-    label: '#939ab9',
-  },
-};
-
 export const PieChart = memo(({ series, labels }: PieChartProps) => {
   const { dark } = useDarkModeContext();
-  const colors = COLORS[dark ? 'dark' : 'light'];
+  const colors = dark ? DARK_THEME : LIGHT_THEME;
 
   const options: ApexCharts.ApexOptions = {
     chart: {
@@ -32,7 +22,6 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
         },
       },
     },
-    colors: ['#0de480', '#7F92D7'],
     plotOptions: {
       pie: {
         startAngle: -90,
@@ -54,6 +43,9 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
         );
       },
     },
+    tooltip: {
+      enabled: false,
+    },
     legend: {
       position: 'bottom',
       markers: {
@@ -63,21 +55,13 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
       fontWeight: 'bold',
       fontSize: '10px',
       labels: {
-        colors: [colors.label],
+        colors: [colors.chart.label],
       },
     },
     stroke: {
-      colors: [colors.background],
+      colors: [colors.surface],
     },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        gradientToColors: ['#7F92D7'],
-        inverseColors: false,
-        opacityFrom: 1,
-        opacityTo: 1,
-      },
-    },
+    colors: [colors.theme4, colors.theme3],
     labels,
   };
 
