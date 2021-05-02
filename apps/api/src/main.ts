@@ -28,3 +28,10 @@ connectSocket(timeSeriesData);
  * Update the client socket payload
  */
 updateSocket(timeSeriesData);
+
+/**
+ * Basic health check route returns process uptime
+ */
+app.get('/api/uptime', (req, res) => {
+  res.send(`${process.uptime()}`);
+});
