@@ -60,14 +60,20 @@
         margin: 0;
         padding: 0;
         li {
+          position: relative;
           a {
             display: block;
             padding: 0 10px;
             color: var(--text-color);
-            font-weight: bold;
+            font-weight: lighter;
             text-transform: uppercase;
             text-decoration: none;
+            opacity: 0.5;
           }
+        }
+        .active {
+          font-weight: bold;
+          opacity: 1;
         }
       }
       &.open {

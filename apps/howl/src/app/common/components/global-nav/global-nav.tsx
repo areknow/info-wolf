@@ -1,6 +1,6 @@
 import cx from 'class-names';
 import { memo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../../../assets/howl-logo.svg';
 import { useDarkModeContext } from '../../context';
 import styles from './global-nav.module.scss';
@@ -30,10 +30,14 @@ export const GlobalNav = memo(() => {
           <nav className={cx(menuOpen && styles.open)}>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <NavLink to="/" exact activeClassName={styles.active}>
+                  Home
+                </NavLink>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <NavLink to="/about" exact activeClassName={styles.active}>
+                  About
+                </NavLink>
               </li>
             </ul>
           </nav>
