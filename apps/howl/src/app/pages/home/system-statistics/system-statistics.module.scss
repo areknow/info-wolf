@@ -12,6 +12,7 @@
 
 @media (max-width: 600px) {
   .grid {
+    padding: 20px;
     grid-template-columns: 1fr;
   }
 }

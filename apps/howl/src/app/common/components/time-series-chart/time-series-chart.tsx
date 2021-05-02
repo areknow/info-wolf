@@ -173,6 +173,22 @@ export const TimeSeriesChart = memo(({ series }: TimeSeriesChartProps) => {
         );
       },
     },
+    responsive: {
+      rules: [
+        {
+          chartOptions: {
+            title: { text: '' },
+            tooltip: {
+              enabled: false,
+            },
+            xAxis: {
+              crosshair: {width: 0}
+            }
+          },
+          condition: { maxWidth: 600 },
+        },
+      ],
+    },
     series,
   };
 
