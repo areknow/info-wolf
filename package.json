@@ -5,7 +5,9 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve api",
+    "start-howl": "npm start howl",
     "build": "npm start api",
+    "build-howl": "nx build howl",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
