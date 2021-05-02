@@ -38,7 +38,9 @@ export const SystemStatistics = () => {
           icon={<Uptime />}
         />
         <InfoGroup
-          content={`${data.statistics.totalMem / 1024 / 1024 / 1024} GB`}
+          content={`${(data.statistics.totalMem / 1024 / 1024 / 1024).toFixed(
+            2
+          )} GB`}
           label="Total memory"
           icon={<RamMemory />}
         />
