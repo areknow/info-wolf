@@ -13,7 +13,7 @@ const StyledTooltip = styled.div`
   background-color: var(--background-color);
   color: var(--text-color);
   padding: 10px;
-  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.062);
+  box-shadow: var(--shadow-2);
   font-family: 'Montserrat', sans-serif;
   span {
     display: block;

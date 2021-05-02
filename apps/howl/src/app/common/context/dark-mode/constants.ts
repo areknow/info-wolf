@@ -19,6 +19,8 @@ const customProperties = (darkMode: boolean): { [key: string]: string } => {
     '--background-color': colors.background,
     '--surface-color': colors.surface,
     '--text-color': colors.text,
+    '--shadow-1': colors.shadow1,
+    '--shadow-2': colors.shadow2,
   };
 };
 

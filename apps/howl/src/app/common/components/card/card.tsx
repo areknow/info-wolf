@@ -11,7 +11,7 @@ const StyledCard = styled.div`
   border-radius: 3px;
   padding: 30px;
   background-color: var(--surface-color);
-  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.062);
+  box-shadow: var(--shadow-1);
   h3 {
     text-align: center;
     color: var(--text-color);
