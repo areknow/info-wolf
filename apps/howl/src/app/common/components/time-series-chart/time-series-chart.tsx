@@ -153,7 +153,10 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
         return { x: point.plotX + 104, y: 162 };
       },
       formatter() {
-        // Render dom server...
+        /**
+         * Use renderToString() to render the JSX tooltip
+         * component into a usable string for highcharts.
+         */
         return ReactDOMServer.renderToString(
           <Tooltip points={this.points} date={this.x} />
         );

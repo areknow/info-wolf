@@ -29,18 +29,19 @@ export const getUsedMemPercentage = async () => {
 };
 
 /**
- * Push a new value into reference array and shift first value
+ * Push a new TimeSeriesPoint into reference array and shift first value
  * out of it to create a sliding window effect in the chart.
  * @param array reference array to mutate
  * @param value x axis value to add at most recent point of chart
  */
 export const scrollTimeSeriesArray = async (
   array: TimeSeriesPoint[],
-  value: number
+  xValue: number,
+  yValue: number
 ) => {
   array.push({
-    x: new Date().valueOf(),
-    y: value,
+    x: xValue,
+    y: yValue,
   });
   array.shift();
 };

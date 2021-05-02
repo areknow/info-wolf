@@ -26,8 +26,15 @@ export const connectSocket = (timeSeriesData: TimeSeries) => {
  */
 export const updateSocket = (timeSeriesData: TimeSeries) => {
   setInterval(async () => {
-    scrollTimeSeriesArray(timeSeriesData.cpu, await getCpuUsage());
-    scrollTimeSeriesArray(timeSeriesData.memory, await getUsedMemPercentage());
+    // Get current time
+    const currentTime = new Date().valueOf();
+    // Scroll arrays
+    scrollTimeSeriesArray(timeSeriesData.cpu, currentTime, await getCpuUsage());
+    scrollTimeSeriesArray(
+      timeSeriesData.memory,
+      currentTime,
+      await getUsedMemPercentage()
+    );
     // push updated data to client
     wsMetrics.clients.forEach(async (socket) => {
       socket.send(JSON.stringify(await generatePayload(timeSeriesData)));
