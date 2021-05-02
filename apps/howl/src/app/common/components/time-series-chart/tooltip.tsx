@@ -1,8 +1,9 @@
 import { format } from 'date-fns';
 import { TooltipFormatterContextObject } from 'highcharts';
+import { memo } from 'react';
 import styled from 'styled-components';
 
-const DATE_FORMAT = 'h:MM:SS';
+const DATE_FORMAT = 'h:MM:SS a';
 
 interface TooltipProps {
   points: Array<TooltipFormatterContextObject>;
@@ -26,7 +27,7 @@ const StyledTooltip = styled.div`
   }
 `;
 
-export const Tooltip = ({ points, date }: TooltipProps) => {
+export const Tooltip = memo(({ points, date }: TooltipProps) => {
   return (
     <StyledTooltip>
       <span>{format(date, DATE_FORMAT)}</span>
@@ -37,4 +38,4 @@ export const Tooltip = ({ points, date }: TooltipProps) => {
       ))}
     </StyledTooltip>
   );
-};
+});

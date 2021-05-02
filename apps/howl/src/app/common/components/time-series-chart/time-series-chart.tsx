@@ -105,6 +105,7 @@ export const TimeSeriesChart = memo(({ series }: TimeSeriesChartProps) => {
       crosshair: {
         width: 1,
         color: colors.chart.border,
+        zIndex: 3,
       },
       type: 'datetime',
       dateTimeLabelFormats: {
@@ -148,9 +149,16 @@ export const TimeSeriesChart = memo(({ series }: TimeSeriesChartProps) => {
         opacity: 1,
       },
       shared: true,
-      positioner(_width, _height, point) {
-        // Position the tooltip...
-        return { x: point.plotX + 104, y: 162 };
+      positioner(width, height, point) {
+        /**
+         * Change the default highcharts tooltip position
+         * settings to track only the x axis and stick to
+         * the bottom while centered on the tooltip width
+         */
+        return {
+          x: point.plotX + 102 - width / 2,
+          y: this.chart.chartHeight + height + 3,
+        };
       },
       formatter() {
         /**
