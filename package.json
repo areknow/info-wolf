@@ -7,7 +7,7 @@
     "start": "node dist/apps/api/main.js",
     "start-howl": "npm start howl",
     "build": "nx build api --prod",
-    "build-howl": "nx build howl",
+    "build-howl": "nx build howl --prod",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
