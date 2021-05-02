@@ -1,11 +1,11 @@
 import cx from 'class-names';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../../../assets/howl-logo.svg';
 import { useDarkModeContext } from '../../context';
 import styles from './global-nav.module.scss';
 
-export const GlobalNav = () => {
+export const GlobalNav = memo(() => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { dark, toggleDarkMode } = useDarkModeContext();
 
@@ -49,4 +49,4 @@ export const GlobalNav = () => {
       </div>
     </div>
   );
-};
+});

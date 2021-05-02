@@ -65,7 +65,7 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       title: {
         text: 'Minutes',
         style: {
-          color: colors.text,
+          color: colors.chart.text,
           fontSize: '10px',
         },
       },

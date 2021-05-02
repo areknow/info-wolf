@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface CardProps {
@@ -31,11 +31,11 @@ const StyledContent = styled.div`
   }
 `;
 
-export const Card = ({ children, title }: CardProps) => {
+export const Card = memo(({ children, title }: CardProps) => {
   return (
     <StyledCard>
       {title && <h3>{title}</h3>}
       <StyledContent>{children}</StyledContent>
     </StyledCard>
   );
-};
+});

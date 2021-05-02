@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 
 const StyledLoader = styled.div`
@@ -15,7 +16,7 @@ const StyledLoader = styled.div`
   fill: var(--text-color);
 `;
 
-export const Loader = () => {
+export const Loader = memo(() => {
   return (
     <StyledLoader>
       <svg
@@ -40,4 +41,4 @@ export const Loader = () => {
       </svg>
     </StyledLoader>
   );
-};
+});

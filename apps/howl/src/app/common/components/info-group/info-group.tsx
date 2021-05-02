@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface InfoGroupProps {
@@ -28,7 +28,7 @@ const StyledIcon = styled.div`
   }
 `;
 
-export const InfoGroup = ({ label, content, icon }: InfoGroupProps) => {
+export const InfoGroup = memo(({ label, content, icon }: InfoGroupProps) => {
   return (
     <StyledInfoGroup>
       {icon && <StyledIcon>{icon}</StyledIcon>}
@@ -38,4 +38,4 @@ export const InfoGroup = ({ label, content, icon }: InfoGroupProps) => {
       </div>
     </StyledInfoGroup>
   );
-};
+});
