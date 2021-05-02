@@ -41,14 +41,13 @@ export const UsageSummary = () => {
   const { data } = useWsContext();
   const { dark } = useDarkModeContext();
 
-
   useEffect(() => {
     setSeries(createSeries(data.timeSeries, dark));
   }, [dark, data.timeSeries]);
 
   return (
     <Card title="Usage over time">
-      <TimeSeriesChart data={series} />
+      <TimeSeriesChart series={series} />
     </Card>
   );
 };

@@ -13,10 +13,10 @@ declare const window: Window & {
 window.configureLegendSymbols = configureLegendSymbols;
 
 interface TimeSeriesChartProps {
-  data: Highcharts.SeriesOptionsType[];
+  series: Highcharts.SeriesOptionsType[];
 }
 
-export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
+export const TimeSeriesChart = memo(({ series }: TimeSeriesChartProps) => {
   const { dark } = useDarkModeContext();
   const colors = dark ? DARK_THEME : LIGHT_THEME;
 
@@ -162,7 +162,7 @@ export const TimeSeriesChart = memo(({ data }: TimeSeriesChartProps) => {
         );
       },
     },
-    series: data,
+    series,
   };
 
   return (
