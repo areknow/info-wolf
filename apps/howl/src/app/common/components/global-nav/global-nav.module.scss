@@ -6,6 +6,9 @@
   .logo {
     padding: 10px 0;
     cursor: crosshair;
+    :active {
+      @extend .push;
+    }
     svg {
       width: 100px;
       height: 25px;
@@ -35,12 +38,7 @@
         color: var(--text-color);
         transition: transform 0.2s ease;
         :active {
-          animation: push 0.3s linear 1;
-        }
-        @keyframes push {
-          50% {
-            transform: scale(0.8);
-          }
+          @extend .push;
         }
         &.darkActive {
           transform: rotate(180deg);
@@ -78,6 +76,15 @@
         opacity: 1;
       }
     }
+  }
+}
+
+.push {
+  animation: push 0.3s linear 1;
+}
+@keyframes push {
+  50% {
+    transform: scale(0.8);
   }
 }
 
