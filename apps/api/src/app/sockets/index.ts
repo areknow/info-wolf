@@ -1,6 +1,5 @@
 import { TimeSeries } from '@info-wolf/api-interfaces';
 import { wsMetrics } from '../../main';
-import { INTERVAL } from '../constants';
 import {
   generatePayload,
   getCpuUsage,
@@ -19,12 +18,12 @@ export const connectSocket = (timeSeriesData: TimeSeries) => {
 };
 
 /**
- * Using the interval (1 second), update the time series data arrays
+ * Using the interval, update the time series data arrays
  * using the scrollTimeSeriesArray helper and then serve the entire
- * payload periodically
+ * payload periodically.
  * @param timeSeriesData the time series data array references
  */
-export const updateSocket = (timeSeriesData: TimeSeries) => {
+export const updateSocket = (timeSeriesData: TimeSeries, interval: number) => {
   setInterval(async () => {
     // Get current time
     const currentTime = new Date().valueOf();
@@ -39,5 +38,5 @@ export const updateSocket = (timeSeriesData: TimeSeries) => {
     wsMetrics.clients.forEach(async (socket) => {
       socket.send(JSON.stringify(await generatePayload(timeSeriesData)));
     });
-  }, INTERVAL);
+  }, interval);
 };

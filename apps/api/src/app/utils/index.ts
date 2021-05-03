@@ -1,19 +1,19 @@
 import { TimeSeries, TimeSeriesPoint } from '@info-wolf/api-interfaces';
 import * as osu from 'node-os-utils';
 import * as os from 'os';
-import { INTERVAL, TEN_MINUTES } from '../constants';
+import { TEN_MINUTES } from '../constants';
 
 /**
  * Build a new array with blank data values and `null` date values going
- * backwards in time every second (INTERVAL) for 10 minutes (TEN_MINUTES).
+ * backwards in time every interval value for 10 minutes (TEN_MINUTES).
  * `null` is used in the TimeSeriesPoint because highcharts will ignore it
  * https://api.highcharts.com/highcharts/plotOptions.series.connectNulls
  * @returns array of null TimeSeriesPoint
  */
-export const initTimeSeriesArray = () => {
+export const initTimeSeriesArray = (interval: number) => {
   const data = [];
   for (let i = 0; i <= TEN_MINUTES; i++) {
-    data.push({ x: new Date().valueOf() - i * INTERVAL, y: null });
+    data.push({ x: new Date().valueOf() - i * interval, y: null });
   }
   return data.reverse();
 };
