@@ -17,7 +17,7 @@ const createSeries = (
         linearGradient: { x1: 0, x2: 0, y1: 1, y2: 0 },
         stops: [
           [0, colors.theme3],
-          [0.1, colors.theme4],
+          [0.5, colors.theme4],
         ],
       },
       type: 'areaspline',
