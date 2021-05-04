@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
+import { PlotBand } from '../../types';
 import { configureLegendSymbols } from './legend-symbol';
 import { Tooltip } from './tooltip';
 
@@ -14,7 +15,7 @@ window.configureLegendSymbols = configureLegendSymbols;
 
 interface TimeSeriesChartProps {
   series: Highcharts.SeriesOptionsType[];
-  bands?: { from: number; to: number; color: string }[];
+  bands?: PlotBand[];
   threshold: number;
 }
 

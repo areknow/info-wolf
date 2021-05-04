@@ -44,8 +44,8 @@
           transform: rotate(180deg);
         }
       }
-      &:last-child {
-        margin-left: 20px;
+      &:not(:last-child) {
+        margin-right: 10px;
       }
     }
     nav {

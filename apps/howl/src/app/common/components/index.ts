@@ -2,6 +2,7 @@
 
 export * from './bar-chart/bar-chart';
 export * from './card/card';
+export * from './drop-menu/drop-menu';
 export * from './gauge-chart/gauge-chart';
 export * from './global-nav/global-nav';
 export * from './info-group/info-group';

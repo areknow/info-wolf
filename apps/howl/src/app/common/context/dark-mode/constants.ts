@@ -17,7 +17,8 @@ const customProperties = (darkMode: boolean): { [key: string]: string } => {
   return {
     '--background-gradient': colors.backgroundGradient.join(', '),
     '--background-color': colors.background,
-    '--surface-color': colors.surface,
+    '--surface-1-color': colors.surface1,
+    '--surface-2-color': colors.surface2,
     '--text-color': colors.text,
     '--shadow-1': colors.shadow1,
     '--shadow-2': colors.shadow2,

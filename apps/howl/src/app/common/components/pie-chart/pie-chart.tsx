@@ -59,7 +59,7 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
       },
     },
     stroke: {
-      colors: [colors.surface],
+      colors: [colors.surface1],
     },
     colors: [colors.theme4, colors.theme3],
     labels,

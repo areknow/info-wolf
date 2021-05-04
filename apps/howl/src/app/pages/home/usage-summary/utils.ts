@@ -2,15 +2,18 @@ import {
   TimeSeriesPoint,
   UsageSummaryResponse,
 } from '@info-wolf/api-interfaces';
-import { DARK_THEME, LIGHT_THEME } from '../../../common/colors';
-import { Colors } from '../../../common/colors/types';
+import { Colors, PlotBand } from '../../../common/types';
 
+/**
+ * Create the two series with highcharts metadata for styling
+ * @param data The usage summary chart series data
+ * @param colors The active color scheme
+ * @returns Series in a highcharts format with extra styling settings
+ */
 export const createSeries = (
   data: UsageSummaryResponse,
-  darkMode: boolean
+  colors: Colors
 ): Highcharts.SeriesOptionsType[] => {
-  const colors = darkMode ? DARK_THEME : LIGHT_THEME;
-  // Create the two series with highcharts metadata for styling
   return [
     {
       color: {
@@ -48,7 +51,7 @@ export const calculateOverage = (
   duration: number,
   threshold: number,
   colors: Colors
-): { from: number; to: number; color: string }[] => {
+): PlotBand[] => {
   const bands = [];
   let counter = 0;
   let from = undefined;
@@ -85,4 +88,12 @@ export const calculateOverage = (
     }
   }
   return bands;
+};
+
+/**
+ * Returns true if there are any active bands
+ * @param bands
+ */
+export const checkForAlerts = (bands: PlotBand[]) => {
+  return bands.some((band) => band.to);
 };

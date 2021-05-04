@@ -11,7 +11,7 @@ interface TooltipProps {
 }
 
 const StyledTooltip = styled.div`
-  background-color: var(--background-color);
+  background-color: var(--surface-2-color);
   color: var(--text-color);
   padding: 10px;
   box-shadow: var(--shadow-2);

@@ -17,10 +17,7 @@ export interface WsPayload {
     memory: number;
     cpu: number;
   };
-  timeSeries: {
-    cpuUsageData: TimeSeriesPoint[];
-    freememPercentageData: TimeSeriesPoint[];
-  };
+  timeSeries: UsageSummaryResponse;
   statistics: {
     platform: string;
     cpuCount: number;

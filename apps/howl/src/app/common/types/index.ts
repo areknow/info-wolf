@@ -1,7 +1,8 @@
 export interface Colors {
   backgroundGradient: string[];
   background: string;
-  surface: string;
+  surface1: string;
+  surface2: string;
   text: string;
   chart: {
     border: string;
@@ -16,6 +17,13 @@ export interface Colors {
   theme3: string;
   theme4: string;
   theme5: string;
+  theme6: string;
   shadow1: string;
   shadow2: string;
+}
+
+export interface PlotBand {
+  from: number;
+  to: number;
+  color: string;
 }
