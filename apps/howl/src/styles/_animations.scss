@@ -1,0 +1,8 @@
+.push {
+  animation: push 0.2s linear 1 !important;
+}
+@keyframes push {
+  50% {
+    transform: scale(0.8);
+  }
+}

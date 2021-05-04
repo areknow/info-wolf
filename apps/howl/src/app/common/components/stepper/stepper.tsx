@@ -32,14 +32,6 @@ const StyledButton = styled.button<{ plus?: boolean }>`
   justify-content: center;
   position: relative;
   cursor: pointer;
-  :active {
-    animation: push 0.3s linear 1;
-  }
-  @keyframes push {
-    50% {
-      transform: scale(0.8);
-    }
-  }
   &:before,
   &:after {
     content: '';
