@@ -1,5 +1,6 @@
 /**
  * This is a common area for shared color variables
+ * The file is .tsx because it allows vscode to interact with the color picker
  */
 
 import { Colors } from '../types';
