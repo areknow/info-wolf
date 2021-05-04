@@ -14,187 +14,200 @@ window.configureLegendSymbols = configureLegendSymbols;
 
 interface TimeSeriesChartProps {
   series: Highcharts.SeriesOptionsType[];
+  bands?: { from: number; to: number; color: string }[];
+  threshold: number;
 }
 
-export const TimeSeriesChart = memo(({ series }: TimeSeriesChartProps) => {
-  const { dark } = useDarkModeContext();
-  const colors = dark ? DARK_THEME : LIGHT_THEME;
+export const TimeSeriesChart = memo(
+  ({ series, bands, threshold }: TimeSeriesChartProps) => {
+    const { dark } = useDarkModeContext();
+    const colors = dark ? DARK_THEME : LIGHT_THEME;
 
-  const options: Highcharts.Options = {
-    scrollbar: {
-      enabled: true,
-    },
-    chart: {
-      backgroundColor: 'transparent',
-      animation: false,
-      zoomType: 'x',
-      resetZoomButton: {
-        position: {
-          x: -1,
-          y: 4,
-        },
-        relativeTo: 'spacingBox',
-        theme: {
-          fill: colors.background,
-          stroke: colors.chart.border,
-          r: 0,
-          style: {
-            color: colors.chart.label,
+    const options: Highcharts.Options = {
+      scrollbar: {
+        enabled: true,
+      },
+      chart: {
+        backgroundColor: 'transparent',
+        animation: false,
+        zoomType: 'x',
+        resetZoomButton: {
+          position: {
+            x: -1,
+            y: 4,
           },
-          states: {
-            hover: {
-              fill: colors.chart.border,
+          relativeTo: 'spacingBox',
+          theme: {
+            fill: colors.background,
+            stroke: colors.chart.border,
+            r: 0,
+            style: {
+              color: colors.chart.label,
+            },
+            states: {
+              hover: {
+                fill: colors.chart.border,
+              },
             },
           },
         },
+        selectionMarkerFill: colors.chart.selection,
       },
-      selectionMarkerFill: colors.chart.selection,
-    },
-    time: {
-      useUTC: false,
-    },
-    credits: {
-      enabled: false,
-    },
-    title: {
-      floating: true,
-      align: 'left',
-      verticalAlign: 'bottom',
-      text: 'Draw a selection on the chart to zoom in',
-      y: 4,
-      x: 12,
-      style: {
-        color: colors.chart.label,
-        fontFamily: 'Montserrat',
-        fontSize: '10px',
-        fontWeight: 'bold',
+      time: {
+        useUTC: false,
       },
-    },
-    subtitle: {
-      text: null,
-    },
-    legend: {
-      align: 'right',
-      symbolHeight: 8,
-      symbolWidth: 8,
-      itemStyle: {
-        color: colors.chart.label,
-        fontFamily: 'Montserrat',
-        fontSize: '10px',
+      credits: {
+        enabled: false,
       },
-      itemHoverStyle: {
-        color: colors.chart.label,
-      },
-    },
-    yAxis: {
-      gridLineColor: colors.chart.border,
-      tickInterval: 30,
       title: {
+        floating: true,
+        align: 'left',
+        verticalAlign: 'bottom',
+        text: 'Draw a selection on the chart to zoom in',
+        y: 4,
+        x: 12,
+        style: {
+          color: colors.chart.label,
+          fontFamily: 'Montserrat',
+          fontSize: '10px',
+          fontWeight: 'bold',
+        },
+      },
+      subtitle: {
         text: null,
       },
-      labels: {
-        style: {
-          color: colors.chart.text,
+      legend: {
+        align: 'right',
+        symbolHeight: 8,
+        symbolWidth: 8,
+        itemStyle: {
+          color: colors.chart.label,
           fontFamily: 'Montserrat',
           fontSize: '10px',
         },
-        formatter() {
-          return `${this.value}%`;
+        itemHoverStyle: {
+          color: colors.chart.label,
         },
       },
-    },
-    xAxis: {
-      lineColor: colors.chart.border,
-      crosshair: {
-        width: 1,
-        color: colors.chart.border,
-        zIndex: 3,
-      },
-      type: 'datetime',
-      dateTimeLabelFormats: {
-        hour: '%l %p',
-        minute: '%l:%M %p',
-        second: '%l:%M:%S %p',
-      },
-      tickLength: 4,
-      tickColor: colors.chart.border,
-      labels: {
-        style: {
-          color: colors.chart.text,
-          fontSize: '10px',
-          fontFamily: 'Montserrat',
-        },
-      },
-    },
-    plotOptions: {
-      series: {
-        animation: false,
-        states: {
-          hover: {
-            enabled: false,
+      yAxis: {
+        plotLines: [
+          {
+            color: colors.chart.plotLine,
+            value: threshold,
+            width: 1,
+            zIndex: 5,
           },
-          inactive: {
-            enabled: false,
+        ],
+        gridLineColor: colors.chart.border,
+        tickInterval: 30,
+        title: {
+          text: null,
+        },
+        labels: {
+          style: {
+            color: colors.chart.text,
+            fontFamily: 'Montserrat',
+            fontSize: '10px',
+          },
+          formatter() {
+            return `${this.value}%`;
           },
         },
       },
-    },
-    tooltip: {
-      useHTML: true,
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-      borderRadius: 0,
-      shadow: false,
-      shape: 'square',
-      outside: true,
-      padding: 0,
-      style: {
-        opacity: 1,
+      xAxis: {
+        plotBands: bands,
+        lineColor: colors.chart.border,
+        crosshair: {
+          width: 1,
+          color: colors.chart.border,
+          zIndex: 3,
+        },
+        type: 'datetime',
+        dateTimeLabelFormats: {
+          hour: '%l %p',
+          minute: '%l:%M %p',
+          second: '%l:%M:%S %p',
+        },
+        tickLength: 4,
+        tickColor: colors.chart.border,
+        labels: {
+          style: {
+            color: colors.chart.text,
+            fontSize: '10px',
+            fontFamily: 'Montserrat',
+          },
+        },
       },
-      shared: true,
-      positioner(width, height, point) {
-        /**
-         * Change the default highcharts tooltip position
-         * settings to track only the x axis and stick to
-         * the bottom while centered on the tooltip width
-         */
-        return {
-          x: point.plotX + 102 - width / 2,
-          y: this.chart.chartHeight + height + 3,
-        };
-      },
-      formatter() {
-        /**
-         * Use renderToString() to render the JSX tooltip
-         * component into a usable string for highcharts.
-         */
-        return ReactDOMServer.renderToString(
-          <Tooltip points={this.points} date={this.x} />
-        );
-      },
-    },
-    responsive: {
-      rules: [
-        {
-          chartOptions: {
-            title: { text: '' },
-            tooltip: {
+      plotOptions: {
+        series: {
+          animation: false,
+          states: {
+            hover: {
               enabled: false,
             },
-            xAxis: {
-              crosshair: {width: 0}
-            }
+            inactive: {
+              enabled: false,
+            },
           },
-          condition: { maxWidth: 600 },
         },
-      ],
-    },
-    series,
-  };
+      },
+      tooltip: {
+        useHTML: true,
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+        borderRadius: 0,
+        shadow: false,
+        shape: 'square',
+        outside: true,
+        padding: 0,
+        style: {
+          opacity: 1,
+        },
+        shared: true,
+        positioner(width, height, point) {
+          /**
+           * Change the default highcharts tooltip position
+           * settings to track only the x axis and stick to
+           * the bottom while centered on the tooltip width
+           */
+          return {
+            x: point.plotX + 102 - width / 2,
+            y: this.chart.chartHeight + height + 3,
+          };
+        },
+        formatter() {
+          /**
+           * Use renderToString() to render the JSX tooltip
+           * component into a usable string for highcharts.
+           */
+          return ReactDOMServer.renderToString(
+            <Tooltip points={this.points} date={this.x} />
+          );
+        },
+      },
+      responsive: {
+        rules: [
+          {
+            chartOptions: {
+              title: { text: '' },
+              tooltip: {
+                enabled: false,
+              },
+              xAxis: {
+                crosshair: { width: 0 },
+              },
+            },
+            condition: { maxWidth: 600 },
+          },
+        ],
+      },
+      series,
+    };
 
-  return (
-    <div style={{ width: '100%', height: '100%' }}>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
-  );
-});
+    return (
+      <div style={{ width: '100%', height: '100%' }}>
+        <HighchartsReact highcharts={Highcharts} options={options} />
+      </div>
+    );
+  }
+);

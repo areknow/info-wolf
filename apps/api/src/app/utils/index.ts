@@ -12,7 +12,7 @@ import { TEN_MINUTES } from '../constants';
  */
 export const initTimeSeriesArray = (interval: number) => {
   const data = [];
-  for (let i = 0; i <= TEN_MINUTES; i++) {
+  for (let i = 0; i <= TEN_MINUTES - 1; i++) {
     data.push({ x: new Date().valueOf() - i * interval, y: null });
   }
   return data.reverse();

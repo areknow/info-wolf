@@ -2,15 +2,15 @@ import { UsageSummaryResponse } from '@info-wolf/api-interfaces';
 import Highcharts from 'highcharts';
 import { useEffect, useState } from 'react';
 import { DARK_THEME, LIGHT_THEME } from '../../../common/colors';
+import { Colors } from '../../../common/colors/types';
 import { Card, TimeSeriesChart } from '../../../common/components';
 import { useDarkModeContext, useWsContext } from '../../../common/context';
+import { calculateOverage } from './utils';
 
 const createSeries = (
   data: UsageSummaryResponse,
-  darkMode: boolean
+  colors: Colors
 ): Highcharts.SeriesOptionsType[] => {
-  const colors = darkMode ? DARK_THEME : LIGHT_THEME;
-
   return [
     {
       color: {
@@ -40,14 +40,26 @@ export const UsageSummary = () => {
   const [series, setSeries] = useState<Highcharts.SeriesOptionsType[]>([]);
   const { data } = useWsContext();
   const { dark } = useDarkModeContext();
+  const [bands, setBands] = useState([]);
+  const [duration, setDuration] = useState(30000);
+  const [threshold, setThreshold] = useState(6);
+  const colors = dark ? DARK_THEME : LIGHT_THEME;
 
   useEffect(() => {
-    setSeries(createSeries(data.timeSeries, dark));
-  }, [dark, data.timeSeries]);
+    setSeries(createSeries(data.timeSeries, colors));
+    setBands(
+      calculateOverage(
+        data.timeSeries.cpuUsageData,
+        duration,
+        threshold,
+        colors
+      )
+    );
+  }, [colors, data.timeSeries, duration, threshold]);
 
   return (
     <Card title="Usage over time">
-      <TimeSeriesChart series={series} />
+      <TimeSeriesChart series={series} bands={bands} threshold={threshold} />
     </Card>
   );
 };

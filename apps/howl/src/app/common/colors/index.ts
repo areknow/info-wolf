@@ -2,7 +2,9 @@
  * This is a common area for shared color variables
  */
 
-export const LIGHT_THEME = {
+import { Colors } from './types';
+
+export const LIGHT_THEME: Colors = {
   backgroundGradient: ['#fafafa', '#ececec'],
   background: '#fafafa',
   surface: '#FAFBFB',
@@ -12,6 +14,8 @@ export const LIGHT_THEME = {
     text: '#999999',
     label: '#5a5a5a',
     selection: 'rgba(1, 38, 91, 0.1)',
+    plotBand: 'hsla(342, 100%, 62%, 0.1)',
+    plotLine: 'hsla(342, 100%, 62%, 0.2)',
   },
   theme1: 'hsl(240, 46%, 37%)',
   theme2: 'hsl(239, 82%, 65%)',
@@ -24,7 +28,7 @@ export const LIGHT_THEME = {
     'rgba(1, 38, 91, 0.2) 0px 0px 4px 0px, rgba(1, 38, 91, 0.2) 0px 2px 8px 0px',
 };
 
-export const DARK_THEME = {
+export const DARK_THEME: Colors = {
   backgroundGradient: ['#1c2138', '#131625'],
   background: '#1c2138',
   surface: '#282c47',
@@ -34,6 +38,8 @@ export const DARK_THEME = {
     text: '#6c7291',
     label: '#939ab9',
     selection: 'rgba(0, 0, 0, 0.1)',
+    plotBand: 'hsla(342, 100%, 52%, 0.1)',
+    plotLine: 'hsla(342, 100%, 52%, 0.2)',
   },
   theme1: 'hsl(240, 46%, 27%)',
   theme2: 'hsl(239, 82%, 55%)',
