@@ -2,7 +2,12 @@ import Highcharts from 'highcharts';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DARK_THEME, LIGHT_THEME } from '../../../common/colors';
-import { Card, DropMenu, TimeSeriesChart } from '../../../common/components';
+import {
+  Card,
+  DropMenu,
+  Stepper,
+  TimeSeriesChart,
+} from '../../../common/components';
 import { useDarkModeContext, useWsContext } from '../../../common/context';
 import { calculateOverage, checkForAlerts, createSeries } from './utils';
 
@@ -26,6 +31,12 @@ const StyledMoreIcon = styled.i`
     top: 7px;
     left: 7px;
     box-shadow: 0 -4px 0, 0 4px 0;
+  }
+`;
+
+const StyledSteppers = styled.div`
+  > *:first-child {
+    margin-bottom: 20px;
   }
 `;
 
@@ -88,17 +99,22 @@ export const UsageSummary = () => {
               setConfigOpen(!configOpen);
             }}
           >
-            <input
-              value={duration}
-              type="number"
-              step={1000}
-              onChange={(event) => setDuration(Number(event.target.value))}
-            />
-            <input
-              value={threshold}
-              type="number"
-              onChange={(event) => setThreshold(Number(event.target.value))}
-            />
+            <StyledSteppers>
+              <Stepper
+                label="Duration"
+                value={duration}
+                step={1000}
+                type="time"
+                onChange={(value) => setDuration(value)}
+              />
+              <Stepper
+                label="Threshold"
+                value={threshold}
+                step={1}
+                type="percent"
+                onChange={(value) => setThreshold(value)}
+              />
+            </StyledSteppers>
           </DropMenu>
         </StyledActions>
       }

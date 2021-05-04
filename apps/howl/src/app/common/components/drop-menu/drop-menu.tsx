@@ -11,10 +11,11 @@ interface DropMenuProps {
 const StyledDropMenu = styled.div`
   position: relative;
   z-index: 1;
-  button {
-    all: unset;
-    cursor: pointer;
-  }
+`;
+
+const StyledButton = styled.button`
+  all: unset;
+  cursor: pointer;
 `;
 
 const StyledTooltip = styled.div`
@@ -24,7 +25,6 @@ const StyledTooltip = styled.div`
   background-color: var(--surface-2-color);
   top: 30px;
   right: -5px;
-  width: 200px;
   z-index: unset;
   &:before,
   &:after {
@@ -52,7 +52,7 @@ export const DropMenu = ({
 }: DropMenuProps) => {
   return (
     <StyledDropMenu>
-      <button onClick={() => onTriggerClick()}>{icon}</button>
+      <StyledButton onClick={() => onTriggerClick()}>{icon}</StyledButton>
       {show && <StyledTooltip>{children}</StyledTooltip>}
     </StyledDropMenu>
   );

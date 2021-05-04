@@ -8,4 +8,5 @@ export * from './global-nav/global-nav';
 export * from './info-group/info-group';
 export * from './loader/loader';
 export * from './pie-chart/pie-chart';
+export * from './stepper/stepper';
 export * from './time-series-chart/time-series-chart';
