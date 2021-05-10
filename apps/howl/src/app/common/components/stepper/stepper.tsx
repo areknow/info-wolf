@@ -5,6 +5,7 @@ interface StepperProps {
   label: string;
   value: number;
   step: number;
+  minimum: number;
   type: 'time' | 'percent';
   onChange: (value: number) => void;
 }
@@ -18,7 +19,7 @@ const StyledContent = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  min-width: 110px;
+  min-width: 120px;
 `;
 
 const StyledButton = styled.button<{ plus?: boolean }>`
@@ -60,6 +61,7 @@ const StyledButton = styled.button<{ plus?: boolean }>`
 
 const StyledValue = styled.div`
   font-weight: bold;
+  font-family: 'Roboto Mono', monospace;
 `;
 
 export const Stepper = ({
@@ -67,6 +69,7 @@ export const Stepper = ({
   value,
   step,
   type,
+  minimum,
   onChange,
 }: StepperProps) => {
   return (
@@ -74,12 +77,13 @@ export const Stepper = ({
       <StyledLabel>{label}</StyledLabel>
       <StyledContent>
         <StyledButton
-          onClick={() => onChange(value > 0 ? value - 1 * step : value)}
+          onClick={() => onChange(value === minimum ? value : value - 1 * step)}
         ></StyledButton>
         <StyledValue>
           {type === 'time' ? (
             humanizeDuration(value, {
               largest: 2,
+              spacer: '',
               delimiter: ', ',
               language: 'shortEn',
               languages: {

@@ -120,6 +120,7 @@ export const UsageSummary = () => {
                 label="Duration"
                 value={duration}
                 step={10000}
+                minimum={10000}
                 type="time"
                 onChange={(value) => setDuration(value)}
               />
@@ -127,6 +128,7 @@ export const UsageSummary = () => {
                 label="Threshold"
                 value={threshold}
                 step={5}
+                minimum={10}
                 type="percent"
                 onChange={(value) => setThreshold(value)}
               />
