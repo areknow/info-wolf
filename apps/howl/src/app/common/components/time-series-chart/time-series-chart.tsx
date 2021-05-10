@@ -3,6 +3,7 @@ import HighchartsReact from 'highcharts-react-official';
 import React, { memo, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { DARK_THEME, LIGHT_THEME } from '../../colors';
+import { CPU_SERIES_NAME } from '../../constants';
 import { useDarkModeContext } from '../../context';
 import { PlotBand } from '../../types';
 import { configureLegendSymbols } from './legend-symbol';
@@ -21,7 +22,7 @@ interface TimeSeriesChartProps {
 
 export const TimeSeriesChart = memo(
   ({ series, bands, threshold }: TimeSeriesChartProps) => {
-    const [bandsVisible, setBandsVisible] = useState(true);
+    const [cpuLineVisible, setCpuLineVisible] = useState(true);
     const { dark } = useDarkModeContext();
     const colors = dark ? DARK_THEME : LIGHT_THEME;
 
@@ -94,8 +95,9 @@ export const TimeSeriesChart = memo(
       yAxis: {
         plotLines: [
           {
+            // Plot line visibility should match the cpu series
+            value: cpuLineVisible ? threshold : null,
             color: colors.chart.plotLine,
-            value: threshold,
             width: 1,
             zIndex: 5,
           },
@@ -117,8 +119,8 @@ export const TimeSeriesChart = memo(
         },
       },
       xAxis: {
-        // Plot bands visibility should match the series
-        plotBands: bandsVisible ? bands : null,
+        // Plot bands visibility should match the cpu series
+        plotBands: cpuLineVisible ? bands : null,
         lineColor: colors.chart.border,
         crosshair: {
           width: 1,
@@ -155,13 +157,13 @@ export const TimeSeriesChart = memo(
           events: {
             /**
              * When toggling the visibility of the CPU series,
-             * the plot bands should also toggle along with it
+             * the plot bands/line should toggle along with it
              */
             legendItemClick() {
               // Check the name of the legend item that is clicked
-              if (this.name === 'CPU usage') {
-                // Toggle the visibility of the plot bands
-                setBandsVisible(!this.visible);
+              if (this.name === CPU_SERIES_NAME) {
+                // Toggle the visibility of the plot bands/line
+                setCpuLineVisible(!this.visible);
               }
             },
           },
@@ -184,11 +186,11 @@ export const TimeSeriesChart = memo(
           /**
            * Change the default highcharts tooltip position
            * settings to track only the x axis and stick to
-           * the bottom while centered on the tooltip width
+           * the bottom while centered on the tooltip width.
            */
           return {
             x: point.plotX + 102 - width / 2,
-            y: this.chart.chartHeight + height + 3,
+            y: this.chart.chartHeight + height + 1,
           };
         },
         formatter() {

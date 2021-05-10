@@ -2,6 +2,7 @@ import {
   TimeSeriesPoint,
   UsageSummaryResponse,
 } from '@info-wolf/api-interfaces';
+import { CPU_SERIES_NAME } from '../../../common/constants';
 import { Colors, PlotBand } from '../../../common/types';
 
 /**
@@ -32,7 +33,7 @@ export const createSeries = (
         ],
       },
       type: 'areaspline',
-      name: 'CPU usage',
+      name: CPU_SERIES_NAME,
       lineWidth: 1,
       data: data.cpuUsageData,
       marker: { symbol: 'circle', radius: 10, fillColor: colors.theme4 },
