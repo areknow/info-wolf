@@ -47,7 +47,7 @@ const StyledOverlay = styled.div<{ colors: Colors }>`
   right: 0;
   z-index: 1;
   border-radius: 3px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
 `;
 
 const StyledContent = styled.div`
