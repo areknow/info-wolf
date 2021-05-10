@@ -18,7 +18,7 @@ export const GaugeChart = memo(
 
     const options: ApexCharts.ApexOptions = {
       chart: {
-        fontFamily: 'Montserrat',
+        fontFamily: 'Roboto Mono',
       },
       plotOptions: {
         radialBar: {
@@ -64,6 +64,7 @@ export const GaugeChart = memo(
         floating: true,
         offsetY: 120,
         style: {
+          fontFamily: 'Montserrat',
           fontSize: '10px',
           color: colors.chart.text,
         },

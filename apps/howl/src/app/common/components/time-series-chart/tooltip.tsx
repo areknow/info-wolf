@@ -17,25 +17,37 @@ const StyledTooltip = styled.div`
   box-shadow: var(--shadow-2);
   font-family: 'Montserrat', sans-serif;
   span {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
+    font-family: 'Roboto Mono', monospace;
   }
-  div {
-    font-size: 10px;
-    padding: 2px 0;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      font-size: 10px;
+      padding: 2px 0;
+    }
   }
+`;
+
+const StyledTitle = styled.div`
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: 'Roboto Mono', monospace;
 `;
 
 export const Tooltip = memo(({ points, date }: TooltipProps) => {
   return (
     <StyledTooltip>
-      <span>{format(date, DATE_FORMAT)}</span>
-      {points.map((point, key) => (
-        <div key={key}>
-          {point.series.name}: {point.y}%
-        </div>
-      ))}
+      <StyledTitle>{format(date, DATE_FORMAT)}</StyledTitle>
+      <ul>
+        {points.map((point, key) => (
+          <li key={key}>
+            {point.series.name}: <span>{point.y}%</span>
+          </li>
+        ))}
+      </ul>
     </StyledTooltip>
   );
 });

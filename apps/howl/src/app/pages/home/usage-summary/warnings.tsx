@@ -17,7 +17,7 @@ const StyledWarnings = styled.div`
     font-size: 10px;
   }
   ul {
-    font-family: monospace;
+    font-family: 'Roboto Mono', monospace;
     list-style: none;
     margin: 10px 0 20px 0;
     padding: 0;

@@ -14,7 +14,7 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
 
   const options: ApexCharts.ApexOptions = {
     chart: {
-      fontFamily: 'Montserrat',
+      fontFamily: 'Roboto Mono',
       animations: {
         enabled: false,
         dynamicAnimation: {
@@ -52,6 +52,7 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
         width: 8,
         height: 8,
       },
+      fontFamily: 'Montserrat',
       fontWeight: 'bold',
       fontSize: '10px',
       labels: {

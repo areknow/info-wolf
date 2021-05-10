@@ -55,6 +55,7 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
       tickAmount: 3,
       labels: {
         style: {
+          fontFamily: 'Roboto Mono',
           colors: colors.chart.text,
           fontSize: '10px',
         },

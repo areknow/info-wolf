@@ -107,7 +107,7 @@ export const TimeSeriesChart = memo(
         labels: {
           style: {
             color: colors.chart.text,
-            fontFamily: 'Montserrat',
+            fontFamily: 'Roboto Mono',
             fontSize: '10px',
           },
           formatter() {
@@ -135,7 +135,7 @@ export const TimeSeriesChart = memo(
           style: {
             color: colors.chart.text,
             fontSize: '10px',
-            fontFamily: 'Montserrat',
+            fontFamily: 'Roboto Mono',
           },
         },
       },
