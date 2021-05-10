@@ -73,7 +73,9 @@ export const Stepper = ({
     <div>
       <StyledLabel>{label}</StyledLabel>
       <StyledContent>
-        <StyledButton onClick={() => onChange(value - 1 * step)}></StyledButton>
+        <StyledButton
+          onClick={() => onChange(value > 0 ? value - 1 * step : value)}
+        ></StyledButton>
         <StyledValue>
           {type === 'time' ? (
             humanizeDuration(value, {
