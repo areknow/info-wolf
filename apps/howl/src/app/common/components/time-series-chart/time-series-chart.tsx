@@ -1,6 +1,6 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
@@ -21,6 +21,7 @@ interface TimeSeriesChartProps {
 
 export const TimeSeriesChart = memo(
   ({ series, bands, threshold }: TimeSeriesChartProps) => {
+    const [bandsVisible, setBandsVisible] = useState(true);
     const { dark } = useDarkModeContext();
     const colors = dark ? DARK_THEME : LIGHT_THEME;
 
@@ -116,7 +117,8 @@ export const TimeSeriesChart = memo(
         },
       },
       xAxis: {
-        plotBands: bands,
+        // Plot bands visibility should match the series
+        plotBands: bandsVisible ? bands : null,
         lineColor: colors.chart.border,
         crosshair: {
           width: 1,
@@ -148,6 +150,19 @@ export const TimeSeriesChart = memo(
             },
             inactive: {
               enabled: false,
+            },
+          },
+          events: {
+            /**
+             * When toggling the visibility of the CPU series,
+             * the plot bands should also toggle along with it
+             */
+            legendItemClick() {
+              // Check the name of the legend item that is clicked
+              if (this.name === 'CPU usage') {
+                // Toggle the visibility of the plot bands
+                setBandsVisible(!this.visible);
+              }
             },
           },
         },
