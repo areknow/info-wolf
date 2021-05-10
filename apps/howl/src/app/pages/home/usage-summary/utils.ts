@@ -5,7 +5,8 @@ import {
 import { Colors, PlotBand } from '../../../common/types';
 
 /**
- * Create the two series with highcharts metadata for styling
+ * Create the two series with highcharts metadata for styling, and
+ * a third series for the threshold plot line
  * @param data The usage summary chart series data
  * @param colors The active color scheme
  * @returns Series in a highcharts format with extra styling settings
@@ -15,6 +16,13 @@ export const createSeries = (
   colors: Colors
 ): Highcharts.SeriesOptionsType[] => {
   return [
+    {
+      color: colors.theme5,
+      type: 'line',
+      name: 'Memory usage',
+      data: data.freememPercentageData,
+      marker: { symbol: 'circle', radius: 10, fillColor: colors.theme5 },
+    },
     {
       color: {
         linearGradient: { x1: 0, x2: 0, y1: 1, y2: 0 },
@@ -30,11 +38,9 @@ export const createSeries = (
       marker: { symbol: 'circle', radius: 10, fillColor: colors.theme4 },
     },
     {
-      color: colors.theme5,
+      color: colors.theme6,
       type: 'line',
-      name: 'Memory usage',
-      data: data.freememPercentageData,
-      marker: { symbol: 'circle', radius: 10, fillColor: colors.theme5 },
+      name: 'CPU Threshold',
     },
   ];
 };
@@ -101,8 +107,8 @@ export const checkForAlerts = (bands: PlotBand[]) => {
 
 /**
  * Store the historical time range of the terminated bands
- * @param activeBands the current active plot bands used in the chart
- * @param historicalBands
+ * @param activeBands The current active plot bands used in the chart
+ * @param historicalBands The array used to store the historical data
  * @returns
  */
 export const recordHistoricalOverage = (
