@@ -9,7 +9,18 @@ import {
   TimeSeriesChart,
 } from '../../../common/components';
 import { useDarkModeContext, useWsContext } from '../../../common/context';
-import { calculateOverage, checkForAlerts, createSeries } from './utils';
+import {
+  HISTORICAL_BANDS,
+  VIOLATION_DURATION,
+  VIOLATION_THRESHOLD,
+} from './constants';
+import {
+  calculateOverage,
+  checkForAlerts,
+  createSeries,
+  recordHistoricalOverage,
+} from './utils';
+import { Warnings } from './warnings';
 
 const StyledActions = styled.div`
   display: flex;
@@ -44,10 +55,11 @@ export const UsageSummary = () => {
   const { data } = useWsContext();
   const [series, setSeries] = useState<Highcharts.SeriesOptionsType[]>([]);
   const [bands, setBands] = useState([]);
-  const [duration, setDuration] = useState(30000);
-  const [threshold, setThreshold] = useState(6);
+  const [duration, setDuration] = useState(VIOLATION_DURATION);
+  const [threshold, setThreshold] = useState(VIOLATION_THRESHOLD);
   const [configOpen, setConfigOpen] = useState(false);
   const [warningsOpen, setWarningsOpen] = useState(false);
+  const [recovered, setRecovered] = useState([]);
 
   const { dark } = useDarkModeContext();
   const colors = dark ? DARK_THEME : LIGHT_THEME;
@@ -63,6 +75,10 @@ export const UsageSummary = () => {
       )
     );
   }, [colors, data.timeSeries, duration, threshold]);
+
+  useEffect(() => {
+    setRecovered(recordHistoricalOverage(bands, HISTORICAL_BANDS));
+  }, [bands]);
 
   return (
     <Card
@@ -88,7 +104,7 @@ export const UsageSummary = () => {
                 setWarningsOpen(!warningsOpen);
               }}
             >
-              warnings
+              <Warnings bands={bands} recovered={recovered} />
             </DropMenu>
           )}
           <DropMenu
@@ -103,14 +119,14 @@ export const UsageSummary = () => {
               <Stepper
                 label="Duration"
                 value={duration}
-                step={1000}
+                step={10000}
                 type="time"
                 onChange={(value) => setDuration(value)}
               />
               <Stepper
                 label="Threshold"
                 value={threshold}
-                step={1}
+                step={5}
                 type="percent"
                 onChange={(value) => setThreshold(value)}
               />

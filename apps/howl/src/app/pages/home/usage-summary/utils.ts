@@ -87,7 +87,8 @@ export const calculateOverage = (
       counter = 0;
     }
   }
-  return bands;
+  // Only return bands that have a defined end
+  return bands.filter((band) => band.to);
 };
 
 /**
@@ -96,4 +97,33 @@ export const calculateOverage = (
  */
 export const checkForAlerts = (bands: PlotBand[]) => {
   return bands.some((band) => band.to);
+};
+
+/**
+ * Store the historical time range of the terminated bands
+ * @param activeBands the current active plot bands used in the chart
+ * @param historicalBands
+ * @returns
+ */
+export const recordHistoricalOverage = (
+  activeBands: PlotBand[],
+  historicalBands: PlotBand[]
+) => {
+  for (const active of activeBands) {
+    // It is necessary to check if one of the active bands is still currently in overage.
+    // Giving the band 2.5 seconds to terminate as a buffer ensures that the recovered
+    // bands list does not include any non terminated bands.
+    if (new Date().valueOf() - active.to > 2500) {
+      // Check if historical bands has a matching entry, if not; push it
+      if (
+        historicalBands.every(
+          (historical) =>
+            historical.to !== active.to && historical.from !== active.from
+        )
+      ) {
+        historicalBands.push(active);
+      }
+    }
+  }
+  return historicalBands;
 };
