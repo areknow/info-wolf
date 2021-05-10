@@ -32,7 +32,7 @@ export const GaugeChart = memo(
             value: {
               offsetY: -10,
               formatter: function (val) {
-                return `${val}%`;
+                return `${val.toFixed(2).padStart(5, '0')}%`;
               },
               color: colors.chart.label,
               fontSize: '28px',
