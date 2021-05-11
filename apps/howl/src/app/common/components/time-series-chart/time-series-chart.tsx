@@ -6,22 +6,26 @@ import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { CPU_SERIES_NAME } from '../../constants';
 import { useDarkModeContext } from '../../context';
 import { PlotBand } from '../../types';
+import { hideResetZoomButton } from './hide-reset-zoom';
 import { configureLegendSymbols } from './legend-symbol';
 import { Tooltip } from './tooltip';
 
 declare const window: Window & {
   configureLegendSymbols: typeof configureLegendSymbols;
+  hideResetZoomButton: typeof hideResetZoomButton;
 };
 window.configureLegendSymbols = configureLegendSymbols;
+window.hideResetZoomButton = hideResetZoomButton;
 
 interface TimeSeriesChartProps {
   series: Highcharts.SeriesOptionsType[];
   bands?: PlotBand[];
   threshold: number;
+  onZoom: () => void;
 }
 
 export const TimeSeriesChart = memo(
-  ({ series, bands, threshold }: TimeSeriesChartProps) => {
+  ({ series, bands, threshold, onZoom }: TimeSeriesChartProps) => {
     const [cpuLineVisible, setCpuLineVisible] = useState(true);
     const { dark } = useDarkModeContext();
     const colors = dark ? DARK_THEME : LIGHT_THEME;
@@ -34,27 +38,18 @@ export const TimeSeriesChart = memo(
         backgroundColor: 'transparent',
         animation: false,
         zoomType: 'x',
-        resetZoomButton: {
-          position: {
-            x: -1,
-            y: 4,
-          },
-          relativeTo: 'spacingBox',
-          theme: {
-            fill: colors.background,
-            stroke: colors.chart.border,
-            r: 0,
-            style: {
-              color: colors.chart.label,
-            },
-            states: {
-              hover: {
-                fill: colors.chart.border,
-              },
-            },
+        selectionMarkerFill: colors.chart.selection,
+        events: {
+          /**
+           * Since a custom zoom button is used, the
+           * selection event needs to be captured
+           * and sent back to the parent component.
+           */
+          selection() {
+            onZoom();
+            return true;
           },
         },
-        selectionMarkerFill: colors.chart.selection,
       },
       time: {
         useUTC: false,
@@ -207,6 +202,7 @@ export const TimeSeriesChart = memo(
         rules: [
           {
             chartOptions: {
+              // Hide various elements on mobile
               title: { text: '' },
               tooltip: {
                 enabled: false,

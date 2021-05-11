@@ -16,6 +16,8 @@ const StyledDropMenu = styled.div`
 const StyledButton = styled.button`
   all: unset;
   cursor: pointer;
+  height: 24px;
+  width: 24px;
 `;
 
 const StyledTooltip = styled.div`

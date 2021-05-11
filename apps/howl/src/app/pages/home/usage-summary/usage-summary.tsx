@@ -24,6 +24,7 @@ import { Warnings } from './warnings';
 
 const StyledActions = styled.div`
   display: flex;
+  align-items: center;
   > *:not(:last-child) {
     margin-right: 10px;
   }
@@ -31,23 +32,27 @@ const StyledActions = styled.div`
 
 const StyledWarningIcon = styled.i<{ color: string }>`
   color: ${({ color }) => color};
+  top: -1px;
 `;
 
 const StyledMoreIcon = styled.i`
-  width: 20px;
-  height: 20px;
-  &:before {
-    width: 2px;
-    height: 2px;
-    top: 7px;
-    left: 7px;
-    box-shadow: 0 -4px 0, 0 4px 0;
-  }
+  --ggs: 0.85;
 `;
 
 const StyledSteppers = styled.div`
   > *:first-child {
     margin-bottom: 20px;
+  }
+`;
+
+const StyledZoomButton = styled.button`
+  all: unset;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+  z-index: 1;
+  i {
+    top: -2px;
   }
 `;
 
@@ -60,6 +65,7 @@ export const UsageSummary = () => {
   const [configOpen, setConfigOpen] = useState(false);
   const [warningsOpen, setWarningsOpen] = useState(false);
   const [recovered, setRecovered] = useState([]);
+  const [chartZoomed, setChartZoomed] = useState(false);
 
   const { dark } = useDarkModeContext();
   const colors = dark ? DARK_THEME : LIGHT_THEME;
@@ -90,6 +96,16 @@ export const UsageSummary = () => {
       }}
       actions={
         <StyledActions>
+          {chartZoomed && (
+            <StyledZoomButton
+              onClick={() => {
+                Highcharts.charts[0].zoomOut();
+                setChartZoomed(false);
+              }}
+            >
+              <i className="gg-zoom-out" />
+            </StyledZoomButton>
+          )}
           {checkForAlerts(bands) && (
             <DropMenu
               show={warningsOpen}
@@ -137,7 +153,12 @@ export const UsageSummary = () => {
         </StyledActions>
       }
     >
-      <TimeSeriesChart series={series} bands={bands} threshold={threshold} />
+      <TimeSeriesChart
+        series={series}
+        bands={bands}
+        threshold={threshold}
+        onZoom={() => setChartZoomed(!chartZoomed)}
+      />
     </Card>
   );
 };
