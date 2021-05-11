@@ -9,6 +9,7 @@
     "build": "nx build api --prod",
     "build-howl": "nx build howl --prod",
     "test": "nx test",
+    "test-all": "nx run-many --all --target=test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
     "affected:apps": "nx affected:apps",
