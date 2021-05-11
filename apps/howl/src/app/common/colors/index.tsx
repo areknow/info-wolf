@@ -8,7 +8,7 @@ import { Colors } from '../types';
 export const LIGHT_THEME: Colors = {
   backgroundGradient: ['#fafafa', '#ececec'],
   background: '#fafafa',
-  surface1: '#FAFBFB',
+  surface1: '#F8F8F8',
   surface2: '#ffffff',
   text: 'hsl(229, 33%, 15%)',
   chart: {
@@ -33,9 +33,9 @@ export const LIGHT_THEME: Colors = {
 
 export const DARK_THEME: Colors = {
   backgroundGradient: ['#1c2138', '#131625'],
-  background: 'hsl(229, 33%, 15%)',
-  surface1: 'hsl(229, 33%, 25%)',
-  surface2: 'hsl(229, 33%, 30%)',
+  background: '#1c2138',
+  surface1: '#1F253F',
+  surface2: '#2B3255',
   text: '#ffffff',
   chart: {
     border: '#404661',
