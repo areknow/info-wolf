@@ -23,6 +23,7 @@ export const createSeries = (
       name: 'Memory usage',
       data: data.freememPercentageData,
       marker: { symbol: 'circle', radius: 10, fillColor: colors.theme5 },
+      zIndex: 1,
     },
     {
       color: {
@@ -37,11 +38,13 @@ export const createSeries = (
       lineWidth: 1,
       data: data.cpuUsageData,
       marker: { symbol: 'circle', radius: 10, fillColor: colors.theme4 },
+      zIndex: 0,
     },
     {
       color: colors.theme6,
       type: 'line',
-      name: 'CPU Threshold',
+      name: 'CPU threshold',
+      zIndex: 2,
     },
   ];
 };
