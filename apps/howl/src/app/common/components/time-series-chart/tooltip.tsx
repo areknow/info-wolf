@@ -17,9 +17,6 @@ const StyledTooltip = styled.div`
   padding: 10px;
   box-shadow: var(--shadow-2);
   font-family: 'Montserrat', sans-serif;
-  span {
-    font-family: 'Roboto Mono', monospace;
-  }
   ul {
     list-style: none;
     margin: 0;
@@ -38,6 +35,20 @@ const StyledTitle = styled.div`
   font-family: 'Roboto Mono', monospace;
 `;
 
+const StyledKeyValue = styled.div`
+  width: 150px;
+  display: flex;
+  span {
+    flex-grow: 1;
+    border-bottom: 1px dotted var(--text-color);
+    opacity: 0.2;
+  }
+`;
+
+const StyledKeyValueValue = styled.div`
+  font-family: 'Roboto Mono', monospace;
+`;
+
 export const Tooltip = memo(({ points, date }: TooltipProps) => {
   return (
     <StyledTooltip>
@@ -45,7 +56,13 @@ export const Tooltip = memo(({ points, date }: TooltipProps) => {
       <ul>
         {points.map((point, key) => (
           <li key={key}>
-            {point.series.name}: <span>{point.y}%</span>
+            <StyledKeyValue>
+              <div>{point.series.name}</div>
+              <span></span>
+              <StyledKeyValueValue>
+                {point.y.toFixed(2).padStart(5, '0')}%
+              </StyledKeyValueValue>
+            </StyledKeyValue>
           </li>
         ))}
       </ul>
