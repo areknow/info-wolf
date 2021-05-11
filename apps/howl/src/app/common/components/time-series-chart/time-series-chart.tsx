@@ -185,7 +185,7 @@ export const TimeSeriesChart = memo(
            */
           return {
             x: point.plotX + 102 - width / 2,
-            y: this.chart.chartHeight + height + 1,
+            y: this.chart.chartHeight + height - 5,
           };
         },
         formatter() {

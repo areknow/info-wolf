@@ -21,6 +21,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledTooltip = styled.div`
+  border-radius: 3px;
   position: absolute;
   padding: 10px;
   box-shadow: var(--shadow-2);

@@ -11,6 +11,7 @@ interface TooltipProps {
 }
 
 const StyledTooltip = styled.div`
+  border-radius: 3px;
   background-color: var(--surface-2-color);
   color: var(--text-color);
   padding: 10px;

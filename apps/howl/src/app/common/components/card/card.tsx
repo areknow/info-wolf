@@ -22,7 +22,7 @@ const StyledCard = styled.div<{ overlayOpen: boolean }>`
   position: relative;
   min-height: 100px;
   border-radius: 3px;
-  padding: 30px;
+  padding: 24px 30px;
   background-color: var(--surface-1-color);
   box-shadow: var(--shadow-1);
   h3 {
