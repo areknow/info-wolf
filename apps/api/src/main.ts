@@ -14,14 +14,12 @@ server.on('error', console.error);
 
 export const wsMetrics = new ws.Server({ server: server, path: '/ws/metrics' });
 
-let interval = INTERVAL;
-
 /**
  * Initialize the time series arrays used to store chart data over time
  */
 const timeSeriesData = {
-  cpu: initTimeSeriesArray(interval),
-  memory: initTimeSeriesArray(interval),
+  cpu: initTimeSeriesArray(INTERVAL),
+  memory: initTimeSeriesArray(INTERVAL),
 };
 
 /**
@@ -29,25 +27,8 @@ const timeSeriesData = {
  * to the time series data arrays
  */
 connectSocket(timeSeriesData);
+
 /**
  * Update the client socket payload
  */
-updateSocket(timeSeriesData, interval);
-
-/**
- * Basic health check route returns process uptime
- */
-app.get('/api/uptime', (req, res) => {
-  res.send({
-    uptime: `${process.uptime()}`,
-    refreshInterval: interval,
-  });
-});
-
-/**
- * Endpoint to modify refresh interval value
- */
-app.post('/api/interval', (req, res) => {
-  interval = req.body.refreshInterval;
-  res.send(`Interval set to ${interval} milliseconds.`);
-});
+updateSocket(timeSeriesData, INTERVAL);

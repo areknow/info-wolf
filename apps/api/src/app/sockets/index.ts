@@ -36,7 +36,10 @@ export const updateSocket = (timeSeriesData: TimeSeries, interval: number) => {
     );
     // push updated data to client
     wsMetrics.clients.forEach(async (socket) => {
+      // TODO: send error?
       socket.send(JSON.stringify(await generatePayload(timeSeriesData)));
     });
   }, interval);
 };
+
+// TODO: close socket event?
