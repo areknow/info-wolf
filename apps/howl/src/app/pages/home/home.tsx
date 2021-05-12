@@ -3,7 +3,7 @@ import { useWsContext } from '../../common/context';
 import { Cpu } from './cpu';
 import styles from './home.module.scss';
 import { Load } from './load';
-import { MemoryLoad } from './memory';
+import { Memory } from './memory';
 import { SystemStatistics } from './system-statistics';
 import { UsageSummary } from './usage-summary';
 
@@ -19,7 +19,7 @@ export const Home = () => {
         <Load />
         <SystemStatistics />
         <Cpu />
-        <MemoryLoad />
+        <Memory />
       </div>
     );
   }

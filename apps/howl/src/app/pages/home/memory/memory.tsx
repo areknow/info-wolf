@@ -1,7 +1,7 @@
 import { Card, PieChart } from '../../../common/components';
 import { useWsContext } from '../../../common/context';
 
-export const MemoryLoad = () => {
+export const Memory = () => {
   const { data } = useWsContext();
 
   return (
