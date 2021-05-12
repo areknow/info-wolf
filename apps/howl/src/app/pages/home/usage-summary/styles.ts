@@ -30,4 +30,7 @@ export const StyledZoomButton = styled.button`
   z-index: 1;
   justify-content: center;
   align-items: center;
+  i {
+    right: -3px;
+  }
 `;
