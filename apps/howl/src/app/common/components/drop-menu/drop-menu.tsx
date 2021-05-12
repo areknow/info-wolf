@@ -1,10 +1,14 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface DropMenuProps {
+  /** Whether or not the drop menu is visible or hidden. */
   show: boolean;
+  /** The icon in the drop menu button. */
   icon: ReactNode;
+  /** The content of the drop menu. */
   children: ReactNode;
+  /** The event fired when the drop menu button is clicked. */
   onTriggerClick: () => void;
 }
 
@@ -32,6 +36,13 @@ const StyledTooltip = styled.div`
   top: 32px;
   right: -3px;
   z-index: unset;
+  // Using a :before and :after approach to
+  // styling the tooltip triangle indicator.
+  // This is necessary since there is a shadow
+  // on the drop menu and on the triangle.
+  // z index stack 0: triangle with shadow
+  // z index stack 1: drop menu with shadow
+  // z index stack 2: triangle with no shadow
   &:before,
   &:after {
     content: '';
@@ -50,16 +61,13 @@ const StyledTooltip = styled.div`
   }
 `;
 
-export const DropMenu = ({
-  show,
-  icon,
-  children,
-  onTriggerClick,
-}: DropMenuProps) => {
-  return (
-    <StyledDropMenu>
-      <StyledButton onClick={() => onTriggerClick()}>{icon}</StyledButton>
-      {show && <StyledTooltip>{children}</StyledTooltip>}
-    </StyledDropMenu>
-  );
-};
+export const DropMenu = memo(
+  ({ show, icon, children, onTriggerClick }: DropMenuProps) => {
+    return (
+      <StyledDropMenu>
+        <StyledButton onClick={() => onTriggerClick()}>{icon}</StyledButton>
+        {show && <StyledTooltip>{children}</StyledTooltip>}
+      </StyledDropMenu>
+    );
+  }
+);

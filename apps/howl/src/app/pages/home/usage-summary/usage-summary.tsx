@@ -52,6 +52,10 @@ export const UsageSummary = () => {
   const { dark } = useDarkModeContext();
   const colors = dark ? DARK_THEME : LIGHT_THEME;
 
+  /**
+   * Effect: when the websocket data is updated, update the chart data
+   * and calculate the overage bands.
+   */
   useEffect(() => {
     setSeries(createSeries(data.timeSeries, colors));
     setBands(
@@ -64,6 +68,10 @@ export const UsageSummary = () => {
     );
   }, [colors, data.timeSeries, duration, threshold]);
 
+  /**
+   * Effect: when the bands have been changed, store the historical
+   * overage data and decide if a toast alert should be shown.
+   */
   useEffect(() => {
     setRecovered(recordHistoricalOverage(bands, HISTORICAL_BANDS));
     /**
@@ -88,6 +96,20 @@ export const UsageSummary = () => {
     runtimeSurpassedViolationDuration,
   ]);
 
+  /**
+   * Since the built in highcharts "reset zoom" button can not be displayed
+   * outside of the chart, instead a custom button is used and the
+   * highcharts api for resetting the zoom is called when clicked.
+   */
+  const zoomOut = () => {
+    // Get instance of time series chart
+    const [chart] = Highcharts.charts;
+    // Call highcharts zoom out function
+    chart.zoomOut();
+    // Reset local chart zoomed state
+    setChartZoomed(false);
+  };
+
   return (
     <Card
       title="Usage over time"
@@ -99,16 +121,7 @@ export const UsageSummary = () => {
       actions={
         <StyledActions>
           {chartZoomed && (
-            <StyledZoomButton
-              onClick={() => {
-                // Get instance of time series chart
-                const [chart] = Highcharts.charts;
-                // Call highcharts zoom out function
-                chart.zoomOut();
-                // Reset local chart zoomed state
-                setChartZoomed(false);
-              }}
-            >
+            <StyledZoomButton onClick={zoomOut}>
               <i className="gg-zoom-out" />
             </StyledZoomButton>
           )}

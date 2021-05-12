@@ -5,10 +5,15 @@ import { useDarkModeContext } from '../../context';
 import { Colors } from '../../types';
 
 interface CardProps {
+  /** The title label of the card. */
   title?: string;
+  /** The content of the card. */
   children: ReactNode;
+  /** Any actions of the card that will be displayed in the right corner. */
   actions?: ReactNode;
+  /** Whether or not a blur layer overlay should be shown. Used when an action is triggered. */
   overlayOpen?: boolean;
+  /** Event that is fired when the overlay layer is clicked. Used to close overlay from parent. */
   onOverlayClick?: () => void;
 }
 

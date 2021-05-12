@@ -10,7 +10,7 @@ export const HISTORICAL_BANDS = [];
 /** Percentage that must be exceeded or equal to for warning to appear */
 export const VIOLATION_THRESHOLD = 80;
 /** Duration that must be exceeded for warning to appear */
-export const VIOLATION_DURATION = 12000;
+export const VIOLATION_DURATION = 120000;
 /** Toast message when CPU violation has ended */
 export const TOAST_RECOVERED_MESSAGE = 'CPU threshold violation has ended.';
 /** Options for the toast message. Pass in dynamic colors for styling. */

@@ -4,8 +4,11 @@ import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
 
 interface GaugeChartProps {
+  /** The value shown in the gauge chart. */
   value: number;
+  /** The label text shown below the percentage in the gauge chart. */
   label: string;
+  /** The corresponding theme color number used to style the gauge gradient. */
   themeNumber: number;
 }
 
@@ -32,6 +35,12 @@ export const GaugeChart = memo(
             value: {
               offsetY: -10,
               formatter: function (val) {
+                // Format the gauge percentage value to have a leading
+                // zero, two decimal points, and a percent sign. This
+                // ensures that the values don't "jump" when changing.
+                // example 1: 01.90%
+                // example 2: 11.90%
+                // example 3: 11.95%
                 return `${val.toFixed(2).padStart(5, '0')}%`;
               },
               color: colors.chart.label,

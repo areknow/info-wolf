@@ -3,12 +3,14 @@ import Chart from 'react-apexcharts';
 import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
 
-interface GaugeChartProps {
+interface BarChartProps {
+  /** The data series that are shown in the bar chart y axis. */
   series: { data: number[] }[];
+  /** The categories that are shown in the bar chart x axis. */
   categories: string[];
 }
 
-export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
+export const BarChart = memo(({ series, categories }: BarChartProps) => {
   const { dark } = useDarkModeContext();
   const colors = dark ? DARK_THEME : LIGHT_THEME;
 
@@ -60,6 +62,8 @@ export const BarChart = memo(({ series, categories }: GaugeChartProps) => {
           fontSize: '10px',
         },
         formatter: function (val) {
+          // Format the y axis label and convert to
+          // minutes to be more human readable.
           return (val / 60000).toFixed(0);
         },
       },

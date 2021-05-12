@@ -6,7 +6,9 @@ import styled from 'styled-components';
 const DATE_FORMAT = 'h:mm:ss a';
 
 interface TooltipProps {
+  /** The point values for each series from highcharts. */
   points: Array<TooltipFormatterContextObject>;
+  /** The date value of the current hovered point. */
   date: number;
 }
 
@@ -60,6 +62,7 @@ export const Tooltip = memo(({ points, date }: TooltipProps) => {
               <div>{point.series.name}</div>
               <span></span>
               <StyledKeyValueValue>
+                {/* Format the value with leading zeros and percent sign. */}
                 {point.y.toFixed(2).padStart(5, '0')}%
               </StyledKeyValueValue>
             </StyledKeyValue>

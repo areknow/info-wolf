@@ -14,13 +14,18 @@ declare const window: Window & {
   configureLegendSymbols: typeof configureLegendSymbols;
   hideResetZoomButton: typeof hideResetZoomButton;
 };
+// Add the custom highcharts changes to window scope.
 window.configureLegendSymbols = configureLegendSymbols;
 window.hideResetZoomButton = hideResetZoomButton;
 
 interface TimeSeriesChartProps {
+  /** The data series used in the time series chart. */
   series: Highcharts.SeriesOptionsType[];
+  /** The plot bands used to highlight overages. */
   bands?: PlotBand[];
+  /** The threshold plot line. */
   threshold: number;
+  /** Event fired when a highcharts selection event takes place. */
   onZoom: () => void;
 }
 
@@ -40,11 +45,9 @@ export const TimeSeriesChart = memo(
         zoomType: 'x',
         selectionMarkerFill: colors.chart.selection,
         events: {
-          /**
-           * Since a custom zoom button is used, the
-           * selection event needs to be captured
-           * and sent back to the parent component.
-           */
+          // Since a custom zoom button is used, the
+          // selection event needs to be captured
+          // and sent back to the parent component.
           selection() {
             onZoom();
             return true;
@@ -90,7 +93,7 @@ export const TimeSeriesChart = memo(
       yAxis: {
         plotLines: [
           {
-            // Plot line visibility should match the cpu series
+            // Plot line visibility should match the cpu series.
             value: cpuLineVisible ? threshold : null,
             color: colors.chart.plotLine,
             width: 1,
@@ -109,12 +112,13 @@ export const TimeSeriesChart = memo(
             fontSize: '10px',
           },
           formatter() {
+            // Format the y axis value to add percentage symbol.
             return `${this.value}%`;
           },
         },
       },
       xAxis: {
-        // Plot bands visibility should match the cpu series
+        // Plot bands visibility should match the cpu series.
         plotBands: cpuLineVisible ? bands : null,
         lineColor: colors.chart.border,
         crosshair: {
@@ -124,6 +128,8 @@ export const TimeSeriesChart = memo(
         },
         type: 'datetime',
         dateTimeLabelFormats: {
+          // Add custom date formats since the chart is
+          // dealing with small time increments.
           hour: '%l %p',
           minute: '%l:%M %p',
           second: '%l:%M:%S %p',
@@ -150,10 +156,8 @@ export const TimeSeriesChart = memo(
             },
           },
           events: {
-            /**
-             * When toggling the visibility of the CPU series,
-             * the plot bands/line should toggle along with it
-             */
+            // When toggling the visibility of the CPU series,
+            // the plot bands/line should toggle along with it
             legendItemClick() {
               // Check the name of the legend item that is clicked
               if (this.name === CPU_SERIES_NAME) {
@@ -178,21 +182,17 @@ export const TimeSeriesChart = memo(
         },
         shared: true,
         positioner(width, height, point) {
-          /**
-           * Change the default highcharts tooltip position
-           * settings to track only the x axis and stick to
-           * the bottom while centered on the tooltip width.
-           */
+          // Change the default highcharts tooltip position
+          // settings to track only the x axis and stick to
+          // the bottom while centered on the tooltip width.
           return {
             x: point.plotX + 102 - width / 2,
             y: this.chart.chartHeight + height - 5,
           };
         },
         formatter() {
-          /**
-           * Use renderToString() to render the JSX tooltip
-           * component into a usable string for highcharts.
-           */
+          // Use renderToString() to render the JSX tooltip
+          // component into a usable string for highcharts.
           return ReactDOMServer.renderToString(
             <Tooltip points={this.points} date={this.x} />
           );

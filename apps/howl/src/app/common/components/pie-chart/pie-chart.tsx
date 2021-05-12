@@ -4,7 +4,9 @@ import { DARK_THEME, LIGHT_THEME } from '../../colors';
 import { useDarkModeContext } from '../../context';
 
 interface PieChartProps {
+  /** The data series used to display the pie slices in the chart. */
   series: number[];
+  /** The legend labels for each series in the pie chart. */
   labels: string[];
 }
 
@@ -38,6 +40,8 @@ export const PieChart = memo(({ series, labels }: PieChartProps) => {
         enabled: false,
       },
       formatter(_, opt) {
+        // Format the value in the pie slice by converting to a GB value
+        // and removing any decimal points because of limited space.
         return (
           (opt.w.globals.series[opt.seriesIndex] / 1024).toFixed(0) + ' GB'
         );

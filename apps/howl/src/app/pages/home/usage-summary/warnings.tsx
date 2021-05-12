@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { memo } from 'react';
 import styled from 'styled-components';
 import { DARK_THEME, LIGHT_THEME } from '../../../common/colors';
 import { useDarkModeContext } from '../../../common/context';
@@ -6,7 +7,9 @@ import { PlotBand } from '../../../common/types';
 import { DATE_FORMAT } from './constants';
 
 interface WarningsProps {
+  /** The currently active bands that show overage. */
   bands: PlotBand[];
+  /** The historically recovered bands that showed overage. */
   recovered: PlotBand[];
 }
 
@@ -42,7 +45,7 @@ const StyledWarnings = styled.div`
   }
 `;
 
-export const Warnings = ({ bands, recovered }: WarningsProps) => {
+export const Warnings = memo(({ bands, recovered }: WarningsProps) => {
   const { dark } = useDarkModeContext();
   const colors = dark ? DARK_THEME : LIGHT_THEME;
 
@@ -78,4 +81,4 @@ export const Warnings = ({ bands, recovered }: WarningsProps) => {
       )}
     </StyledWarnings>
   );
-};
+});

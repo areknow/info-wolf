@@ -2,8 +2,11 @@ import { memo, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface InfoGroupProps {
+  /** The top label with larger bolder text. */
   label: string;
+  /** The content below the label. Can be any element. */
   content: ReactNode;
+  /** The icon next to the text values. */
   icon?: ReactNode;
 }
 

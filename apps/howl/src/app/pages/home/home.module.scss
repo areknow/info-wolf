@@ -20,6 +20,7 @@
   }
 }
 
+// Change the layout of the tiles for smaller screens.
 @media (max-width: 1000px) {
   .grid {
     > *:nth-child(1) {
@@ -40,6 +41,7 @@
   }
 }
 
+// Collapse all tiles into a single column for mobile.
 @media (max-width: 600px) {
   .grid {
     gap: 10px;
