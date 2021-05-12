@@ -18,6 +18,9 @@ const StyledButton = styled.button`
   cursor: pointer;
   height: 24px;
   width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledTooltip = styled.div`
@@ -26,8 +29,8 @@ const StyledTooltip = styled.div`
   padding: 10px;
   box-shadow: var(--shadow-2);
   background-color: var(--surface-2-color);
-  top: 30px;
-  right: -5px;
+  top: 32px;
+  right: -3px;
   z-index: unset;
   &:before,
   &:after {

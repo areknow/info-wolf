@@ -2,7 +2,6 @@ import Highcharts from 'highcharts';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styled from 'styled-components';
 import { DARK_THEME, LIGHT_THEME } from '../../../common/colors';
 import {
   Card,
@@ -20,46 +19,19 @@ import {
   VIOLATION_THRESHOLD,
 } from './constants';
 import {
+  StyledActions,
+  StyledMoreIcon,
+  StyledSteppers,
+  StyledWarningIcon,
+  StyledZoomButton,
+} from './styles';
+import {
   calculateOverage,
   checkForAlerts,
   createSeries,
   recordHistoricalOverage,
 } from './utils';
 import { Warnings } from './warnings';
-
-const StyledActions = styled.div`
-  display: flex;
-  align-items: center;
-  > *:not(:last-child) {
-    margin-right: 10px;
-  }
-`;
-
-const StyledWarningIcon = styled.i<{ color: string }>`
-  color: ${({ color }) => color};
-  top: -1px;
-`;
-
-const StyledMoreIcon = styled.i`
-  --ggs: 0.85;
-`;
-
-const StyledSteppers = styled.div`
-  > *:first-child {
-    margin-bottom: 20px;
-  }
-`;
-
-const StyledZoomButton = styled.button`
-  all: unset;
-  cursor: pointer;
-  height: 24px;
-  width: 24px;
-  z-index: 1;
-  i {
-    top: -2px;
-  }
-`;
 
 export const UsageSummary = () => {
   const { data } = useWsContext();
