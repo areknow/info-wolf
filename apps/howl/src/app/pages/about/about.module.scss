@@ -1,0 +1,26 @@
+.about {
+  max-width: 1200px;
+  padding: 50px;
+  h2 {
+    margin-top: 50px;
+  }
+  p {
+    line-height: 1.5;
+  }
+  ul {
+    padding-left: 25px;
+    li {
+      line-height: 1.5;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .about {
+    max-width: 100%;
+    padding: 10px;
+    h2 {
+      margin-top: 30px;
+    }
+  }
+}
