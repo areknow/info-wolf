@@ -78,6 +78,7 @@ export const Stepper = memo(
         <StyledLabel>{label}</StyledLabel>
         <StyledContent>
           <StyledButton
+            data-testid="stepper-trigger-minus"
             onClick={() =>
               onChange(value === minimum ? value : value - 1 * step)
             }
@@ -95,7 +96,6 @@ export const Stepper = memo(
                     shortEn: {
                       m: () => 'm',
                       s: () => 's',
-                      ms: () => 'ms',
                     },
                   },
                 })
@@ -103,6 +103,7 @@ export const Stepper = memo(
           </StyledValue>
           <StyledButton
             plus
+            data-testid="stepper-trigger-plus"
             onClick={() => onChange(value + 1 * step)}
           ></StyledButton>
         </StyledContent>

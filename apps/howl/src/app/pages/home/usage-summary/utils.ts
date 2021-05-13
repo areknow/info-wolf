@@ -2,8 +2,12 @@ import {
   TimeSeriesPoint,
   UsageSummaryResponse,
 } from '@info-wolf/api-interfaces';
-import { CPU_SERIES_NAME } from '../../../common/constants';
 import { Colors, PlotBand } from '../../../common/types';
+import {
+  CPU_SERIES_NAME,
+  CPU_THRESHOLD_NAME,
+  MEMORY_SERIES_NAME,
+} from './constants';
 
 /**
  * Create the two series with highcharts metadata for styling, and
@@ -20,7 +24,7 @@ export const createSeries = (
     {
       color: colors.theme5,
       type: 'line',
-      name: 'Memory usage',
+      name: MEMORY_SERIES_NAME,
       data: data.freememPercentageData,
       marker: { symbol: 'circle', radius: 10, fillColor: colors.theme5 },
       zIndex: 1,
@@ -43,7 +47,7 @@ export const createSeries = (
     {
       color: colors.theme6,
       type: 'line',
-      name: 'CPU threshold',
+      name: CPU_THRESHOLD_NAME,
       zIndex: 2,
     },
   ];

@@ -13,6 +13,12 @@ export const VIOLATION_THRESHOLD = 80;
 export const VIOLATION_DURATION = 120000;
 /** Toast message when CPU violation has ended */
 export const TOAST_RECOVERED_MESSAGE = 'CPU threshold violation has ended.';
+/** Memory series name */
+export const MEMORY_SERIES_NAME = 'Memory usage';
+/** CPU series name */
+export const CPU_SERIES_NAME = 'CPU usage';
+/** CPU threshold name */
+export const CPU_THRESHOLD_NAME = 'CPU threshold';
 /** Options for the toast message. Pass in dynamic colors for styling. */
 export const TOAST_OPTIONS = (colors: Colors): ToastOptions => {
   return {

@@ -3,7 +3,7 @@ import { TooltipFormatterContextObject } from 'highcharts';
 import { memo } from 'react';
 import styled from 'styled-components';
 
-const DATE_FORMAT = 'h:mm:ss a';
+export const DATE_FORMAT = 'h:mm:ss a';
 
 interface TooltipProps {
   /** The point values for each series from highcharts. */

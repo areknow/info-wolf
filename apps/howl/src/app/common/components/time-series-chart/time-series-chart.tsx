@@ -3,9 +3,9 @@ import HighchartsReact from 'highcharts-react-official';
 import React, { memo, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { DARK_THEME, LIGHT_THEME } from '../../colors';
-import { CPU_SERIES_NAME } from '../../constants';
 import { useDarkModeContext } from '../../context';
 import { PlotBand } from '../../types';
+import { CHART_TITLE_LABEL } from './constants';
 import { hideResetZoomButton } from './hide-reset-zoom';
 import { configureLegendSymbols } from './legend-symbol';
 import { Tooltip } from './tooltip';
@@ -24,14 +24,25 @@ interface TimeSeriesChartProps {
   /** The plot bands used to highlight overages. */
   bands?: PlotBand[];
   /** The threshold plot line. */
-  threshold: number;
+  threshold?: number;
+  /** The name of the series that the plot line/bands depend on. */
+  thresholdSeriesName?: string;
   /** Event fired when a highcharts selection event takes place. */
   onZoom: () => void;
 }
 
 export const TimeSeriesChart = memo(
-  ({ series, bands, threshold, onZoom }: TimeSeriesChartProps) => {
-    const [cpuLineVisible, setCpuLineVisible] = useState(true);
+  ({
+    thresholdSeriesName,
+    series,
+    bands,
+    threshold,
+    onZoom,
+  }: TimeSeriesChartProps) => {
+    const [
+      thresholdLineSeriesVisible,
+      setThresholdLineSeriesVisible,
+    ] = useState(true);
     const { dark } = useDarkModeContext();
     const colors = dark ? DARK_THEME : LIGHT_THEME;
 
@@ -64,7 +75,7 @@ export const TimeSeriesChart = memo(
         floating: true,
         align: 'left',
         verticalAlign: 'bottom',
-        text: 'Draw a selection on the chart to zoom in',
+        text: CHART_TITLE_LABEL,
         y: 4,
         x: 12,
         style: {
@@ -93,8 +104,8 @@ export const TimeSeriesChart = memo(
       yAxis: {
         plotLines: [
           {
-            // Plot line visibility should match the cpu series.
-            value: cpuLineVisible ? threshold : null,
+            // Plot line visibility should match the desired series visibility.
+            value: thresholdLineSeriesVisible ? threshold : null,
             color: colors.chart.plotLine,
             width: 1,
             zIndex: 5,
@@ -118,8 +129,8 @@ export const TimeSeriesChart = memo(
         },
       },
       xAxis: {
-        // Plot bands visibility should match the cpu series.
-        plotBands: cpuLineVisible ? bands : null,
+        // Plot bands visibility should match the desired series visibility.
+        plotBands: thresholdLineSeriesVisible ? bands : null,
         lineColor: colors.chart.border,
         crosshair: {
           width: 1,
@@ -156,13 +167,13 @@ export const TimeSeriesChart = memo(
             },
           },
           events: {
-            // When toggling the visibility of the CPU series,
-            // the plot bands/line should toggle along with it
+            // When toggling the visibility of the desired threshold
+            // series, the plot bands/line should toggle along with it
             legendItemClick() {
               // Check the name of the legend item that is clicked
-              if (this.name === CPU_SERIES_NAME) {
+              if (this.name === thresholdSeriesName) {
                 // Toggle the visibility of the plot bands/line
-                setCpuLineVisible(!this.visible);
+                setThresholdLineSeriesVisible(!this.visible);
               }
             },
           },

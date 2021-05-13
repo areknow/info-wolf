@@ -12,6 +12,7 @@ import {
 import { useDarkModeContext, useWsContext } from '../../../common/context';
 import {
   APP_START_DATE,
+  CPU_SERIES_NAME,
   HISTORICAL_BANDS,
   TOAST_OPTIONS,
   TOAST_RECOVERED_MESSAGE,
@@ -108,6 +109,7 @@ export const UsageSummary = () => {
     chart.zoomOut();
     // Reset local chart zoomed state
     setChartZoomed(false);
+    console.log(Highcharts.charts[0].options);
   };
 
   return (
@@ -176,6 +178,7 @@ export const UsageSummary = () => {
         series={series}
         bands={bands}
         threshold={threshold}
+        thresholdSeriesName={CPU_SERIES_NAME}
         onZoom={() => setChartZoomed(!chartZoomed)}
       />
       <ToastContainer />

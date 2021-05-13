@@ -65,7 +65,12 @@ export const DropMenu = memo(
   ({ show, icon, children, onTriggerClick }: DropMenuProps) => {
     return (
       <StyledDropMenu>
-        <StyledButton onClick={() => onTriggerClick()}>{icon}</StyledButton>
+        <StyledButton
+          data-testid="drop-menu-trigger"
+          onClick={() => onTriggerClick()}
+        >
+          {icon}
+        </StyledButton>
         {show && <StyledTooltip>{children}</StyledTooltip>}
       </StyledDropMenu>
     );

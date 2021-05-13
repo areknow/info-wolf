@@ -70,7 +70,11 @@ export const Card = memo(
     return (
       <StyledCard overlayOpen={overlayOpen}>
         {overlayOpen && (
-          <StyledOverlay colors={colors} onClick={() => onOverlayClick()} />
+          <StyledOverlay
+            data-testid="card-overlay"
+            colors={colors}
+            onClick={() => onOverlayClick()}
+          />
         )}
         <StyledActions>{actions}</StyledActions>
         {title && <h3>{title}</h3>}
