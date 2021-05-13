@@ -1,10 +1,11 @@
-# HOWL | infowolf
 
 <p align="center">
   <a href="https://alphacomponents.dev">
     <img width="500" src="https://howl.netlify.app/assets/git-banner-image.svg">
   </a>
 </p>
+
+<h1 align="center">HOWL | infowolf</h1>
 
 <div align="center">
 
@@ -36,7 +37,7 @@ https://howl.netlify.app/
 Please follow the steps below to run the application locally. Make sure you are running the latest version of Node and have NPM or Yarn installed. If you do not have NX globally installed, prefix the commands with `npx`.
 
 ### Local development
-```js
+```shell
 // install dependencies
 $ npm i
 
@@ -47,7 +48,7 @@ $ nx serve api
 $ nx serve howl
 ```
 ### Testing
-```js
+```shell
 // install dependencies
 $ npm i
 
