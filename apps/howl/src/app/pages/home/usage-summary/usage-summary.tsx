@@ -109,7 +109,6 @@ export const UsageSummary = () => {
     chart.zoomOut();
     // Reset local chart zoomed state
     setChartZoomed(false);
-    console.log(Highcharts.charts[0].options);
   };
 
   return (
@@ -123,7 +122,10 @@ export const UsageSummary = () => {
       actions={
         <StyledActions>
           {chartZoomed && (
-            <StyledZoomButton onClick={zoomOut}>
+            <StyledZoomButton
+              onClick={zoomOut}
+              data-testid="usage-summary-zoom-trigger"
+            >
               <i className="gg-zoom-out" />
             </StyledZoomButton>
           )}
@@ -132,6 +134,7 @@ export const UsageSummary = () => {
               show={warningsOpen}
               icon={
                 <StyledWarningIcon
+                  data-testid="usage-summary-warnings-icon"
                   color={colors.theme6}
                   className="gg-danger"
                 />
