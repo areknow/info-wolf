@@ -20,8 +20,29 @@
   }
 }
 
+// Change the width of the tiles for medium screens.
+@media (max-width: 1400px) {
+  .grid {
+    > *:nth-child(1) {
+      grid-column: span 9;
+    }
+    > *:nth-child(2) {
+      grid-column: span 3;
+    }
+    > *:nth-child(3) {
+      grid-column: span 4;
+    }
+    > *:nth-child(4) {
+      grid-column: span 5;
+    }
+    > *:nth-child(5) {
+      grid-column: span 3;
+    }
+  }
+}
+
 // Change the layout of the tiles for smaller screens.
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .grid {
     > *:nth-child(1) {
       grid-column: span 8;
