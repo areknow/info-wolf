@@ -1,5 +1,11 @@
 # HOWL | infowolf
 
+<p align="center">
+  <a href="https://alphacomponents.dev">
+    <img width="400" src="https://howl.netlify.app/assets/git-banner-image.png">
+  </a>
+</p>
+
 ## Project details
 
 HOWL is a system monitoring application. It can be run on a personal computer or a server to collect system metrics and display them in a neat dashboard. The server uses a websocket to push collected system metrics to the client every second. The node process collects data about the machine CPU, memory, and other interesting statistics. The API also sets up an interval to intermittently refresh the socket data. The client subscribes to this socket connection and stores the metric data in context to feed the graphical components.
@@ -50,6 +56,7 @@ The app is currently deployed using Heroku for the server and Netlify for the cl
 - Express backend
 - Websocket network connection
 - NX monorepo structure
+- Darkmode dynamically detected from system, with toggle
 - Highcharts time series chart with zoom selection
 - CPU overage alerts as plot bands and warnings in chart
 - CPU overage recovery toast alert messages
@@ -57,9 +64,8 @@ The app is currently deployed using Heroku for the server and Netlify for the cl
 - Apex charts for secondary charting widgets
 - Responsive layout for large, medium, and small devices
 - Unit test coverage
-- End to end test coverage
 
-### Project structure
+## Project structure
 The project uses a NX monorepo to organize the client and server code. This allows for shared API interfaces.
 - apps
   - api
@@ -68,7 +74,7 @@ The project uses a NX monorepo to organize the client and server code. This allo
 - libs
   - api-interfaces
 
-### Client
+### Client (howl)
 - common
   - colors
   - components
@@ -97,6 +103,13 @@ The project uses a NX monorepo to organize the client and server code. This allo
     - usage-summary
       - warnings
 - app.tsx
+
+### Server (api)
+- app
+  - constants
+  - socket
+  - utils
+- main.ts
 
 ## Monitoring
 The application is currently monitored across the stack with Datadog. The backend API layer has the Datadog heroku build pack installed. The client application has the Datadog log javascript agent installed.
