@@ -10,7 +10,9 @@
 
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0b1461e0-06d1-46cf-91eb-4b417b660c4b/deploy-status)](https://app.netlify.com/sites/howl/deploys)
-
+[![build workflow](https://github.com/areknow/info-wolf/actions/workflows/build.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/build.yml)
+[![lint workflow](https://github.com/areknow/info-wolf/actions/workflows/lint.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/lint.yml)
+[![test workflow](https://github.com/areknow/info-wolf/actions/workflows/test.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/test.yml)
 
 </div>
 
