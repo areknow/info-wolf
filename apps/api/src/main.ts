@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as ws from 'ws';
 import { INTERVAL } from './app/constants';
-import { connectSocket, updateSocket } from './app/sockets';
+import { connectSocket, updateSocket } from './app/socket';
 import { initTimeSeriesArray } from './app/utils';
 
 const app = express();
