@@ -62,9 +62,6 @@ $ npm i
 
 // run all unit tests across the monorepo
 $ npm run test-all
-
-// run the end to end tests
-$ nx e2e howl-e2e
 ```
 ## Deployment
 The app is currently deployed using Heroku for the server and Netlify for the client. Checkout the live demo [here](https://howl.netlify.app/), but please note that the Heroku free tier dyno that receives no traffic for 30 minutes will sleep. You may see a loading indicator for upwards of 30 seconds before the server is awake and sending socket data. Thank you for your patience.
