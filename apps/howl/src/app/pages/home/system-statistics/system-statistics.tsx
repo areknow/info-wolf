@@ -17,6 +17,7 @@ import {
 import styles from './system-statistics.module.scss';
 import {
   formatFreeMemoryValue,
+  formatOperatingSystemValue,
   formatPlatformValue,
   formatSystemUptimeValue,
   formatTotalMemoryValue,
@@ -34,7 +35,7 @@ export const SystemStatistics = () => {
           icon={<Platform />}
         />
         <InfoGroup
-          content={data.statistics.operatingSystem}
+          content={formatOperatingSystemValue(data.statistics.operatingSystem)}
           label={OPERATING_SYSTEM_LABEL}
           icon={<OperatingSystem />}
         />

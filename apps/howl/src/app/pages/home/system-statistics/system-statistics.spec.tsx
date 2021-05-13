@@ -5,6 +5,8 @@ import { WebsocketProvider } from '../../../common/context';
 import {
   CPU_COUNT_LABEL,
   FREE_MEMORY_LABEL,
+  NOT_AVAILABLE_LABEL,
+  NOT_SUPPORTED_VALUE,
   OPERATING_SYSTEM_LABEL,
   PLATFORM_LABEL,
   SYSTEM_UPTIME_LABEL,
@@ -13,6 +15,7 @@ import {
 import { SystemStatistics } from './system-statistics';
 import {
   formatFreeMemoryValue,
+  formatOperatingSystemValue,
   formatPlatformValue,
   formatSystemUptimeValue,
   formatTotalMemoryValue,
@@ -63,7 +66,31 @@ describe('SystemStatistics', () => {
     ws.send(JSON.stringify(wsResponse));
     const label = queryByText(OPERATING_SYSTEM_LABEL);
     expect(label.parentElement.firstChild.textContent).toEqual(
-      wsResponse.statistics.operatingSystem
+      formatOperatingSystemValue(wsResponse.statistics.operatingSystem)
+    );
+  });
+
+  it('should show formatted N/A operating system stat', async () => {
+    const mockData = {
+      statistics: {
+        cpuCount: 1,
+        freeMem: 1,
+        operatingSystem: NOT_SUPPORTED_VALUE,
+        platform: 'foo',
+        sysUptime: 1,
+        totalMem: 1,
+      },
+    };
+    const { queryByText } = render(
+      <WebsocketProvider>
+        <SystemStatistics />
+      </WebsocketProvider>
+    );
+    await ws.connected;
+    ws.send(JSON.stringify(mockData));
+    const label = queryByText(OPERATING_SYSTEM_LABEL);
+    expect(label.parentElement.firstChild.textContent).toEqual(
+      NOT_AVAILABLE_LABEL
     );
   });
 
