@@ -1,7 +1,6 @@
 import { TimeSeries, TimeSeriesPoint } from '@info-wolf/api-interfaces';
 import * as osu from 'node-os-utils';
 import * as os from 'os';
-import { TEN_MINUTES } from '../constants';
 
 /**
  * Build a new array with blank data values and `null` date values going
@@ -10,9 +9,9 @@ import { TEN_MINUTES } from '../constants';
  * https://api.highcharts.com/highcharts/plotOptions.series.connectNulls
  * @returns array of null TimeSeriesPoint
  */
-export const initTimeSeriesArray = (interval: number) => {
+export const initTimeSeriesArray = (interval: number, duration: number) => {
   const data = [];
-  for (let i = 0; i <= TEN_MINUTES - 1; i++) {
+  for (let i = 0; i <= duration - 1; i++) {
     data.push({ x: new Date().valueOf() - i * interval, y: null });
   }
   return data.reverse();
@@ -32,9 +31,10 @@ export const getUsedMemPercentage = async () => {
  * Push a new TimeSeriesPoint into reference array and shift first value
  * out of it to create a sliding window effect in the chart.
  * @param array reference array to mutate
- * @param value x axis value to add at most recent point of chart
+ * @param xValue x axis value to add at most recent point of chart
+ * @param xValue y axis value to add at most recent point of chart
  */
-export const scrollTimeSeriesArray = async (
+export const scrollTimeSeriesArray = (
   array: TimeSeriesPoint[],
   xValue: number,
   yValue: number

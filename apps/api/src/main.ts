@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as ws from 'ws';
-import { INTERVAL } from './app/constants';
+import { INTERVAL, TEN_MINUTES } from './app/constants';
 import { connectSocket, updateSocket } from './app/socket';
 import { initTimeSeriesArray } from './app/utils';
 
@@ -18,8 +18,8 @@ export const wsMetrics = new ws.Server({ server: server, path: '/ws/metrics' });
  * Initialize the time series arrays used to store chart data over time
  */
 const timeSeriesData = {
-  cpu: initTimeSeriesArray(INTERVAL),
-  memory: initTimeSeriesArray(INTERVAL),
+  cpu: initTimeSeriesArray(INTERVAL, TEN_MINUTES),
+  memory: initTimeSeriesArray(INTERVAL, TEN_MINUTES),
 };
 
 /**
