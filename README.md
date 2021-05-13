@@ -6,6 +6,14 @@
   </a>
 </p>
 
+<div align="center">
+
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0b1461e0-06d1-46cf-91eb-4b417b660c4b/deploy-status)](https://app.netlify.com/sites/howl/deploys)
+
+
+</div>
+
 ## Project details
 
 HOWL is a system monitoring application. It can be run on a personal computer or a server to collect system metrics and display them in a neat dashboard. The server uses a websocket to push collected system metrics to the client every second. The node process collects data about the machine CPU, memory, and other interesting statistics. The API also sets up an interval to intermittently refresh the socket data. The client subscribes to this socket connection and stores the metric data in context to feed the graphical components.
