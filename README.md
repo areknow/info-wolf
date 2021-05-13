@@ -35,5 +35,7 @@ $ npm run test-all
 ### Publishing
 The app is currently deployed using Heroku for the server and Netlify for the client. Checkout the live demo [here](https://link), but please note that the Heroku free tier dyno that receives no traffic for 30 minutes will sleep. You may see a loading indicator for upwards of 30 seconds before the server is awake and sending socket data. Thank you for your patience 😬
 
-## Features
+### Features
 ## project structure
+## Monitoring
+The application is currently monitored across the stack with datadog. The backend API layer has the heroku datadog build pack installed. The client application has the datadog log javascript agent installed.
