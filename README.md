@@ -9,6 +9,8 @@
 
 <div align="center">
 
+Beautiful system monitoring dashboard. Howl at the processor.
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0b1461e0-06d1-46cf-91eb-4b417b660c4b/deploy-status)](https://app.netlify.com/sites/howl/deploys)
 [![build workflow](https://github.com/areknow/info-wolf/actions/workflows/build.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/build.yml)
 [![lint workflow](https://github.com/areknow/info-wolf/actions/workflows/lint.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/lint.yml)
@@ -123,3 +125,23 @@ The project uses a NX monorepo to organize the client and server code. This allo
 
 ## Monitoring
 The application is currently monitored across the stack with Datadog. The backend API layer has the Datadog heroku build pack installed. The client application has the Datadog log javascript agent installed.
+
+## Screenshots
+
+Dashboard in light mode
+![alt](.github/assets/dashboard-light-mode.png)
+
+Dashboard in dark mode
+![alt](.github/assets/dashboard-dark-mode.png)
+
+Alerts panel open with active and historical overages visible
+![alt](.github/assets/warnings-panel-open.png)
+
+Threshold settings panel open with custom duration and threshold
+![alt](.github/assets/threshold-panel-open.png)
+
+Chart selection zoom active with tooltip
+![alt](.github/assets/chart-zoomed.png)
+
+Visible alert for CPU threshold violation recovery
+![alt](.github/assets/recovery-alert.png)
