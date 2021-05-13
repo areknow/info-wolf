@@ -16,6 +16,12 @@ Beautiful system monitoring dashboard. Howl at the processor.
 [![lint workflow](https://github.com/areknow/info-wolf/actions/workflows/lint.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/lint.yml)
 [![test workflow](https://github.com/areknow/info-wolf/actions/workflows/test.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/test.yml)
 
+<div style="width: 600px">
+
+![preview](.github/assets/preview.png)
+
+</div>
+
 </div>
 
 ## Project details
