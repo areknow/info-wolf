@@ -2,12 +2,11 @@
 
 <p align="center">
   <a href="https://alphacomponents.dev">
-    <img width="400" src="https://howl.netlify.app/assets/git-banner-image.png">
+    <img width="500" src="https://howl.netlify.app/assets/git-banner-image.svg">
   </a>
 </p>
 
 <div align="center">
-
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0b1461e0-06d1-46cf-91eb-4b417b660c4b/deploy-status)](https://app.netlify.com/sites/howl/deploys)
 [![build workflow](https://github.com/areknow/info-wolf/actions/workflows/build.yml/badge.svg)](https://github.com/areknow/info-wolf/actions/workflows/build.yml)
