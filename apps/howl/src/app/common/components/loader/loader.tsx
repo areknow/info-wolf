@@ -18,7 +18,7 @@ const StyledLoader = styled.div`
 
 export const Loader = memo(() => {
   return (
-    <StyledLoader>
+    <StyledLoader data-testid="loader">
       <svg
         version="1.1"
         x="0px"

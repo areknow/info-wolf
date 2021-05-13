@@ -7,6 +7,7 @@ import { WsContextType } from './types';
 export const WsContext = createContext<WsContextType>({
   data: DEFAULT_STATE,
   loading: true,
+  error: false,
 });
 
 /**
@@ -23,24 +24,23 @@ export const WebsocketProvider = ({
 }) => {
   const [wsContext, setWsContext] = useState<WsPayload>(DEFAULT_STATE);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     // Open a websocket using the environmental variable
     const ws = new WebSocket(environment.webSocketUrl);
     ws.onmessage = (event) => {
-      try {
-        const response = JSON.parse(event.data);
-        setWsContext(response);
-      } catch (error) {
-        // TODO: handle error
-        console.log('error');
-      } finally {
-        // If this is the first message received,
-        // hide the loader on successful response
-        if (loading) {
-          setLoading(false);
-        }
+      // Parse response and store in context state
+      const response = JSON.parse(event.data);
+      setWsContext(response);
+      // Remove loading state
+      if (loading) {
+        setLoading(false);
       }
+    };
+    // Show error message if socket error event occurs
+    ws.onerror = () => {
+      setError(true);
     };
     ws.onclose = () => {
       ws.close();
@@ -52,7 +52,7 @@ export const WebsocketProvider = ({
   }, [loading]);
 
   return (
-    <WsContext.Provider value={{ data: wsContext, loading }}>
+    <WsContext.Provider value={{ data: wsContext, loading, error }}>
       {children}
     </WsContext.Provider>
   );
