@@ -2,6 +2,9 @@
   "name": "info-wolf",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "nx": "nx",
     "start": "node dist/apps/api/main.js",
